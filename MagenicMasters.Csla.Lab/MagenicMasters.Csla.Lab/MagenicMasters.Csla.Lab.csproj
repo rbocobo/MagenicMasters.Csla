@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{85A65B35-C8B4-4819-A114-A935CAA4FDB1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MagenicMasters.Csla.Lab</RootNamespace>
+    <AssemblyName>MagenicMasters.Csla.Lab</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Csla">
+      <HintPath>..\packages\CSLA-Core.4.5.501\lib\net45\Csla.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Admin\CancelWindow.cs" />
+    <Compile Include="Admin\DayType.cs" />
+    <Compile Include="Admin\DesignerRate.cs" />
+    <Compile Include="Admin\DesignerUtilizationReportView.cs" />
+    <Compile Include="Admin\DesignerUtilizationReportViewCollection.cs" />
+    <Compile Include="Admin\LeadTime.cs" />
+    <Compile Include="Admin\UtilizationReportView.cs" />
+    <Compile Include="Class1.cs" />
+    <Compile Include="Customer\AppointmentRequest.cs" />
+    <Compile Include="Customer\AppointmentResultView.cs" />
+    <Compile Include="Customer\AppointmentView.cs" />
+    <Compile Include="Customer\AppointmentViewCollection.cs" />
+    <Compile Include="Customer\CancelAppointment.cs" />
+    <Compile Include="Customer\SpecialtyCollection.cs" />
+    <Compile Include="Customer\TimeEntry.cs" />
+    <Compile Include="Customer\TimeEntryCollection.cs" />
+    <Compile Include="Designer\AppointmentView.cs" />
+    <Compile Include="Designer\AppointmentViewCollection.cs" />
+    <Compile Include="Designer\DayScheduleOverride.cs" />
+    <Compile Include="Designer\WorkSchedule.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Csla-Templates Read Me.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
