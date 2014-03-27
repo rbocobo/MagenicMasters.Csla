@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
 using Csla;
+using MagenicMasters.Csla.Lab.BusinessContracts;
 
-namespace MagenicMasters.Csla.Lab.Customer
+namespace MagenicMasters.CslaLab.Customer
 {
     [Serializable]
     public class TimeEntryCollection :
-      BusinessListBase<TimeEntryCollection, TimeEntry>
+      BusinessListBase<TimeEntryCollection, ITimeEntry>, ITimeEntries
     {
         #region Factory Methods
 
@@ -32,7 +33,7 @@ namespace MagenicMasters.Csla.Lab.Customer
         {
             RaiseListChangedEvents = false;
             foreach (var child in (IList<object>)childData)
-                this.Add(EditableChild.GetEditableChild(child));
+                this.Add(TimeEntry.GetEditableChild(child));
             RaiseListChangedEvents = true;
         }
 

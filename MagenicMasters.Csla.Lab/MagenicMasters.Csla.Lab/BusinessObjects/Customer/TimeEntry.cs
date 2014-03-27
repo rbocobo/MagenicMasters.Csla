@@ -1,10 +1,12 @@
 using System;
 using Csla;
+using System.ComponentModel.DataAnnotations;
+using MagenicMasters.Csla.Lab.BusinessContracts;
 
-namespace MagenicMasters.Csla.Lab.Customer
+namespace MagenicMasters.CslaLab.Customer
 {
     [Serializable]
-    public class TimeEntry : BusinessBase<TimeEntry>
+    public class TimeEntry : BusinessBase<TimeEntry>, ITimeEntry
     {
         #region Business Methods
 
@@ -16,6 +18,7 @@ namespace MagenicMasters.Csla.Lab.Customer
         }
 
         public static readonly PropertyInfo<DateTime> StartDateTimeProperty = RegisterProperty<DateTime>(c => c.StartDateTime);
+        [Required]
         public DateTime StartDateTime
         {
             get { return GetProperty(StartDateTimeProperty); }
@@ -23,6 +26,7 @@ namespace MagenicMasters.Csla.Lab.Customer
         }
 
         public static readonly PropertyInfo<DateTime> EndDateTimeProperty = RegisterProperty<DateTime>(c => c.EndDateTime);
+        [Required]
         public DateTime EndDateTime
         {
             get { return GetProperty(EndDateTimeProperty); }
@@ -34,8 +38,9 @@ namespace MagenicMasters.Csla.Lab.Customer
 
         protected override void AddBusinessRules()
         {
-            // TODO: add validation rules
-            //BusinessRules.AddRule(new Rule(), IdProperty);
+            var innerRule1 = new TopOfTheHourRule(StartDateTimeProperty);
+            var innerRule2 = new TopOfTheHourRule(EndDateTimeProperty);
+            BusinessRules.AddRule(new TimeRangeRule(StartDateTimeProperty, EndDateTimeProperty, innerRule1, innerRule2));
         }
 
         private static void AddObjectAuthorizationRules()

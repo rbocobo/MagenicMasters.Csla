@@ -1,7 +1,7 @@
 using System;
 using Csla;
 
-namespace MagenicMasters.Csla.Lab.Customer
+namespace MagenicMasters.CslaLab.Customer
 {
     [Serializable]
     public class SpecialtyCollection : NameValueListBase<int, string>

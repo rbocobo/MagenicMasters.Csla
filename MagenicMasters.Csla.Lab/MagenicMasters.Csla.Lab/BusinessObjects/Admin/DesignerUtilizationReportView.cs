@@ -1,7 +1,9 @@
 using System;
 using Csla;
+using System.ComponentModel.DataAnnotations;
 
-namespace MagenicMasters.Csla.Lab.Admin
+
+namespace MagenicMasters.CslaLab.Admin
 {
     [Serializable]
     public class DesignerUtilizationReportView : ReadOnlyBase<DesignerUtilizationReportView>
@@ -9,6 +11,7 @@ namespace MagenicMasters.Csla.Lab.Admin
         #region Business Methods
 
         public static readonly PropertyInfo<string> DesignerNameProperty = RegisterProperty<string>(c => c.DesignerName);
+        [MaxLength(200)]
         public string DesignerName
         {
             get { return ReadProperty(DesignerNameProperty); }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Csla;
 
-namespace MagenicMasters.Csla.Lab.Admin
+namespace MagenicMasters.CslaLab.Admin
 {
     [Serializable]
     public class DesignerUtilizationReportViewCollection :
@@ -38,7 +38,7 @@ namespace MagenicMasters.Csla.Lab.Admin
             IsReadOnly = false;
             // TODO: load values
             foreach (var child in (List<object>)childData)
-                Add(ReadOnlyChild.GetReadOnlyChild(child));
+                Add(DesignerUtilizationReportView.GetReadOnlyChild(child));
             IsReadOnly = true;
             RaiseListChangedEvents = true;
         }

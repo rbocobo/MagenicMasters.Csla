@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Csla;
 
-namespace MagenicMasters.Csla.Lab.Customer
+namespace MagenicMasters.CslaLab.Designer
 {
     [Serializable]
     public class AppointmentViewCollection :
@@ -32,17 +32,17 @@ namespace MagenicMasters.Csla.Lab.Customer
 
         #region Data Access
 
-        private void DataPortal_Fetch(string criteria)
-        {
-            RaiseListChangedEvents = false;
-            IsReadOnly = false;
-            // TODO: load values
-            object objectData = null;
-            foreach (var child in (List<object>)objectData)
-                Add(ReadOnlyChild.GetReadOnlyChild(child));
-            IsReadOnly = true;
-            RaiseListChangedEvents = true;
-        }
+        //private void DataPortal_Fetch(string criteria)
+        //{
+        //    RaiseListChangedEvents = false;
+        //    IsReadOnly = false;
+        //    // TODO: load values
+        //    object objectData = null;
+        //    foreach (var child in (List<object>)objectData)
+        //        Add(AppointmentView.GetReadOnlyChild(child));
+        //    IsReadOnly = true;
+        //    RaiseListChangedEvents = true;
+        //}
 
         #endregion
     }

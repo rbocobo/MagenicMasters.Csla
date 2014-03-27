@@ -1,10 +1,14 @@
 using System;
 using Csla;
+using System.ComponentModel.DataAnnotations;
+using Csla.Rules;
+using Csla.Rules.CommonRules;
+using MagenicMasters.CslaLab.Common;
 
-namespace MagenicMasters.Csla.Lab.Designer
+namespace MagenicMasters.CslaLab.Designer
 {
     [Serializable]
-    public class WorkSchedule : BusinessBase<WorkSchedule>
+    public class DayScheduleOverride : BusinessBase<DayScheduleOverride>
     {
         #region Business Methods
 
@@ -15,35 +19,16 @@ namespace MagenicMasters.Csla.Lab.Designer
             set { SetProperty(IdProperty, value); }
         }
 
-        public static readonly PropertyInfo<DateTime> StartDateProperty = RegisterProperty<DateTime>(c => c.StartDate);
-        public DateTime StartDate
+        public static readonly PropertyInfo<DateTime> DateProperty = RegisterProperty<DateTime>(c => c.Date);
+        [Required]
+        public DateTime Date
         {
-            get { return GetProperty(StartDateProperty); }
-            set { SetProperty(StartDateProperty, value); }
-        }
-
-        public static readonly PropertyInfo<int> MaxHoursProperty = RegisterProperty<int>(c => c.MaxHours);
-        public int MaxHours
-        {
-            get { return GetProperty(MaxHoursProperty); }
-            set { SetProperty(MaxHoursProperty, value); }
-        }
-
-        public static readonly PropertyInfo<int> AppointmentIntervalProperty = RegisterProperty<int>(c => c.AppointmentInterval);
-        public int AppointmentInterval
-        {
-            get { return GetProperty(AppointmentIntervalProperty); }
-            set { SetProperty(AppointmentIntervalProperty, value); }
-        }
-
-        public static readonly PropertyInfo<string> WorkingDaysProperty = RegisterProperty<string>(c => c.WorkingDays);
-        public string WorkingDays
-        {
-            get { return GetProperty(WorkingDaysProperty); }
-            set { SetProperty(WorkingDaysProperty, value); }
+            get { return GetProperty(DateProperty); }
+            set { SetProperty(DateProperty, value); }
         }
 
         public static readonly PropertyInfo<DateTime> StartTimeProperty = RegisterProperty<DateTime>(c => c.StartTime);
+        [Required]
         public DateTime StartTime
         {
             get { return GetProperty(StartTimeProperty); }
@@ -51,11 +36,13 @@ namespace MagenicMasters.Csla.Lab.Designer
         }
 
         public static readonly PropertyInfo<DateTime> EndTimeProperty = RegisterProperty<DateTime>(c => c.EndTime);
+        [Required]
         public DateTime EndTime
         {
             get { return GetProperty(EndTimeProperty); }
             set { SetProperty(EndTimeProperty, value); }
         }
+
         #endregion
 
         #region Business Rules
@@ -64,6 +51,12 @@ namespace MagenicMasters.Csla.Lab.Designer
         {
             // TODO: add validation rules
             base.AddBusinessRules();
+            BusinessRules.AddRule(new IsInRole(AuthorizationActions.ReadProperty, DateProperty, UserRole.Designers));
+            BusinessRules.AddRule(new IsInRole(AuthorizationActions.WriteProperty, DateProperty, UserRole.Designers));
+            BusinessRules.AddRule(new IsInRole(AuthorizationActions.ReadProperty, StartTimeProperty, UserRole.Designers));
+            BusinessRules.AddRule(new IsInRole(AuthorizationActions.WriteProperty, EndTimeProperty, UserRole.Designers));
+            BusinessRules.AddRule(new IsInRole(AuthorizationActions.ReadProperty, StartTimeProperty, UserRole.Designers));
+            BusinessRules.AddRule(new IsInRole(AuthorizationActions.WriteProperty, EndTimeProperty, UserRole.Designers));
 
             //BusinessRules.AddRule(new Rule(IdProperty));
         }
@@ -72,28 +65,29 @@ namespace MagenicMasters.Csla.Lab.Designer
         {
             // TODO: add authorization rules
             //BusinessRules.AddRule(...);
+            
         }
 
         #endregion
 
         #region Factory Methods
 
-        public static WorkSchedule NewEditableRoot()
+        public static DayScheduleOverride NewEditableRoot()
         {
-            return DataPortal.Create<WorkSchedule>();
+            return DataPortal.Create<DayScheduleOverride>();
         }
 
-        public static WorkSchedule GetEditableRoot(int id)
+        public static DayScheduleOverride GetEditableRoot(int id)
         {
-            return DataPortal.Fetch<WorkSchedule>(id);
+            return DataPortal.Fetch<DayScheduleOverride>(id);
         }
 
         public static void DeleteEditableRoot(int id)
         {
-            DataPortal.Delete<WorkSchedule>(id);
+            DataPortal.Delete<DayScheduleOverride>(id);
         }
 
-        private WorkSchedule()
+        private DayScheduleOverride()
         { /* Require use of factory methods */ }
 
         #endregion

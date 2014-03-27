@@ -1,7 +1,8 @@
 using System;
 using Csla;
+using System.ComponentModel.DataAnnotations;
 
-namespace MagenicMasters.Csla.Lab.Designer
+namespace MagenicMasters.CslaLab.Designer
 {
     [Serializable]
     public class AppointmentView : ReadOnlyBase<AppointmentView>
@@ -9,6 +10,7 @@ namespace MagenicMasters.Csla.Lab.Designer
         #region Business Methods
 
         public static readonly PropertyInfo<string> CustomerNameProperty = RegisterProperty<string>(c => c.CustomerName);
+        [MaxLength(200)]
         public string CustomerName
         {
             get { return GetProperty(CustomerNameProperty); }
@@ -16,6 +18,7 @@ namespace MagenicMasters.Csla.Lab.Designer
         }
 
         public static readonly PropertyInfo<string> SpecialtyProperty = RegisterProperty<string>(c => c.Specialty);
+        [MaxLength(100)]
         public string Specialty
         {
             get { return GetProperty(SpecialtyProperty); }

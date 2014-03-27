@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MagenicMasters.CslaLab
+namespace MagenicMasters.Csla.Lab.BusinessContracts
 {
-    public class Class1
+    public interface IHasTimeEntries
     {
+        ITimeEntries TimeEntries { get; }
     }
 }

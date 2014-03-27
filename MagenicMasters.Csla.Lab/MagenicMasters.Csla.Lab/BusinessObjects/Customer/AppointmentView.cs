@@ -1,7 +1,8 @@
 using System;
 using Csla;
+using System.ComponentModel.DataAnnotations;
 
-namespace MagenicMasters.Csla.Lab.Customer
+namespace MagenicMasters.CslaLab.Customer
 {
     [Serializable]
     public class AppointmentView : ReadOnlyBase<AppointmentView>
@@ -30,17 +31,18 @@ namespace MagenicMasters.Csla.Lab.Customer
         }
 
         public static readonly PropertyInfo<string> DesignerNameProperty = RegisterProperty<string>(c => c.DesignerName);
+        [MaxLength(200)]
         public string DesignerName
         {
             get { return ReadProperty(DesignerNameProperty); }
             private set { LoadProperty(DesignerNameProperty, value); }
         }
 
-        public static readonly PropertyInfo<decimal> FeeProperty = RegisterProperty<decimal>(c => c.Name);
-        public decimal Name
+        public static readonly PropertyInfo<decimal> FeeProperty = RegisterProperty<decimal>(c => c.Fee);
+        public decimal Fee
         {
-            get { return ReadProperty(NameProperty); }
-            private set { LoadProperty(NameProperty, value); }
+            get { return ReadProperty(FeeProperty); }
+            private set { LoadProperty(FeeProperty, value); }
         }
         #endregion
 

@@ -1,10 +1,12 @@
 using System;
 using Csla;
+using System.ComponentModel.DataAnnotations;
+using Csla.Rules.CommonRules;
 
-namespace MagenicMasters.Csla.Lab.Customer
+namespace MagenicMasters.CslaLab.Admin
 {
     [Serializable]
-    public class AppointmentRequest : BusinessBase<AppointmentRequest>
+    public class DesignerRate : BusinessBase<DesignerRate>
     {
         #region Business Methods
 
@@ -15,25 +17,28 @@ namespace MagenicMasters.Csla.Lab.Customer
             set { SetProperty(IdProperty, value); }
         }
 
-        public static readonly PropertyInfo<bool> IsFullDesignerProperty = RegisterProperty<bool>(c => c.IsFullDesigner);
-        public bool IsFullDesigner
+        public static readonly PropertyInfo<int> DesignerIdProperty = RegisterProperty<int>(c => c.DesignerId);
+        [Required]
+        public int DesignerId
         {
-            get { return GetProperty(IsFullDesignerProperty); }
-            set { SetProperty(IsFullDesignerProperty, value); }
+            get { return GetProperty(DesignerIdProperty); }
+            set { SetProperty(DesignerIdProperty, value); }
         }
 
-        public static readonly PropertyInfo<int> SpecialtyIdProperty = RegisterProperty<int>(c => c.SpecialtyId);
-        public int SpecialtyId
+        public static readonly PropertyInfo<int> DayTypeIdProperty = RegisterProperty<int>(c => c.DayTypeId);
+        [Required]
+        public int DayTypeId
         {
-            get { return GetProperty(SpecialtyIdProperty); }
-            set { SetProperty(SpecialtyIdProperty, value); }
+            get { return GetProperty(DayTypeIdProperty); }
+            set { SetProperty(DayTypeIdProperty, value); }
         }
 
-        public static readonly PropertyInfo<int> CustomerIdProperty = RegisterProperty<int>(c => c.CustomerId);
-        public int CustomerId
+        public static readonly PropertyInfo<decimal> AmountProperty = RegisterProperty<decimal>(c => c.Amount);
+        [Required]
+        public decimal Amount
         {
-            get { return GetProperty(CustomerIdProperty); }
-            set { SetProperty(CustomerIdProperty, value); }
+            get { return GetProperty(AmountProperty); }
+            set { SetProperty(AmountProperty, value); }
         }
 
         #endregion
@@ -44,7 +49,7 @@ namespace MagenicMasters.Csla.Lab.Customer
         {
             // TODO: add validation rules
             base.AddBusinessRules();
-
+            BusinessRules.AddRule(new MinValue<decimal>(AmountProperty, 0));
             //BusinessRules.AddRule(new Rule(IdProperty));
         }
 
@@ -58,22 +63,22 @@ namespace MagenicMasters.Csla.Lab.Customer
 
         #region Factory Methods
 
-        public static AppointmentRequest NewEditableRoot()
+        public static DesignerRate NewEditableRoot()
         {
-            return DataPortal.Create<AppointmentRequest>();
+            return DataPortal.Create<DesignerRate>();
         }
 
-        public static AppointmentRequest GetEditableRoot(int id)
+        public static DesignerRate GetEditableRoot(int id)
         {
-            return DataPortal.Fetch<AppointmentRequest>(id);
+            return DataPortal.Fetch<DesignerRate>(id);
         }
 
         public static void DeleteEditableRoot(int id)
         {
-            DataPortal.Delete<AppointmentRequest>(id);
+            DataPortal.Delete<DesignerRate>(id);
         }
 
-        private AppointmentRequest()
+        private DesignerRate()
         { /* Require use of factory methods */ }
 
         #endregion

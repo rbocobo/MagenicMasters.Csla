@@ -1,7 +1,7 @@
 using System;
 using Csla;
 
-namespace MagenicMasters.Csla.Lab.Admin
+namespace MagenicMasters.CslaLab.Admin
 {
     [Serializable]
     public class UtilizationReportView : ReadOnlyBase<UtilizationReportView>
@@ -22,11 +22,11 @@ namespace MagenicMasters.Csla.Lab.Admin
             private set { LoadProperty(DateToProperty, value); }
         }
 
-        public static readonly PropertyInfo<DesignerUtilizationReportViewCollection> NameProperty = RegisterProperty<DesignerUtilizationReportViewCollection>(c => c.Name);
-        public DesignerUtilizationReportViewCollection Name
+        public static readonly PropertyInfo<DesignerUtilizationReportViewCollection> ReportViewProperty = RegisterProperty<DesignerUtilizationReportViewCollection>(c => c.ReportView);
+        public DesignerUtilizationReportViewCollection ReportView
         {
-            get { return ReadProperty(NameProperty); }
-            private set { LoadProperty(NameProperty, value); }
+            get { return ReadProperty(ReportViewProperty); }
+            private set { LoadProperty(ReportViewProperty, value); }
         }
 
         #endregion

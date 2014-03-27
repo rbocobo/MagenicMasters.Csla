@@ -1,7 +1,7 @@
 using System;
 using Csla;
 
-namespace MagenicMasters.Csla.Lab.Admin
+namespace MagenicMasters.CslaLab.Admin
 {
     [Serializable]
     public class DayType : NameValueListBase<int, string>
