@@ -1,42 +1,71 @@
 using System;
 using System.Collections.Generic;
 using Csla;
-using MagenicMasters.Csla.Lab.BusinessContracts;
+using MagenicMasters.Csla.Lab.Contracts;
+using MagenicMasters.Csla.Lab.Core.Contracts;
+using MagenicMasters.Csla.Lab.CustomAttributes;
+using MagenicMasters.Csla.Lab.Core;
 
 namespace MagenicMasters.CslaLab.Customer
 {
     [Serializable]
     public class TimeEntryCollection :
-      BusinessListBase<TimeEntryCollection, ITimeEntry>, ITimeEntries
+      BusinessListBaseScopeCore<TimeEntryCollection, ITimeEntry>, ITimeEntries
     {
-        #region Factory Methods
 
-        internal static TimeEntryCollection NewEditableChildList()
+        [InjectedObjectPortal]
+        public IChildObjectPortal ChildObjectPortal { get; set; }
+
+        public int IndexOf(IBusinessBaseCore item)
         {
-            return DataPortal.CreateChild<TimeEntryCollection>();
+            throw new NotImplementedException();
         }
 
-        internal static TimeEntryCollection GetEditableChildList(
-          object childData)
+        public void Insert(int index, IBusinessBaseCore item)
         {
-            return DataPortal.FetchChild<TimeEntryCollection>(childData);
+            throw new NotImplementedException();
         }
 
-        private TimeEntryCollection()
-        { }
-
-        #endregion
-
-        #region Data Access
-
-        private void Child_Fetch(object childData)
+        public new IBusinessBaseCore this[int index]
         {
-            RaiseListChangedEvents = false;
-            foreach (var child in (IList<object>)childData)
-                this.Add(TimeEntry.GetEditableChild(child));
-            RaiseListChangedEvents = true;
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
         }
 
-        #endregion
+        public void Add(IBusinessBaseCore item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Contains(IBusinessBaseCore item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CopyTo(IBusinessBaseCore[] array, int arrayIndex)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsReadOnly
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public bool Remove(IBusinessBaseCore item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public new IEnumerator<IBusinessBaseCore> GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

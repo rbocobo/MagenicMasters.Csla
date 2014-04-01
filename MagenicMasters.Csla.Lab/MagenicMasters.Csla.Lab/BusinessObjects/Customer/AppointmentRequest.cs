@@ -2,12 +2,15 @@ using System;
 using Csla;
 using System.ComponentModel.DataAnnotations;
 using MagenicMasters.CslaLab;
-using MagenicMasters.Csla.Lab.BusinessContracts;
+using MagenicMasters.Csla.Lab.Contracts;
+using MagenicMasters.Csla.Lab.Core.Contracts;
+using MagenicMasters.Csla.Lab.CustomAttributes;
+using MagenicMasters.Csla.Lab.Core;
 
 namespace MagenicMasters.CslaLab.Customer
 {
     [Serializable]
-    public class AppointmentRequest : BusinessBase<AppointmentRequest>, IAppointmentRequest
+    public class AppointmentRequest : BusinessBaseScopeCore<AppointmentRequest>, IAppointmentRequest
     {
         #region Business Methods
 
@@ -49,6 +52,9 @@ namespace MagenicMasters.CslaLab.Customer
             set { SetProperty(TimeEntriesProperty, value); }
         }
 
+        [InjectedObjectPortal]
+        public IChildObjectPortal ChildObjectPortal { get; set; }
+
         #endregion
 
         #region Business Rules
@@ -69,27 +75,7 @@ namespace MagenicMasters.CslaLab.Customer
 
         #endregion
 
-        #region Factory Methods
-
-        public static AppointmentRequest NewEditableRoot()
-        {
-            return DataPortal.Create<AppointmentRequest>();
-        }
-
-        public static AppointmentRequest GetEditableRoot(int id)
-        {
-            return DataPortal.Fetch<AppointmentRequest>(id);
-        }
-
-        public static void DeleteEditableRoot(int id)
-        {
-            DataPortal.Delete<AppointmentRequest>(id);
-        }
-
-        private AppointmentRequest()
-        { /* Require use of factory methods */ }
-
-        #endregion
+        
 
         #region Data Access
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Csla;
 using Csla.Core;
 using Csla.Rules;
-using MagenicMasters.Csla.Lab.BusinessContracts;
+using MagenicMasters.Csla.Lab.Contracts;
 using MagenicMasters.CslaLab.Common;
 namespace MagenicMasters.CslaLab
 {

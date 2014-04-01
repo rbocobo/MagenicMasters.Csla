@@ -61,28 +61,6 @@ namespace MagenicMasters.CslaLab.Admin
 
         #endregion
 
-        #region Factory Methods
-
-        public static DesignerRate NewEditableRoot()
-        {
-            return DataPortal.Create<DesignerRate>();
-        }
-
-        public static DesignerRate GetEditableRoot(int id)
-        {
-            return DataPortal.Fetch<DesignerRate>(id);
-        }
-
-        public static void DeleteEditableRoot(int id)
-        {
-            DataPortal.Delete<DesignerRate>(id);
-        }
-
-        private DesignerRate()
-        { /* Require use of factory methods */ }
-
-        #endregion
-
         #region Data Access
 
         [RunLocal]

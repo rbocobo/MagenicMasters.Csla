@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Csla;
-namespace MagenicMasters.Csla.Lab.BusinessContracts
+using MagenicMasters.Csla.Lab.Core.Contracts;
+namespace MagenicMasters.Csla.Lab.Contracts
 {
-    public interface ITimeEntry : IBusinessBase
+    public interface ITimeEntry : IBusinessBaseCore
     {
         DateTime StartDateTime { get; set; }
         DateTime EndDateTime { get; set; }

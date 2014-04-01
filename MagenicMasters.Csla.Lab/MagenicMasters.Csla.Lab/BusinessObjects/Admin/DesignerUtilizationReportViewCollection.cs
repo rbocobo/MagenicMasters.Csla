@@ -29,7 +29,6 @@ namespace MagenicMasters.CslaLab.Admin
         { /* require use of factory methods */ }
 
         #endregion
-
         #region Data Access
 
         private void Child_Fetch(object childData)

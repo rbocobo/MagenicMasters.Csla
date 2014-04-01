@@ -18,18 +18,6 @@ namespace MagenicMasters.CslaLab.Customer
 
         #endregion
 
-        #region Factory Methods
-
-        public static AppointmentViewCollection GetReadOnlyList(string filter)
-        {
-            return DataPortal.Fetch<AppointmentViewCollection>(filter);
-        }
-
-        private AppointmentViewCollection()
-        { /* require use of factory methods */ }
-
-        #endregion
-
         #region Data Access
 
         //private void DataPortal_Fetch(string criteria)

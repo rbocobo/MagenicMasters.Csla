@@ -46,28 +46,6 @@ namespace MagenicMasters.CslaLab.Admin
 
         #endregion
 
-        #region Factory Methods
-
-        public static CancelWindow NewEditableRoot()
-        {
-            return DataPortal.Create<CancelWindow>();
-        }
-
-        public static CancelWindow GetEditableRoot(int id)
-        {
-            return DataPortal.Fetch<CancelWindow>(id);
-        }
-
-        public static void DeleteEditableRoot(int id)
-        {
-            DataPortal.Delete<CancelWindow>(id);
-        }
-
-        private CancelWindow()
-        { /* Require use of factory methods */ }
-
-        #endregion
-
         #region Data Access
 
         //[RunLocal]

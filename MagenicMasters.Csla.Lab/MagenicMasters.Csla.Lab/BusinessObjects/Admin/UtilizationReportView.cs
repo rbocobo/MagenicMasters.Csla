@@ -47,18 +47,6 @@ namespace MagenicMasters.CslaLab.Admin
 
         #endregion
 
-        #region Factory Methods
-
-        public static UtilizationReportView GetReadOnlyRoot(int id)
-        {
-            return DataPortal.Fetch<UtilizationReportView>(id);
-        }
-
-        private UtilizationReportView()
-        { /* require use of factory methods */ }
-
-        #endregion
-
         #region Data Access
 
         private void DataPortal_Fetch(int criteria)

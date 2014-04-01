@@ -4,11 +4,13 @@ using System.ComponentModel.DataAnnotations;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
 using MagenicMasters.CslaLab.Common;
+using MagenicMasters.Csla.Lab.Contracts;
+using MagenicMasters.Csla.Lab.Core;
 
 namespace MagenicMasters.CslaLab.Designer
 {
     [Serializable]
-    public class DayScheduleOverride : BusinessBase<DayScheduleOverride>
+    public class DayScheduleOverride : BusinessBaseScopeCore<DayScheduleOverride>, IDayScheduleOverride
     {
         #region Business Methods
 
@@ -70,27 +72,6 @@ namespace MagenicMasters.CslaLab.Designer
 
         #endregion
 
-        #region Factory Methods
-
-        public static DayScheduleOverride NewEditableRoot()
-        {
-            return DataPortal.Create<DayScheduleOverride>();
-        }
-
-        public static DayScheduleOverride GetEditableRoot(int id)
-        {
-            return DataPortal.Fetch<DayScheduleOverride>(id);
-        }
-
-        public static void DeleteEditableRoot(int id)
-        {
-            DataPortal.Delete<DayScheduleOverride>(id);
-        }
-
-        private DayScheduleOverride()
-        { /* Require use of factory methods */ }
-
-        #endregion
 
         #region Data Access
 

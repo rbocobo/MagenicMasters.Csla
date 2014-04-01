@@ -38,28 +38,6 @@ namespace MagenicMasters.CslaLab.Admin
 
         #endregion
 
-        #region Factory Methods
-
-        public static LeadTime NewEditableRoot()
-        {
-            return DataPortal.Create<LeadTime>();
-        }
-
-        public static LeadTime GetEditableRoot(int id)
-        {
-            return DataPortal.Fetch<LeadTime>(id);
-        }
-
-        public static void DeleteEditableRoot(int id)
-        {
-            DataPortal.Delete<LeadTime>(id);
-        }
-
-        private LeadTime()
-        { /* Require use of factory methods */ }
-
-        #endregion
-
         #region Data Access
 
         //[RunLocal]

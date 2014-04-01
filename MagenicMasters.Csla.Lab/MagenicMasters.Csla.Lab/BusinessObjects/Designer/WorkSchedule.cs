@@ -5,11 +5,12 @@ using MagenicMasters.CslaLab;
 using Csla.Rules.CommonRules;
 using Csla.Rules;
 using MagenicMasters.CslaLab.Common;
-using MagenicMasters.CslaLab.BusinessContracts;
+using MagenicMasters.CslaLab.Contracts;
+using MagenicMasters.Csla.Lab.Core;
 namespace MagenicMasters.CslaLab.Designer
 {
     [Serializable]
-    public class WorkSchedule : BusinessBase<WorkSchedule>, IWorkSchedule
+    public class WorkSchedule : BusinessBaseScopeCore<WorkSchedule>, IWorkSchedule
     {
         #region Business Methods
 
@@ -77,8 +78,8 @@ namespace MagenicMasters.CslaLab.Designer
             // TODO: add validation rules
             base.AddBusinessRules();
 
-            
-
+            BusinessRules.AddRule(new MinValue<decimal>(AppointmentIntervalProperty, 0));
+            BusinessRules.AddRule(new MinValue<decimal>(MaxHoursProperty, 0));
             BusinessRules.AddRule(new IsInRole(AuthorizationActions.ReadProperty, WorkingDaysProperty, UserRole.Designers));
             BusinessRules.AddRule(new IsInRole(AuthorizationActions.WriteProperty, WorkingDaysProperty, UserRole.Designers));
             BusinessRules.AddRule(new IsInRole(AuthorizationActions.ReadProperty, AppointmentIntervalProperty, UserRole.Designers));
@@ -98,28 +99,6 @@ namespace MagenicMasters.CslaLab.Designer
 
            
         }
-
-        #endregion
-
-        #region Factory Methods
-
-        public static WorkSchedule NewEditableRoot()
-        {
-            return DataPortal.Create<WorkSchedule>();
-        }
-
-        public static WorkSchedule GetEditableRoot(int id)
-        {
-            return DataPortal.Fetch<WorkSchedule>(id);
-        }
-
-        public static void DeleteEditableRoot(int id)
-        {
-            DataPortal.Delete<WorkSchedule>(id);
-        }
-
-        private WorkSchedule()
-        { /* Require use of factory methods */ }
 
         #endregion
 

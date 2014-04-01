@@ -49,17 +49,6 @@ namespace MagenicMasters.CslaLab.Designer
 
         #endregion
 
-        #region Factory Methods
-
-        internal static AppointmentView GetReadOnlyChild(object childData)
-        {
-            return DataPortal.FetchChild<AppointmentView>(childData);
-        }
-
-        private AppointmentView()
-        { /* require use of factory methods */ }
-
-        #endregion
 
         #region Data Access
 

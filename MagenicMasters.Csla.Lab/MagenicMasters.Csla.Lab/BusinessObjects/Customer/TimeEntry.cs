@@ -1,12 +1,13 @@
 using System;
 using Csla;
 using System.ComponentModel.DataAnnotations;
-using MagenicMasters.Csla.Lab.BusinessContracts;
+using MagenicMasters.Csla.Lab.Contracts;
+using MagenicMasters.Csla.Lab.Core;
 
 namespace MagenicMasters.CslaLab.Customer
 {
     [Serializable]
-    public class TimeEntry : BusinessBase<TimeEntry>, ITimeEntry
+    public class TimeEntry : BusinessBaseScopeCore<TimeEntry>, ITimeEntry
     {
         #region Business Methods
 
@@ -63,7 +64,7 @@ namespace MagenicMasters.CslaLab.Customer
             return DataPortal.FetchChild<TimeEntry>(childData);
         }
 
-        private TimeEntry()
+        public TimeEntry()
         { /* Require use of factory methods */ }
 
         #endregion

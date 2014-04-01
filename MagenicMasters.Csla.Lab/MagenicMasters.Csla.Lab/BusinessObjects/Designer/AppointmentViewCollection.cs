@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Csla;
+using MagenicMasters.Csla.Lab.Core.Contracts;
+using MagenicMasters.Csla.Lab.CustomAttributes;
 
 namespace MagenicMasters.CslaLab.Designer
 {
@@ -8,6 +10,9 @@ namespace MagenicMasters.CslaLab.Designer
     public class AppointmentViewCollection :
       ReadOnlyListBase<AppointmentViewCollection, AppointmentView>
     {
+        [InjectedObjectPortal]
+        public IChildObjectPortal ChildObjectPortal { get; set; }
+
         #region Authorization Rules
 
         private static void AddObjectAuthorizationRules()
@@ -18,17 +23,6 @@ namespace MagenicMasters.CslaLab.Designer
 
         #endregion
 
-        #region Factory Methods
-
-        public static AppointmentViewCollection GetReadOnlyList(string filter)
-        {
-            return DataPortal.Fetch<AppointmentViewCollection>(filter);
-        }
-
-        private AppointmentViewCollection()
-        { /* require use of factory methods */ }
-
-        #endregion
 
         #region Data Access
 
