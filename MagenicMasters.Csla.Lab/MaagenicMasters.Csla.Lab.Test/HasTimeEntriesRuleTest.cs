@@ -1,12 +1,12 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using MagenicMasters.Csla.Lab.Contracts;
+using MagenicMasters.CslaLab.Contracts;
 using Csla.Rules;
 using MagenicMasters.CslaLab;
 using System.Linq;
 using MagenicMasters.CslaLab.Common;
-namespace MaagenicMasters.Csla.Lab.Test
+namespace MaagenicMasters.CslaLab.Test
 {
     [TestClass]
     public class HasTimeEntriesRuleTest

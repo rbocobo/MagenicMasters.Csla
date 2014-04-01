@@ -1,8 +1,8 @@
 ﻿using Autofac;
 using Csla.Server;
-using MagenicMasters.Csla.Lab.Core.Contracts;
-using MagenicMasters.Csla.Lab.Core.Extensions;
-using MagenicMasters.Csla.Lab.CustomAttributes;
+using MagenicMasters.CslaLab.Core.Contracts;
+using MagenicMasters.CslaLab.Core.Extensions;
+using MagenicMasters.CslaLab.CustomAttributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MagenicMasters.Csla.Lab.Core
+namespace MagenicMasters.CslaLab.Core
 {
     public sealed class ObjectActivator : IDataPortalActivator
     {

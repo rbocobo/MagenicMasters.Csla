@@ -1,13 +1,13 @@
 ﻿using Csla;
 using Csla.Serialization.Mobile;
-using MagenicMasters.Csla.Lab.Core.Contracts;
+using MagenicMasters.CslaLab.Core.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MagenicMasters.Csla.Lab.Core
+namespace MagenicMasters.CslaLab.Core
 {
     public sealed class ObjectPortal<T> : IObjectPortal<T>
         where T : class, IMobileObject

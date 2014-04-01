@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MagenicMasters.Csla.Lab.Core.Extensions
+namespace MagenicMasters.CslaLab.Core.Extensions
 {
     public static class TypeExtensions 
     {
@@ -20,7 +20,7 @@ namespace MagenicMasters.Csla.Lab.Core.Extensions
                 var domainList = new List<string> { ".Admin", ".Customer", ".Designer" };
                 foreach(var d in domainList)
                 {
-                    concreteTypeName = string.Concat(@this.Namespace.Replace(".Contracts", d).Replace("Csla.Lab", "CslaLab"), ".", @this.Name.Substring(1), ", ", @this.Assembly.FullName);
+                    concreteTypeName = string.Concat(@this.Namespace.Replace(".Contracts", d).Replace("CslaLab", "CslaLab"), ".", @this.Name.Substring(1), ", ", @this.Assembly.FullName);
                     typ = Type.GetType(concreteTypeName);
                     if (typ != null)
                         return typ;

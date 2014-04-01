@@ -10,15 +10,12 @@ using System.Threading.Tasks;
 namespace MagenicMasters.CslaLab.Core
 {
     [Serializable]
-    public class BusinessListBaseScopeCore<T,C>
-        : BusinessListBaseCore<T,C>, IBusinessScope
-        where T: BusinessListBaseScopeCore<T,C>
-        where C : IEditableBusinessObject
+    public abstract class ReadOnlyListBaseScopeCore<T,C>
+        :ReadOnlyListBaseCore<T,C>, IBusinessScope
+        where T : ReadOnlyListBaseScopeCore<T, C>
+        where C : IReadOnlyObject
     {
-        protected BusinessListBaseScopeCore(): base()   
-        {
-            
-        }
+        protected ReadOnlyListBaseScopeCore():base(){}
         [NonSerialized]
         private ILifetimeScope scope;
         ILifetimeScope IBusinessScope.Scope

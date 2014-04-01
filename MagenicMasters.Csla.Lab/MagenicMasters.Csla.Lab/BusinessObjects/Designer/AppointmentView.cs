@@ -1,11 +1,13 @@
 using System;
 using Csla;
 using System.ComponentModel.DataAnnotations;
+using MagenicMasters.CslaLab.Core;
+using MagenicMasters.CslaLab.BusinessObjects.Contracts;
 
 namespace MagenicMasters.CslaLab.Designer
 {
     [Serializable]
-    public class AppointmentView : ReadOnlyBase<AppointmentView>
+    public class AppointmentView : ReadOnlyBaseScopeCore<AppointmentView>, IAppointmentView
     {
         #region Business Methods
 

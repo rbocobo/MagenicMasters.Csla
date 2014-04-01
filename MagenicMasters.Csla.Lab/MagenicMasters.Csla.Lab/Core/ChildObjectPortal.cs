@@ -1,12 +1,12 @@
 ﻿using Csla;
-using MagenicMasters.Csla.Lab.Core.Contracts;
+using MagenicMasters.CslaLab.Core.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MagenicMasters.Csla.Lab.Core
+namespace MagenicMasters.CslaLab.Core
 {
     public sealed class ChildObjectPortal : IChildObjectPortal
     {

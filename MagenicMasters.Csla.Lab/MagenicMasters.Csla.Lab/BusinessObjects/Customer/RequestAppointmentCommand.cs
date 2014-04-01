@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MagenicMasters.Csla.Lab.BusinessObjects.Customer
+namespace MagenicMasters.CslaLab.BusinessObjects.Customer
 {
     [Serializable]
     public class RequestAppoinmentCommand : CommandBase<RequestAppoinmentCommand>

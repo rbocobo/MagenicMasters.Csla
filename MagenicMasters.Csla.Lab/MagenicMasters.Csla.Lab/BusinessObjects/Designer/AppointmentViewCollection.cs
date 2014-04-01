@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Csla;
-using MagenicMasters.Csla.Lab.Core.Contracts;
-using MagenicMasters.Csla.Lab.CustomAttributes;
+using MagenicMasters.CslaLab.Core.Contracts;
+using MagenicMasters.CslaLab.CustomAttributes;
 
 namespace MagenicMasters.CslaLab.Designer
 {

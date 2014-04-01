@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MagenicMasters.CslaLab.Contracts
+namespace MagenicMasters.CslaLab.BusinessObjects.Contracts
 {
-    public interface IHasTimeEntries
+    public interface IAppointmentViewCollection
     {
-        ITimeEntries TimeEntries { get; }
     }
 }

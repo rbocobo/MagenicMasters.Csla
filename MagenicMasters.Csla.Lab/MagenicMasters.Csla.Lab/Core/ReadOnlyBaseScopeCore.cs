@@ -1,6 +1,6 @@
 ﻿using Autofac;
-using Csla.Core;
 using MagenicMasters.CslaLab.Core.Contracts;
+using MagenicMasters.CslaLab.CustomAttributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,21 +10,21 @@ using System.Threading.Tasks;
 namespace MagenicMasters.CslaLab.Core
 {
     [Serializable]
-    public class BusinessListBaseScopeCore<T,C>
-        : BusinessListBaseCore<T,C>, IBusinessScope
-        where T: BusinessListBaseScopeCore<T,C>
-        where C : IEditableBusinessObject
+    public abstract class ReadOnlyBaseScopeCore<T>
+        :ReadOnlyBaseCore<T>, IBusinessScope
+        where T : ReadOnlyBaseScopeCore<T>
     {
-        protected BusinessListBaseScopeCore(): base()   
-        {
-            
-        }
+        protected ReadOnlyBaseScopeCore()
+            : base() { }
+
         [NonSerialized]
         private ILifetimeScope scope;
+        [InjectedObjectPortal]
         ILifetimeScope IBusinessScope.Scope
-        {
+        { 
             get { return this.scope; }
             set { this.scope = value; }
         }
+
     }
 }

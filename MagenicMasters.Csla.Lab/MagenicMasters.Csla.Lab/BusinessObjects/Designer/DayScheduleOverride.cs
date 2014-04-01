@@ -4,8 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
 using MagenicMasters.CslaLab.Common;
-using MagenicMasters.Csla.Lab.Contracts;
-using MagenicMasters.Csla.Lab.Core;
+using MagenicMasters.CslaLab.Contracts;
+using MagenicMasters.CslaLab.Core;
 
 namespace MagenicMasters.CslaLab.Designer
 {

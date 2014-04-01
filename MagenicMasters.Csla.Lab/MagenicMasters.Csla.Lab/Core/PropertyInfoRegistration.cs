@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MagenicMasters.Csla.Lab.Core
+namespace MagenicMasters.CslaLab.Core
 {
     /// <summary>
     /// Defines a helper method to register managed backing fields 

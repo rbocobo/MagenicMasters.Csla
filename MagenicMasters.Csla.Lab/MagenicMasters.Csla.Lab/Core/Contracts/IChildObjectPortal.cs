@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MagenicMasters.Csla.Lab.Core.Contracts
+namespace MagenicMasters.CslaLab.Core.Contracts
 {
     public interface IChildObjectPortal
     {

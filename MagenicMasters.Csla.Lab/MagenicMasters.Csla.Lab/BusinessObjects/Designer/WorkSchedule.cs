@@ -6,7 +6,7 @@ using Csla.Rules.CommonRules;
 using Csla.Rules;
 using MagenicMasters.CslaLab.Common;
 using MagenicMasters.CslaLab.Contracts;
-using MagenicMasters.Csla.Lab.Core;
+using MagenicMasters.CslaLab.Core;
 namespace MagenicMasters.CslaLab.Designer
 {
     [Serializable]

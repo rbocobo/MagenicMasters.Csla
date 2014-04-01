@@ -1,13 +1,12 @@
 ﻿using Autofac;
-using MagenicMasters.Csla.Lab.Core.Contracts;
-using MagenicMasters.Csla.Lab.CustomAttributes;
+using MagenicMasters.CslaLab.Core.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MagenicMasters.Csla.Lab.Core
+namespace MagenicMasters.CslaLab.Core
 {
     [Serializable]
     public abstract class BusinessBaseScopeCore<T>
@@ -18,7 +17,6 @@ namespace MagenicMasters.Csla.Lab.Core
             : base() { }
         [NonSerialized]
         private ILifetimeScope scope;
-        [InjectedObjectPortal]
         ILifetimeScope IBusinessScope.Scope
         {
             get { return this.scope; }

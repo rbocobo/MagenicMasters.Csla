@@ -49,6 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessObjects\Contracts\IAppointmentView.cs" />
+    <Compile Include="BusinessObjects\Contracts\IAppointmentViewCollection.cs" />
     <Compile Include="BusinessObjects\Contracts\IDayScheduleOverride.cs" />
     <Compile Include="BusinessObjects\Contracts\IHasTimeEntries.cs" />
     <Compile Include="BusinessObjects\Contracts\ITimeEntries.cs" />
@@ -92,10 +94,15 @@
     <Compile Include="Core\Contracts\IChildObjectPortal.cs" />
     <Compile Include="Core\Contracts\IBusinessListBaseCore.cs" />
     <Compile Include="Core\Contracts\IObjectPortal.cs" />
+    <Compile Include="Core\Contracts\IReadOnlyBaseCore.cs" />
     <Compile Include="Core\Extensions\TypeExtensions.cs" />
     <Compile Include="Core\ObjectActivator.cs" />
     <Compile Include="Core\ObjectPortal.cs" />
     <Compile Include="Core\PropertyInfoRegistration.cs" />
+    <Compile Include="Core\ReadOnlyBaseCore.cs" />
+    <Compile Include="Core\ReadOnlyBaseScopeCore.cs" />
+    <Compile Include="Core\ReadOnlyListBaseCore.cs" />
+    <Compile Include="Core\ReadOnlyListBaseScopeCore.cs" />
     <Compile Include="CustomAttributes\InjectedObjectPortalAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

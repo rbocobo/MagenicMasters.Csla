@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using Csla;
+using MagenicMasters.CslaLab.Core;
+using MagenicMasters.CslaLab.BusinessObjects.Contracts;
 
 namespace MagenicMasters.CslaLab.Customer
 {
     [Serializable]
     public class AppointmentViewCollection :
-      ReadOnlyListBase<AppointmentViewCollection, AppointmentView>
+      ReadOnlyListBaseScopeCore<AppointmentViewCollection, AppointmentView>, IAppointmentViewCollection
     {
         #region Authorization Rules
 

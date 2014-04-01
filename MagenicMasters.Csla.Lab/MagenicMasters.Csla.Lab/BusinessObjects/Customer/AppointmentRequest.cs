@@ -2,10 +2,10 @@ using System;
 using Csla;
 using System.ComponentModel.DataAnnotations;
 using MagenicMasters.CslaLab;
-using MagenicMasters.Csla.Lab.Contracts;
-using MagenicMasters.Csla.Lab.Core.Contracts;
-using MagenicMasters.Csla.Lab.CustomAttributes;
-using MagenicMasters.Csla.Lab.Core;
+using MagenicMasters.CslaLab.Contracts;
+using MagenicMasters.CslaLab.Core.Contracts;
+using MagenicMasters.CslaLab.CustomAttributes;
+using MagenicMasters.CslaLab.Core;
 
 namespace MagenicMasters.CslaLab.Customer
 {

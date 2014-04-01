@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MagenicMasters.CslaLab.Core.Contracts
 {
-    public interface IBusinessBaseCore : IBusinessBase
+    public interface IReadOnlyBaseCore : IReadOnlyBase
     {
     }
 }
