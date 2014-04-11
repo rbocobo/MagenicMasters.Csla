@@ -6,6 +6,10 @@ using Csla.Rules.CommonRules;
 using MagenicMasters.CslaLab.Common;
 using MagenicMasters.CslaLab.Contracts;
 using MagenicMasters.CslaLab.Core;
+using MagenicMasters.CslaLab.DataAccess.RepositoryContracts;
+using MagenicMasters.CslaLab.CustomAttributes;
+using MagenicMasters.CslaLab.DataAccess.DataContracts;
+using MagenicMasters.CslaLab.Criteria;
 
 namespace MagenicMasters.CslaLab.Designer
 {
@@ -19,6 +23,14 @@ namespace MagenicMasters.CslaLab.Designer
         {
             get { return GetProperty(IdProperty); }
             set { SetProperty(IdProperty, value); }
+        }
+
+        public static readonly PropertyInfo<int> WeekScheduleIdProperty =
+    PropertyInfoRegistration.Register<DayScheduleOverride, int>(_ => _.WeekScheduleId);
+        public int WeekScheduleId
+        {
+            get { return this.GetProperty(DayScheduleOverride.WeekScheduleIdProperty); }
+            set { this.SetProperty(DayScheduleOverride.WeekScheduleIdProperty, value); }
         }
 
         public static readonly PropertyInfo<DateTime> DateProperty = RegisterProperty<DateTime>(c => c.Date);
@@ -44,6 +56,9 @@ namespace MagenicMasters.CslaLab.Designer
             get { return GetProperty(EndTimeProperty); }
             set { SetProperty(EndTimeProperty, value); }
         }
+
+        [Dependency]
+        public IScheduleRepository ScheduleRepository { get; set; }
 
         #endregion
 
@@ -83,20 +98,44 @@ namespace MagenicMasters.CslaLab.Designer
             base.DataPortal_Create();
         }
 
-        private void DataPortal_Fetch(int criteria)
+        private void DataPortal_Fetch(GetDayScheduleOverrideCriteria criteria)
         {
-            // TODO: load values
+            IDayScheduleOverrideData data = ScheduleRepository.GetDayScheduleOverride(criteria.DesignerId, criteria.Date);
+            using (BypassPropertyChecks)
+            {
+                this.Id = data.Id;
+                this.WeekScheduleId = data.WeekScheduleId;
+                this.Date = data.Date;
+                this.StartTime = data.StartTime;
+                this.EndTime = data.EndTime;
+            }
         }
 
         [Transactional(TransactionalTypes.TransactionScope)]
         protected override void DataPortal_Insert()
         {
             // TODO: insert values
+            IDayScheduleOverrideData data = ScheduleRepository.CreateDayScheduleOverride();
+            data.WeekScheduleId = this.WeekScheduleId;
+            data.Date = this.Date;
+            data.StartTime = this.StartTime;
+            data.EndTime = this.EndTime;
+            ScheduleRepository.AddDayScheduleOverride(data);
+            ScheduleRepository.SaveChanges();
         }
 
         [Transactional(TransactionalTypes.TransactionScope)]
         protected override void DataPortal_Update()
         {
+            IDayScheduleOverrideData data = ScheduleRepository.CreateDayScheduleOverride();
+            data.Id = this.Id;
+            data.WeekScheduleId = this.WeekScheduleId;
+            data.Date = this.Date;
+            data.StartTime = this.StartTime;
+            data.EndTime = this.EndTime;
+            ScheduleRepository.UpdateDayScheduleOverride(data);
+            ScheduleRepository.SaveChanges();
+
             // TODO: update values
         }
 

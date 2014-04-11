@@ -7,6 +7,10 @@ using Csla.Rules;
 using MagenicMasters.CslaLab.Common;
 using MagenicMasters.CslaLab.Contracts;
 using MagenicMasters.CslaLab.Core;
+using MagenicMasters.CslaLab.DataAccess.RepositoryContracts;
+using MagenicMasters.CslaLab.CustomAttributes;
+using MagenicMasters.CslaLab.Criteria;
+using MagenicMasters.CslaLab.DataAccess.DataContracts;
 namespace MagenicMasters.CslaLab.Designer
 {
     [Serializable]
@@ -19,6 +23,13 @@ namespace MagenicMasters.CslaLab.Designer
         {
             get { return GetProperty(IdProperty); }
             set { SetProperty(IdProperty, value); }
+        }           
+
+        public static readonly PropertyInfo<int> DesignerIdProperty = PropertyInfoRegistration.Register<WorkSchedule, int>(_ => _.DesignerId);
+        public int DesignerId
+        {
+            get { return this.GetProperty(WorkSchedule.DesignerIdProperty); }
+            set { this.SetProperty(WorkSchedule.DesignerIdProperty, value); }
         }
 
         public static readonly PropertyInfo<DateTime> StartDateProperty = RegisterProperty<DateTime>(c => c.StartDate);
@@ -69,6 +80,10 @@ namespace MagenicMasters.CslaLab.Designer
             get { return GetProperty(EndTimeProperty); }
             set { SetProperty(EndTimeProperty, value); }
         }
+
+        [Dependency]
+        public IScheduleRepository ScheduleRepository { get; set; }
+
         #endregion
 
         #region Business Rules
@@ -112,21 +127,50 @@ namespace MagenicMasters.CslaLab.Designer
             base.DataPortal_Create();
         }
 
-        private void DataPortal_Fetch(int criteria)
+        private void DataPortal_Fetch(GetWeekScheduleCriteria criteria)
         {
-            // TODO: load values
+            IWeekScheduleData data = this.ScheduleRepository.GetWeekSchedule(criteria.DesignerId, criteria.WeekStartDate);
+            using(BypassPropertyChecks)
+            {
+                Id = data.Id;
+                DesignerId = data.DesignerId;
+                StartDate = data.StartDate;
+                MaxHours = data.MaxHours;
+                AppointmentInterval = data.IntervalsInMinutes;
+                StartTime = data.StartTime;
+                EndTime = data.EndTime;
+            }
+            
         }
 
         [Transactional(TransactionalTypes.TransactionScope)]
         protected override void DataPortal_Insert()
         {
-            // TODO: insert values
+            IWeekScheduleData data = this.ScheduleRepository.CreateWeekSchedule();
+            data.DesignerId = this.DesignerId;
+            data.StartDate = this.StartDate;
+            data.MaxHours = this.MaxHours;
+            data.IntervalsInMinutes = this.AppointmentInterval;
+            data.StartTime = this.StartTime;
+            data.EndTime = this.EndTime;
+            this.ScheduleRepository.AddWeekSchedule(data);
+            this.ScheduleRepository.SaveChanges();
         }
 
         [Transactional(TransactionalTypes.TransactionScope)]
         protected override void DataPortal_Update()
         {
-            // TODO: update values
+            IWeekScheduleData data = this.ScheduleRepository.CreateWeekSchedule();
+            data.Id = this.Id;
+            data.DesignerId = this.DesignerId;
+            data.StartDate = this.StartDate;
+            data.MaxHours = this.MaxHours;
+            data.IntervalsInMinutes = this.AppointmentInterval;
+            data.StartTime = this.StartTime;
+            data.EndTime = this.EndTime;
+            this.ScheduleRepository.UpdateWeekSchedule(data);
+            this.ScheduleRepository.SaveChanges();
+            
         }
 
         [Transactional(TransactionalTypes.TransactionScope)]

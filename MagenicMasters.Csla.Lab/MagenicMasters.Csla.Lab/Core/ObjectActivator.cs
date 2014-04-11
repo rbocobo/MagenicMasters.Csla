@@ -51,7 +51,7 @@ namespace MagenicMasters.CslaLab.Core
                 foreach (var property in
                     (from _ in scopedObject.GetType().GetProperties(
                             BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
-                     where _.GetCustomAttribute<InjectedObjectPortalAttribute>() != null
+                     where _.GetCustomAttribute<DependencyAttribute>() != null
                      select _))
                 {
                     property.SetValue(scopedObject, scope.Resolve(property.PropertyType));
@@ -75,7 +75,7 @@ namespace MagenicMasters.CslaLab.Core
                 foreach (var property in
                     (from _ in scopedObject.GetType().GetProperties(
                             BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
-                     where _.GetCustomAttribute<InjectedObjectPortalAttribute>() != null
+                     where _.GetCustomAttribute<DependencyAttribute>() != null
                      select _))
                 {
                     property.SetValue(scopedObject, null);

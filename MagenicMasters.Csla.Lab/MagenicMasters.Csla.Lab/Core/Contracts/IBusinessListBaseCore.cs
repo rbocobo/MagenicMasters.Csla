@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace MagenicMasters.CslaLab.Core.Contracts
 {
-    public interface IBusinessListBaseCore : IBusinessListBase<IBusinessBaseCore>
+    public interface IBusinessListBaseCore<T> : IBusinessListBase<T>
+        where T: IBusinessBaseCore
     {
     }
 }

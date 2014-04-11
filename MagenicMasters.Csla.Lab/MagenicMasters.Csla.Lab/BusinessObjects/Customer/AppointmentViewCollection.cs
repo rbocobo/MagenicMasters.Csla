@@ -3,13 +3,28 @@ using System.Collections.Generic;
 using Csla;
 using MagenicMasters.CslaLab.Core;
 using MagenicMasters.CslaLab.BusinessObjects.Contracts;
-
+using MagenicMasters.CslaLab.CustomAttributes;
+using MagenicMasters.CslaLab.Core.Contracts;
+using MagenicMasters.CslaLab.DataAccess.RepositoryContracts;
+using MagenicMasters.CslaLab.DataAccess.DataContracts;
+using System.Linq;
+using MagenicMasters.CslaLab.Criteria;
 namespace MagenicMasters.CslaLab.Customer
 {
     [Serializable]
     public class AppointmentViewCollection :
       ReadOnlyListBaseScopeCore<AppointmentViewCollection, AppointmentView>, IAppointmentViewCollection
     {
+
+        [Dependency]
+        public IChildObjectPortal ChildObjectPortal { get; set; }
+
+        [Dependency]
+        public IAppointmentRepository AppointmentRepository { get; set; }
+
+        [Dependency]
+        public ICustomerRepository CustomerRepository { get; set; }
+
         #region Authorization Rules
 
         private static void AddObjectAuthorizationRules()
@@ -22,17 +37,19 @@ namespace MagenicMasters.CslaLab.Customer
 
         #region Data Access
 
-        //private void DataPortal_Fetch(string criteria)
-        //{
-        //    RaiseListChangedEvents = false;
-        //    IsReadOnly = false;
-        //    // TODO: load values
-        //    object objectData = null;
-        //    foreach (var child in (List<object>)objectData)
-        //        Add(ReadOnlyChild.GetReadOnlyChild(child));
-        //    IsReadOnly = true;
-        //    RaiseListChangedEvents = true;
-        //}
+        protected  void DataPortal_Fetch(int criteria)
+        {
+            IEnumerable<IAppointmentData> data = this.AppointmentRepository.GetCustomerActiveAppointments(criteria);
+            
+            foreach (var item in data)
+            {
+                ICustomerData custData = this.CustomerRepository.GetCustomer(item.CustomerId);
+                AppointmentViewCriteria childcriteria = new AppointmentViewCriteria(item.Id, item.DateTime, item.DateTime, custData.Name, item.Fee);
+                
+                this.ChildObjectPortal.FetchChild<AppointmentView>(item);
+            }
+        }
+
 
         #endregion
     }

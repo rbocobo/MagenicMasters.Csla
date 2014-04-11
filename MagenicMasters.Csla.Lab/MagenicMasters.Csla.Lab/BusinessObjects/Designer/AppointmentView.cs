@@ -3,6 +3,7 @@ using Csla;
 using System.ComponentModel.DataAnnotations;
 using MagenicMasters.CslaLab.Core;
 using MagenicMasters.CslaLab.BusinessObjects.Contracts;
+using MagenicMasters.CslaLab.CustomAttributes;
 
 namespace MagenicMasters.CslaLab.Designer
 {
@@ -60,5 +61,12 @@ namespace MagenicMasters.CslaLab.Designer
         }
 
         #endregion
+
+        [Dependency]
+        public DataAccess.RepositoryContracts.IAppointmentRepository AppointmentRepository
+        {
+            get;
+            set;
+        }
     }
 }

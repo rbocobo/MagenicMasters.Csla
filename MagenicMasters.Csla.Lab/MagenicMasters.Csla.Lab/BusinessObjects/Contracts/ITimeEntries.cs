@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MagenicMasters.CslaLab.Contracts
 {
-    public interface ITimeEntries : IBusinessListBaseCore
+    public interface ITimeEntries : IBusinessListBaseCore<ITimeEntry>
     {
 
     }

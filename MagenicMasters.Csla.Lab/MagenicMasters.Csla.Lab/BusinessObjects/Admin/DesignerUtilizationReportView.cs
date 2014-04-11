@@ -1,6 +1,7 @@
 using System;
 using Csla;
 using System.ComponentModel.DataAnnotations;
+using MagenicMasters.CslaLab.Core;
 
 
 namespace MagenicMasters.CslaLab.Admin
@@ -10,28 +11,31 @@ namespace MagenicMasters.CslaLab.Admin
     {
         #region Business Methods
 
-        public static readonly PropertyInfo<string> DesignerNameProperty = RegisterProperty<string>(c => c.DesignerName);
+
+        public static readonly PropertyInfo<string> DesignerNameProperty =
+    PropertyInfoRegistration.Register<DesignerUtilizationReportView, string>(_ => _.DesignerName);
         [MaxLength(200)]
         public string DesignerName
         {
-            get { return ReadProperty(DesignerNameProperty); }
-            private set { LoadProperty(DesignerNameProperty, value); }
+            get { return this.ReadProperty(DesignerUtilizationReportView.DesignerNameProperty); }
+            private set { this.LoadProperty(DesignerUtilizationReportView.DesignerNameProperty, value); }
         }
 
-        public static readonly PropertyInfo<bool> IsBusyProperty = RegisterProperty<bool>(c => c.IsBusy);
+        public static readonly PropertyInfo<bool> IsBusyProperty =
+    PropertyInfoRegistration.Register<DesignerUtilizationReportView, bool>(_ => _.IsBusy);
         public bool IsBusy
         {
-            get { return ReadProperty(IsBusyProperty); }
-            private set { LoadProperty(IsBusyProperty, value); }
+            get { return this.ReadProperty(DesignerUtilizationReportView.IsBusyProperty); }
+            private set { this.LoadProperty(DesignerUtilizationReportView.IsBusyProperty, value); }
         }
 
-        public static readonly PropertyInfo<DateTime> AppointmentProperty = RegisterProperty<DateTime>(c => c.Appointment);
+        public static readonly PropertyInfo<DateTime> AppointmentProperty =
+    PropertyInfoRegistration.Register<DesignerUtilizationReportView, DateTime>(_ => _.Appointment);
         public DateTime Appointment
         {
-            get { return ReadProperty(AppointmentProperty); }
-            private set { LoadProperty(AppointmentProperty, value); }
+            get { return this.ReadProperty(DesignerUtilizationReportView.AppointmentProperty); }
+            private set { this.LoadProperty(DesignerUtilizationReportView.AppointmentProperty, value); }
         }
-
         #endregion
 
         #region Business Rules

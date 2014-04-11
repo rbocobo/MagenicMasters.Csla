@@ -1,5 +1,6 @@
 using System;
 using Csla;
+using MagenicMasters.CslaLab.Core;
 
 namespace MagenicMasters.CslaLab.Admin
 {
@@ -8,25 +9,29 @@ namespace MagenicMasters.CslaLab.Admin
     {
         #region Business Methods
 
-        public static readonly PropertyInfo<DateTime> DateFromProperty = RegisterProperty<DateTime>(c => c.DateFrom);
+
+        public static readonly PropertyInfo<DateTime> DateFromProperty =
+	        PropertyInfoRegistration.Register<UtilizationReportView,DateTime>(_ => _.DateFrom);
         public DateTime DateFrom
         {
-            get { return ReadProperty(DateFromProperty); }
-            private set { LoadProperty(DateFromProperty, value); }
+	        get { return this.ReadProperty(UtilizationReportView.DateFromProperty); }
+	        private set { this.LoadProperty(UtilizationReportView.DateFromProperty, value); }
         }
 
-        public static readonly PropertyInfo<DateTime> DateToProperty = RegisterProperty<DateTime>(c => c.DateTo);
+        public static readonly PropertyInfo<DateTime> DateToProperty =
+            PropertyInfoRegistration.Register<UtilizationReportView, DateTime>(_ => _.DateTo);
         public DateTime DateTo
         {
-            get { return ReadProperty(DateToProperty); }
-            private set { LoadProperty(DateToProperty, value); }
+            get { return this.ReadProperty(UtilizationReportView.DateToProperty); }
+            private set { this.LoadProperty(UtilizationReportView.DateToProperty, value); }
         }
 
-        public static readonly PropertyInfo<DesignerUtilizationReportViewCollection> ReportViewProperty = RegisterProperty<DesignerUtilizationReportViewCollection>(c => c.ReportView);
+        public static readonly PropertyInfo<DesignerUtilizationReportViewCollection> ReportViewProperty =
+            PropertyInfoRegistration.Register<UtilizationReportView, DesignerUtilizationReportViewCollection>(_ => _.ReportView);
         public DesignerUtilizationReportViewCollection ReportView
         {
-            get { return ReadProperty(ReportViewProperty); }
-            private set { LoadProperty(ReportViewProperty, value); }
+            get { return this.ReadProperty(UtilizationReportView.ReportViewProperty); }
+            private set { this.LoadProperty(UtilizationReportView.ReportViewProperty, value); }
         }
 
         #endregion

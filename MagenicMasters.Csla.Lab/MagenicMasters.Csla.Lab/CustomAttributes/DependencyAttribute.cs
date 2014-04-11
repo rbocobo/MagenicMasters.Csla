@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace MagenicMasters.CslaLab.CustomAttributes
 {
     [AttributeUsage(AttributeTargets.Property, AllowMultiple=false)]
-    public sealed class InjectedObjectPortalAttribute : Attribute
+    public sealed class DependencyAttribute : Attribute
     {
     }
 }

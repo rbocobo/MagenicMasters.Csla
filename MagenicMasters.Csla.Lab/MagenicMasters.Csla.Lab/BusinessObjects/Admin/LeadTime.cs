@@ -2,6 +2,7 @@ using System;
 using Csla;
 using System.ComponentModel.DataAnnotations;
 using Csla.Rules.CommonRules;
+using MagenicMasters.CslaLab.Core;
 
 namespace MagenicMasters.CslaLab.Admin
 {
@@ -10,14 +11,14 @@ namespace MagenicMasters.CslaLab.Admin
     {
         #region Business Methods
 
-        public static readonly PropertyInfo<int> NumberOfDaysProperty = RegisterProperty<int>(c => c.NumberOfDays);
+        public static readonly PropertyInfo<int> NumberOfDaysProperty =
+    PropertyInfoRegistration.Register<LeadTime, int>(_ => _.NumberOfDays);
         [Required]
         public int NumberOfDays
         {
-            get { return GetProperty(NumberOfDaysProperty); }
-            set { SetProperty(NumberOfDaysProperty, value); }
+            get { return this.GetProperty(LeadTime.NumberOfDaysProperty); }
+            set { this.SetProperty(LeadTime.NumberOfDaysProperty, value); }
         }
-
         #endregion
 
         #region Business Rules

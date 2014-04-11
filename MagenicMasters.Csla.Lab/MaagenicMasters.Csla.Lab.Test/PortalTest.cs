@@ -4,13 +4,14 @@ using Csla.Server;
 using MagenicMasters.CslaLab.Contracts;
 using MagenicMasters.CslaLab.Core;
 using MagenicMasters.CslaLab.Core.Contracts;
-using MagenicMasters.CslaLab.Contracts;
 using MagenicMasters.CslaLab.Customer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using MagenicMasters.CslaLab.Designer;
+using MagenicMasters.CslaLab.BusinessObjects.Contracts;
+
 
 namespace MaagenicMasters.CslaLab.Test
 {
@@ -89,6 +90,10 @@ namespace MaagenicMasters.CslaLab.Test
                 .As<ITimeEntries>()
                 .InstancePerLifetimeScope();
 
+            builder.RegisterType<RequestAppoinmentCommand>()
+                .As<IRequestAppointmentCommand>()
+                .InstancePerLifetimeScope();
+
             Container = builder.Build();
 
             using(var scope = Container.BeginLifetimeScope())
@@ -113,6 +118,18 @@ namespace MaagenicMasters.CslaLab.Test
         // public void MyTestCleanup() { }
         //
         #endregion
+
+
+        [TestMethod]
+        public void TestCommandResolve()
+        {
+            using(var scope = Container.BeginLifetimeScope())
+            {
+                var cmd = scope.Resolve<IRequestAppointmentCommand>() as RequestAppoinmentCommand;
+                Assert.IsNotNull(cmd);
+                
+            }
+        }
 
         [TestMethod]
         public void PassWhen_DataPortalActivatorIsEqualToConcreteType()

@@ -1,5 +1,6 @@
 ﻿using Csla;
 using Csla.Core;
+using MagenicMasters.CslaLab.DataAccess.RepositoryContracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,6 @@ namespace MagenicMasters.CslaLab.Contracts
         DateTime Date { get; set; }
         DateTime StartTime { get; set; }
         DateTime EndTime { get; set; }
-
+        IScheduleRepository ScheduleRepository { get; set; }
     }
 }

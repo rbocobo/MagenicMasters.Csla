@@ -1,4 +1,5 @@
 ﻿using MagenicMasters.CslaLab.Core.Contracts;
+using MagenicMasters.CslaLab.DataAccess.RepositoryContracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,6 @@ namespace MagenicMasters.CslaLab.BusinessObjects.Contracts
         string CustomerName { get; set; }
         string Specialty { get; set; }
         DateTime Date { get; set; }
+        IAppointmentRepository AppointmentRepository { get; set; }
     }
 }

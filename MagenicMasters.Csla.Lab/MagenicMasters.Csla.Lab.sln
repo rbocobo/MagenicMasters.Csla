@@ -3,9 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagenicMasters.Csla.Lab", "MagenicMasters.Csla.Lab\MagenicMasters.Csla.Lab.csproj", "{85A65B35-C8B4-4819-A114-A935CAA4FDB1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagenicMasters.CslaLab", "MagenicMasters.Csla.Lab\MagenicMasters.CslaLab.csproj", "{85A65B35-C8B4-4819-A114-A935CAA4FDB1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaagenicMasters.Csla.Lab.Test", "MaagenicMasters.Csla.Lab.Test\MaagenicMasters.Csla.Lab.Test.csproj", "{A48548EF-8881-493A-91D3-A2C188DFBF83}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaagenicMasters.CslaLab.Test", "MaagenicMasters.Csla.Lab.Test\MaagenicMasters.CslaLab.Test.csproj", "{A48548EF-8881-493A-91D3-A2C188DFBF83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagenicMasters.CslaLab.DataAccess", "MagenicMasters.Csla.Lab.DataAccess\MagenicMasters.CslaLab.DataAccess.csproj", "{E0706DFD-3A1F-4D84-B309-6500CCB93117}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "MagenicMasters.CslaLab.Database", "MagenicMasters.Csla.Lab.Database\MagenicMasters.CslaLab.Database.sqlproj", "{2E935F48-925B-4783-83CA-22257219177A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagenicMasters.CslaLab.EF", "MagenicMasters.Csla.Lab.EF\MagenicMasters.CslaLab.EF.csproj", "{EEB66246-DE29-4C6D-813E-B09D8D78B93A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagenicMasters.CslaLab.Client", "MagenicMasters.Csla.Lab.Client\MagenicMasters.CslaLab.Client.csproj", "{426D8DE3-CB7C-4360-A6DF-BFD95258A49D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagenicMasters.CslaLab.Fake", "MagenicMasters.CslaLab.Fake\MagenicMasters.CslaLab.Fake.csproj", "{99B092DD-9E1F-4B11-B347-14DEDFE4C0AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +31,28 @@ Global
 		{A48548EF-8881-493A-91D3-A2C188DFBF83}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A48548EF-8881-493A-91D3-A2C188DFBF83}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A48548EF-8881-493A-91D3-A2C188DFBF83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0706DFD-3A1F-4D84-B309-6500CCB93117}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0706DFD-3A1F-4D84-B309-6500CCB93117}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0706DFD-3A1F-4D84-B309-6500CCB93117}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0706DFD-3A1F-4D84-B309-6500CCB93117}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E935F48-925B-4783-83CA-22257219177A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E935F48-925B-4783-83CA-22257219177A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E935F48-925B-4783-83CA-22257219177A}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{2E935F48-925B-4783-83CA-22257219177A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E935F48-925B-4783-83CA-22257219177A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E935F48-925B-4783-83CA-22257219177A}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{EEB66246-DE29-4C6D-813E-B09D8D78B93A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEB66246-DE29-4C6D-813E-B09D8D78B93A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEB66246-DE29-4C6D-813E-B09D8D78B93A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEB66246-DE29-4C6D-813E-B09D8D78B93A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{426D8DE3-CB7C-4360-A6DF-BFD95258A49D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{426D8DE3-CB7C-4360-A6DF-BFD95258A49D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{426D8DE3-CB7C-4360-A6DF-BFD95258A49D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{426D8DE3-CB7C-4360-A6DF-BFD95258A49D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99B092DD-9E1F-4B11-B347-14DEDFE4C0AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99B092DD-9E1F-4B11-B347-14DEDFE4C0AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99B092DD-9E1F-4B11-B347-14DEDFE4C0AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99B092DD-9E1F-4B11-B347-14DEDFE4C0AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

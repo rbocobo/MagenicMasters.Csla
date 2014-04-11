@@ -14,46 +14,63 @@ namespace MagenicMasters.CslaLab.Customer
     {
         #region Business Methods
 
-        public static readonly PropertyInfo<int> IdProperty = RegisterProperty<int>(c => c.Id);
+
+        public static readonly PropertyInfo<int> IdProperty =
+    PropertyInfoRegistration.Register<AppointmentRequest, int>(_ => _.Id);
         public int Id
         {
-            get { return GetProperty(IdProperty); }
-            set { SetProperty(IdProperty, value); }
+            get { return this.GetProperty(AppointmentRequest.IdProperty); }
+            set { this.SetProperty(AppointmentRequest.IdProperty, value); }
         }
 
-        public static readonly PropertyInfo<bool> IsFullDesignerProperty = RegisterProperty<bool>(c => c.IsFullDesigner);
+
+        public static readonly PropertyInfo<bool> IsFullDesignerProperty =
+    PropertyInfoRegistration.Register<AppointmentRequest, bool>(_ => _.IsFullDesigner);
         [Required]
         public bool IsFullDesigner
         {
-            get { return GetProperty(IsFullDesignerProperty); }
-            set { SetProperty(IsFullDesignerProperty, value); }
+            get { return this.GetProperty(AppointmentRequest.IsFullDesignerProperty); }
+            set { this.SetProperty(AppointmentRequest.IsFullDesignerProperty, value); }
         }
 
-        public static readonly PropertyInfo<int> SpecialtyIdProperty = RegisterProperty<int>(c => c.SpecialtyId);
+
+        public static readonly PropertyInfo<int> SpecialtyIdProperty =
+    PropertyInfoRegistration.Register<AppointmentRequest, int>(_ => _.SpecialtyId);
         [Required]
         public int SpecialtyId
         {
-            get { return GetProperty(SpecialtyIdProperty); }
-            set { SetProperty(SpecialtyIdProperty, value); }
+            get { return this.GetProperty(AppointmentRequest.SpecialtyIdProperty); }
+            set { this.SetProperty(AppointmentRequest.SpecialtyIdProperty, value); }
         }
 
-        public static readonly PropertyInfo<int> CustomerIdProperty = RegisterProperty<int>(c => c.CustomerId);
+        public static readonly PropertyInfo<int> CustomerIdProperty =
+    PropertyInfoRegistration.Register<AppointmentRequest, int>(_ => _.CustomerId);
         [Required]
         public int CustomerId
         {
-            get { return GetProperty(CustomerIdProperty); }
-            set { SetProperty(CustomerIdProperty, value); }
+            get { return this.GetProperty(AppointmentRequest.CustomerIdProperty); }
+            set { this.SetProperty(AppointmentRequest.CustomerIdProperty, value); }
         }
 
-        public static readonly PropertyInfo<ITimeEntries> TimeEntriesProperty = RegisterProperty<ITimeEntries>(c => c.TimeEntries);
+        public static readonly PropertyInfo<ITimeEntries> TimeEntriesProperty =
+    PropertyInfoRegistration.Register<AppointmentRequest, ITimeEntries>(_ => _.TimeEntries);
         public ITimeEntries TimeEntries
         {
-            get { return GetProperty(TimeEntriesProperty); }
-            set { SetProperty(TimeEntriesProperty, value); }
+            get { return this.GetProperty(AppointmentRequest.TimeEntriesProperty); }
+            set { this.SetProperty(AppointmentRequest.TimeEntriesProperty, value); }
         }
 
-        [InjectedObjectPortal]
+        [Dependency]
         public IChildObjectPortal ChildObjectPortal { get; set; }
+
+        [Dependency]
+        public IObjectPortal<AppointmentRequest> ObjectPortal { get; set; }
+
+        #endregion
+
+        #region Factory Methods
+
+
 
         #endregion
 
@@ -82,8 +99,6 @@ namespace MagenicMasters.CslaLab.Customer
         [RunLocal]
         protected override void DataPortal_Create()
         {
-            // TODO: load default values
-            // omit this override if you have no defaults to set
             base.DataPortal_Create();
         }
 
@@ -117,5 +132,24 @@ namespace MagenicMasters.CslaLab.Customer
         }
 
         #endregion
+
+        [Dependency]
+        public DataAccess.RepositoryContracts.ICustomerRepository CustomerRepository
+        {
+            get;
+            set;
+        }
+        [Dependency]
+        public DataAccess.RepositoryContracts.IDesignerRepository DesignerRepository
+        {
+            get;
+            set;
+        }
+        [Dependency]
+        public DataAccess.RepositoryContracts.IAppointmentRepository AppointmentRepository
+        {
+            get;
+            set;
+        }
     }
 }

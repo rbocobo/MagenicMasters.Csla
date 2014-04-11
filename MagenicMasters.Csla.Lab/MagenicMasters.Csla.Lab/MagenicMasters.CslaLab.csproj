@@ -36,6 +36,12 @@
     <Reference Include="Csla">
       <HintPath>..\packages\CSLA-Core.4.5.501\lib\net45\Csla.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Moq">
       <HintPath>..\packages\Moq.4.2.1402.2112\lib\net40\Moq.dll</HintPath>
     </Reference>
@@ -49,10 +55,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessObjects\Contracts\IAppointmentResultView.cs" />
     <Compile Include="BusinessObjects\Contracts\IAppointmentView.cs" />
     <Compile Include="BusinessObjects\Contracts\IAppointmentViewCollection.cs" />
     <Compile Include="BusinessObjects\Contracts\IDayScheduleOverride.cs" />
     <Compile Include="BusinessObjects\Contracts\IHasTimeEntries.cs" />
+    <Compile Include="BusinessObjects\Contracts\IRequestAppointmentCommand.cs" />
     <Compile Include="BusinessObjects\Contracts\ITimeEntries.cs" />
     <Compile Include="BusinessObjects\Contracts\ITimeEntry.cs" />
     <Compile Include="BusinessObjects\Admin\CancelWindow.cs" />
@@ -89,10 +97,13 @@
     <Compile Include="Core\BusinessListBaseCore.cs" />
     <Compile Include="Core\BusinessListBaseScopeCore.cs" />
     <Compile Include="Core\ChildObjectPortal.cs" />
+    <Compile Include="Core\CommandBaseCore.cs" />
+    <Compile Include="Core\CommandBaseScopeCore.cs" />
     <Compile Include="Core\Contracts\IBusinessBaseCore.cs" />
     <Compile Include="Core\Contracts\IBusinessScope.cs" />
     <Compile Include="Core\Contracts\IChildObjectPortal.cs" />
     <Compile Include="Core\Contracts\IBusinessListBaseCore.cs" />
+    <Compile Include="Core\Contracts\ICommandBaseCore.cs" />
     <Compile Include="Core\Contracts\IObjectPortal.cs" />
     <Compile Include="Core\Contracts\IReadOnlyBaseCore.cs" />
     <Compile Include="Core\Extensions\TypeExtensions.cs" />
@@ -103,11 +114,20 @@
     <Compile Include="Core\ReadOnlyBaseScopeCore.cs" />
     <Compile Include="Core\ReadOnlyListBaseCore.cs" />
     <Compile Include="Core\ReadOnlyListBaseScopeCore.cs" />
-    <Compile Include="CustomAttributes\InjectedObjectPortalAttribute.cs" />
+    <Compile Include="Criteria\AppointmentViewCriteria.cs" />
+    <Compile Include="Criteria\GetDayScheduleOverrideCriteria.cs" />
+    <Compile Include="Criteria\GetWeekScheduleCriteria.cs" />
+    <Compile Include="CustomAttributes\DependencyAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\MagenicMasters.Csla.Lab.DataAccess\MagenicMasters.CslaLab.DataAccess.csproj">
+      <Project>{e0706dfd-3a1f-4d84-b309-6500ccb93117}</Project>
+      <Name>MagenicMasters.CslaLab.DataAccess</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

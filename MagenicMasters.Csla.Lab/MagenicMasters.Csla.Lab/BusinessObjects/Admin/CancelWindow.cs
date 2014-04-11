@@ -2,6 +2,7 @@ using System;
 using Csla;
 using System.ComponentModel.DataAnnotations;
 using Csla.Rules.CommonRules;
+using MagenicMasters.CslaLab.Core;
 namespace MagenicMasters.CslaLab.Admin
 {
     [Serializable]
@@ -9,22 +10,27 @@ namespace MagenicMasters.CslaLab.Admin
     {
         #region Business Methods
 
-        public static readonly PropertyInfo<decimal> FeeProperty = RegisterProperty<decimal>(c => c.Fee);
+
+        public static readonly PropertyInfo<decimal> FeeProperty =
+    PropertyInfoRegistration.Register<CancelWindow, decimal>(_ => _.Fee);
         [Required]
         public decimal Fee
         {
-            get { return GetProperty(FeeProperty); }
-            set { SetProperty(FeeProperty, value); }
+            get { return this.GetProperty(CancelWindow.FeeProperty); }
+            set { this.SetProperty(CancelWindow.FeeProperty, value); }
         }
 
 
-        public static readonly PropertyInfo<int> NumberOfDaysProperty = RegisterProperty<int>(c => c.NumberOfDays);
+        public static readonly PropertyInfo<int> NumberOfDaysProperty =
+    PropertyInfoRegistration.Register<CancelWindow, int>(_ => _.NumberOfDays);
         [Required]
         public int NumberOfDays
         {
-            get { return GetProperty(NumberOfDaysProperty); }
-            set { SetProperty(NumberOfDaysProperty, value); }
+            get { return this.GetProperty(CancelWindow.NumberOfDaysProperty); }
+            set { this.SetProperty(CancelWindow.NumberOfDaysProperty, value); }
         }
+
+
         #endregion
 
         #region Business Rules

@@ -12,8 +12,8 @@ namespace MagenicMasters.CslaLab.Customer
     public class TimeEntryCollection :
       BusinessListBaseScopeCore<TimeEntryCollection, ITimeEntry>, ITimeEntries
     {
-
-        [InjectedObjectPortal]
+        
+        [Dependency]
         public IChildObjectPortal ChildObjectPortal { get; set; }
 
         public int IndexOf(IBusinessBaseCore item)

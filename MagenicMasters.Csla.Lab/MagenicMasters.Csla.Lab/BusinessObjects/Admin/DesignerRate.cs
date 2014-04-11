@@ -2,6 +2,7 @@ using System;
 using Csla;
 using System.ComponentModel.DataAnnotations;
 using Csla.Rules.CommonRules;
+using MagenicMasters.CslaLab.Core;
 
 namespace MagenicMasters.CslaLab.Admin
 {
@@ -10,37 +11,41 @@ namespace MagenicMasters.CslaLab.Admin
     {
         #region Business Methods
 
-        public static readonly PropertyInfo<int> IdProperty = RegisterProperty<int>(c => c.Id);
+
+        public static readonly PropertyInfo<int> IdProperty =
+    PropertyInfoRegistration.Register<DesignerRate, int>(_ => _.Id);
         public int Id
         {
-            get { return GetProperty(IdProperty); }
-            set { SetProperty(IdProperty, value); }
+            get { return this.GetProperty(DesignerRate.IdProperty); }
+            set { this.SetProperty(DesignerRate.IdProperty, value); }
         }
 
-        public static readonly PropertyInfo<int> DesignerIdProperty = RegisterProperty<int>(c => c.DesignerId);
+        public static readonly PropertyInfo<int> DesignerIdProperty =
+    PropertyInfoRegistration.Register<DesignerRate, int>(_ => _.DesignerId);
         [Required]
         public int DesignerId
         {
-            get { return GetProperty(DesignerIdProperty); }
-            set { SetProperty(DesignerIdProperty, value); }
+            get { return this.GetProperty(DesignerRate.DesignerIdProperty); }
+            set { this.SetProperty(DesignerRate.DesignerIdProperty, value); }
         }
 
-        public static readonly PropertyInfo<int> DayTypeIdProperty = RegisterProperty<int>(c => c.DayTypeId);
+        public static readonly PropertyInfo<int> DayTypeIdProperty =
+    PropertyInfoRegistration.Register<DesignerRate, int>(_ => _.DayTypeId);
         [Required]
         public int DayTypeId
         {
-            get { return GetProperty(DayTypeIdProperty); }
-            set { SetProperty(DayTypeIdProperty, value); }
+            get { return this.GetProperty(DesignerRate.DayTypeIdProperty); }
+            set { this.SetProperty(DesignerRate.DayTypeIdProperty, value); }
         }
 
-        public static readonly PropertyInfo<decimal> AmountProperty = RegisterProperty<decimal>(c => c.Amount);
+        public static readonly PropertyInfo<decimal> AmountProperty =
+    PropertyInfoRegistration.Register<DesignerRate, decimal>(_ => _.Amount);
         [Required]
         public decimal Amount
         {
-            get { return GetProperty(AmountProperty); }
-            set { SetProperty(AmountProperty, value); }
+            get { return this.GetProperty(DesignerRate.AmountProperty); }
+            set { this.SetProperty(DesignerRate.AmountProperty, value); }
         }
-
         #endregion
 
         #region Business Rules

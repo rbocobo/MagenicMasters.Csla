@@ -3,15 +3,22 @@ using System.Collections.Generic;
 using Csla;
 using MagenicMasters.CslaLab.Core.Contracts;
 using MagenicMasters.CslaLab.CustomAttributes;
+using MagenicMasters.CslaLab.DataAccess.RepositoryContracts;
+using MagenicMasters.CslaLab.DataAccess.DataContracts;
+using MagenicMasters.CslaLab.Core;
+using MagenicMasters.CslaLab.BusinessObjects.Contracts;
 
 namespace MagenicMasters.CslaLab.Designer
 {
     [Serializable]
     public class AppointmentViewCollection :
-      ReadOnlyListBase<AppointmentViewCollection, AppointmentView>
+      ReadOnlyListBaseScopeCore<AppointmentViewCollection, AppointmentView>, IAppointmentViewCollection
     {
-        [InjectedObjectPortal]
+        [Dependency]
         public IChildObjectPortal ChildObjectPortal { get; set; }
+
+        [Dependency]
+        public IAppointmentRepository AppointmentRepository { get; set; }
 
         #region Authorization Rules
 
@@ -25,6 +32,15 @@ namespace MagenicMasters.CslaLab.Designer
 
 
         #region Data Access
+
+        protected  void DataPortal_Fetch(int criteria)
+        {
+            IEnumerable<IAppointmentData> data = this.AppointmentRepository.GetDesignerActiveAppointments(criteria);
+            foreach(var item in data )
+            {
+                this.ChildObjectPortal.FetchChild<AppointmentView>(item);
+            }
+        }
 
         //private void DataPortal_Fetch(string criteria)
         //{

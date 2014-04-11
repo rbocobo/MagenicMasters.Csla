@@ -11,27 +11,31 @@ namespace MagenicMasters.CslaLab.Customer
     {
         #region Business Methods
 
-        public static readonly PropertyInfo<int> IdProperty = RegisterProperty<int>(c => c.Id);
+
+        public static readonly PropertyInfo<int> IdProperty =
+    PropertyInfoRegistration.Register<TimeEntry, int>(_ => _.Id);
         public int Id
         {
-            get { return GetProperty(IdProperty); }
-            set { SetProperty(IdProperty, value); }
+            get { return this.ReadProperty(TimeEntry.IdProperty); }
+            set { this.SetProperty(TimeEntry.IdProperty, value); }
         }
 
-        public static readonly PropertyInfo<DateTime> StartDateTimeProperty = RegisterProperty<DateTime>(c => c.StartDateTime);
+        public static readonly PropertyInfo<DateTime> StartDateTimeProperty =
+    PropertyInfoRegistration.Register<TimeEntry, DateTime>(_ => _.StartDateTime);
         [Required]
         public DateTime StartDateTime
         {
-            get { return GetProperty(StartDateTimeProperty); }
-            set { SetProperty(StartDateTimeProperty, value); }
+            get { return this.ReadProperty(TimeEntry.StartDateTimeProperty); }
+            set { this.SetProperty(TimeEntry.StartDateTimeProperty, value); }
         }
 
-        public static readonly PropertyInfo<DateTime> EndDateTimeProperty = RegisterProperty<DateTime>(c => c.EndDateTime);
+        public static readonly PropertyInfo<DateTime> EndDateTimeProperty =
+    PropertyInfoRegistration.Register<TimeEntry, DateTime>(_ => _.EndDateTime);
         [Required]
         public DateTime EndDateTime
         {
-            get { return GetProperty(EndDateTimeProperty); }
-            set { SetProperty(EndDateTimeProperty, value); }
+            get { return this.ReadProperty(TimeEntry.EndDateTimeProperty); }
+            set { this.SetProperty(TimeEntry.EndDateTimeProperty, value); }
         }
         #endregion
 
