@@ -12,60 +12,18 @@ namespace MagenicMasters.CslaLab.Customer
     public class TimeEntryCollection :
       BusinessListBaseScopeCore<TimeEntryCollection, ITimeEntry>, ITimeEntries
     {
-        
+
         [Dependency]
         public IChildObjectPortal ChildObjectPortal { get; set; }
 
-        public int IndexOf(IBusinessBaseCore item)
+        protected override void DataPortal_Create()
         {
-            throw new NotImplementedException();
+            base.DataPortal_Create();
         }
 
-        public void Insert(int index, IBusinessBaseCore item)
+        protected override void Child_Create()
         {
-            throw new NotImplementedException();
-        }
-
-        public new IBusinessBaseCore this[int index]
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public void Add(IBusinessBaseCore item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Contains(IBusinessBaseCore item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void CopyTo(IBusinessBaseCore[] array, int arrayIndex)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool IsReadOnly
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public bool Remove(IBusinessBaseCore item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public new IEnumerator<IBusinessBaseCore> GetEnumerator()
-        {
-            throw new NotImplementedException();
+            base.Child_Create();
         }
     }
 }

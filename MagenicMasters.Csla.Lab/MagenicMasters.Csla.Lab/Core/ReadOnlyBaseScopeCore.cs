@@ -19,7 +19,6 @@ namespace MagenicMasters.CslaLab.Core
 
         [NonSerialized]
         private ILifetimeScope scope;
-        [Dependency]
         ILifetimeScope IBusinessScope.Scope
         { 
             get { return this.scope; }

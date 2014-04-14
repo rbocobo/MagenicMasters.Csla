@@ -2,11 +2,12 @@ using System;
 using Csla;
 using System.ComponentModel.DataAnnotations;
 using MagenicMasters.CslaLab.Core;
+using MagenicMasters.CslaLab.Contracts;
 
 namespace MagenicMasters.CslaLab.Customer
 {
     [Serializable]
-    public class AppointmentView : ReadOnlyBaseCore<AppointmentView> //, IAppoinmentView
+    public class AppointmentView : ReadOnlyBaseCore<AppointmentView>, ICustomerAppointmentView
     {
         #region Business Methods
 

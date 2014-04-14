@@ -3,6 +3,9 @@ using Csla;
 using System.ComponentModel.DataAnnotations;
 using MagenicMasters.CslaLab.Core;
 using MagenicMasters.CslaLab.Contracts;
+using MagenicMasters.CslaLab.DataAccess.DataContracts;
+using MagenicMasters.CslaLab.DataAccess.RepositoryContracts;
+using MagenicMasters.CslaLab.CustomAttributes;
 namespace MagenicMasters.CslaLab.Customer
 {
     [Serializable]
@@ -54,6 +57,15 @@ namespace MagenicMasters.CslaLab.Customer
             get { return this.ReadProperty(AppointmentResultView.PartialFeeProperty); }
             private set { this.LoadProperty(AppointmentResultView.PartialFeeProperty, value); }
         }
+        [NonSerialized]
+        private IDesignerRepository designerRepository;
+        [Dependency]
+        public IDesignerRepository DesignerRepository
+        {
+            get { return designerRepository; }
+            set { designerRepository = value; }
+        }
+
         #endregion
 
         #region Business Rules
@@ -76,9 +88,15 @@ namespace MagenicMasters.CslaLab.Customer
 
         #region Data Access
 
-        private void Child_Fetch(object childData)
+        private void Child_Fetch(IAppointmentData childData)
         {
             // TODO: load values from childData
+
+            var designer = this.designerRepository.GetDesigner(childData.DesignerId);
+            this.LoadProperty(StartDateTimeProperty, childData.DateTime);
+            this.LoadProperty(EndDateTimeProperty, childData.DateTime.AddHours(1));
+            this.LoadProperty(DesignerNameProperty, designer.Name);
+            
         }
 
         #endregion

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Csla;
+using MagenicMasters.CslaLab.DataAccess.RepositoryContracts;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MagenicMasters.CslaLab.Contracts
 {
-    public interface IAppointmentResultView
+    public interface IAppointmentResultView : IReadOnlyBase
     {
         DateTime StartDateTime { get;  }
         DateTime EndDateTime { get;  }
@@ -18,5 +20,7 @@ namespace MagenicMasters.CslaLab.Contracts
         decimal Fee { get; }
 
         decimal PartialFee { get;  }
+
+        IDesignerRepository DesignerRepository { get; set; }
     }
 }

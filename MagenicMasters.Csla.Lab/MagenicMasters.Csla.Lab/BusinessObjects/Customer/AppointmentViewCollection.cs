@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Csla;
 using MagenicMasters.CslaLab.Core;
-using MagenicMasters.CslaLab.BusinessObjects.Contracts;
+using MagenicMasters.CslaLab.Contracts;
 using MagenicMasters.CslaLab.CustomAttributes;
 using MagenicMasters.CslaLab.Core.Contracts;
 using MagenicMasters.CslaLab.DataAccess.RepositoryContracts;
@@ -13,7 +13,7 @@ namespace MagenicMasters.CslaLab.Customer
 {
     [Serializable]
     public class AppointmentViewCollection :
-      ReadOnlyListBaseScopeCore<AppointmentViewCollection, AppointmentView>, IAppointmentViewCollection
+      ReadOnlyListBaseScopeCore<AppointmentViewCollection, ICustomerAppointmentView>, ICustomerAppointmentViewCollection
     {
 
         [Dependency]

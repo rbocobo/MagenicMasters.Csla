@@ -14,7 +14,7 @@ namespace MagenicMasters.CslaLab
     {
         protected override void Execute(RuleContext context)
         {
-            if( ((IAppointmentRequest)context.Target).TimeEntries.Count < 1  )
+            if (((IAppointmentRequest)context.Target).TimeEntries == null || ((IAppointmentRequest)context.Target).TimeEntries.Count < 1)
             {
                 context.AddErrorResult(ValidationMessages.NoTimeEntries);
             }

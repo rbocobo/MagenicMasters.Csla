@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MagenicMasters.CslaLab.BusinessObjects.Contracts
+namespace MagenicMasters.CslaLab.DataAccess.RepositoryContracts
 {
-    public interface IAppointmentViewCollection
+    public interface IRepository : IDisposable
     {
     }
 }

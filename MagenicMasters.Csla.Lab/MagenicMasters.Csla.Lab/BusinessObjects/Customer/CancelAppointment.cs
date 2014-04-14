@@ -4,17 +4,12 @@ using MagenicMasters.CslaLab.CustomAttributes;
 using MagenicMasters.CslaLab.DataAccess.RepositoryContracts;
 using MagenicMasters.CslaLab.Core.Contracts;
 using MagenicMasters.CslaLab.Core;
+using MagenicMasters.Csla.Lab.BusinessObjects.Contracts;
 namespace MagenicMasters.CslaLab.Customer
 {
     [Serializable]
-    public class CancelAppointment : CommandBase<CancelAppointment>
+    public class CancelAppointment : CommandBaseScopeCore<CancelAppointment>, ICancelAppointment
     {
-
-        public CancelAppointment(int appointmentId)
-        {
-            this.LoadProperty(AppointmentIdProperty, appointmentId);
-        }
-
 
         public static readonly PropertyInfo<int> AppointmentIdProperty =
         PropertyInfoRegistration.Register<CancelAppointment, int>(_ => _.AppointmentId);
@@ -33,11 +28,23 @@ namespace MagenicMasters.CslaLab.Customer
             private set { this.LoadProperty(CancelAppointment.ChargesProperty, value); }
         }
 
+        [NonSerialized]
+        private IAppointmentRepository appointmentRepository;
         [Dependency]
-        public IAppointmentRepository AppointmentRepository { get; set; }
+        public IAppointmentRepository AppointmentRepository
+        {
+            get { return appointmentRepository; }
+            set { appointmentRepository = value; }
+        }
 
+        [NonSerialized]
+        private IObjectPortal<ICancelAppointment> objectPortal;
         [Dependency]
-        public IObjectPortal<CancelAppointment> ObjectPortal { get; set; }
+        public IObjectPortal<ICancelAppointment> ObjectPortal
+        {
+            get { return objectPortal; }
+            set { objectPortal = value; }
+        }
 
         #region Authorization Methods
 
@@ -49,6 +56,11 @@ namespace MagenicMasters.CslaLab.Customer
         }
 
         #endregion
+
+        protected void DataPortal_Create(int appointmentId)
+        {
+            this.LoadProperty(AppointmentIdProperty, appointmentId);
+        }
 
         protected override void DataPortal_Execute()
         {

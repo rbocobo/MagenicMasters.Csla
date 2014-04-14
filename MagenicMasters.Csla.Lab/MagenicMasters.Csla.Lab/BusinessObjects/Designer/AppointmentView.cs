@@ -2,13 +2,14 @@ using System;
 using Csla;
 using System.ComponentModel.DataAnnotations;
 using MagenicMasters.CslaLab.Core;
-using MagenicMasters.CslaLab.BusinessObjects.Contracts;
+using MagenicMasters.CslaLab.Contracts;
 using MagenicMasters.CslaLab.CustomAttributes;
+using MagenicMasters.CslaLab.DataAccess.DataContracts;
 
 namespace MagenicMasters.CslaLab.Designer
 {
     [Serializable]
-    public class AppointmentView : ReadOnlyBaseScopeCore<AppointmentView>, IAppointmentView
+    public class AppointmentView : ReadOnlyBaseScopeCore<AppointmentView>, IDesignerAppointmentView
     {
         #region Business Methods
 
@@ -55,18 +56,12 @@ namespace MagenicMasters.CslaLab.Designer
 
         #region Data Access
 
-        private void Child_Fetch(object childData)
+        private void Child_Fetch(IAppointmentData childData)
         {
             // TODO: load values from childData
         }
 
         #endregion
 
-        [Dependency]
-        public DataAccess.RepositoryContracts.IAppointmentRepository AppointmentRepository
-        {
-            get;
-            set;
-        }
     }
 }

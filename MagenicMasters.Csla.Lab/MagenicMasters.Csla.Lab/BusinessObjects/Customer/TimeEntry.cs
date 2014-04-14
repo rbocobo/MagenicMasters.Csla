@@ -56,50 +56,28 @@ namespace MagenicMasters.CslaLab.Customer
 
         #endregion
 
-        #region Factory Methods
+        //#region Factory Methods
 
-        internal static TimeEntry NewEditableChild()
-        {
-            return DataPortal.CreateChild<TimeEntry>();
-        }
+        //internal static TimeEntry NewEditableChild()
+        //{
+        //    return DataPortal.CreateChild<TimeEntry>();
+        //}
 
-        internal static TimeEntry GetEditableChild(object childData)
-        {
-            return DataPortal.FetchChild<TimeEntry>(childData);
-        }
+        //internal static TimeEntry GetEditableChild(object childData)
+        //{
+        //    return DataPortal.FetchChild<TimeEntry>(childData);
+        //}
 
-        public TimeEntry()
-        { /* Require use of factory methods */ }
+        //public TimeEntry()
+        //{ /* Require use of factory methods */ }
 
-        #endregion
+        //#endregion
 
         #region Data Access
 
-        protected override void Child_Create()
+        protected override void DataPortal_Create()
         {
-            // TODO: load default values
-            // omit this override if you have no defaults to set
-            base.Child_Create();
-        }
-
-        private void Child_Fetch(object childData)
-        {
-            // TODO: load values
-        }
-
-        private void Child_Insert(object parent)
-        {
-            // TODO: insert values
-        }
-
-        private void Child_Update(object parent)
-        {
-            // TODO: update values
-        }
-
-        private void Child_DeleteSelf(object parent)
-        {
-            // TODO: delete values
+            base.DataPortal_Create();
         }
 
         #endregion

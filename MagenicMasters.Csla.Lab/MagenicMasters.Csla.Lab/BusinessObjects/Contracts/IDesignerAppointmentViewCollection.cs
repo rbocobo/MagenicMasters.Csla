@@ -6,13 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MagenicMasters.CslaLab.BusinessObjects.Contracts
+namespace MagenicMasters.CslaLab.Contracts
 {
-    public interface IAppointmentView : IReadOnlyBaseCore
+    public interface IDesignerAppointmentViewCollection : IReadOnlyListBaseCore<IDesignerAppointmentView>
     {
-        string CustomerName { get; set; }
-        string Specialty { get; set; }
-        DateTime Date { get; set; }
         IAppointmentRepository AppointmentRepository { get; set; }
     }
 }

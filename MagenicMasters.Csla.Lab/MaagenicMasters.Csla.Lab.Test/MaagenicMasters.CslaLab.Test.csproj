@@ -79,6 +79,10 @@
       <Project>{e0706dfd-3a1f-4d84-b309-6500ccb93117}</Project>
       <Name>MagenicMasters.CslaLab.DataAccess</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MagenicMasters.Csla.Lab.EF\MagenicMasters.CslaLab.EF.csproj">
+      <Project>{eeb66246-de29-4c6d-813e-b09d8d78b93a}</Project>
+      <Name>MagenicMasters.CslaLab.EF</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MagenicMasters.Csla.Lab\MagenicMasters.CslaLab.csproj">
       <Project>{85a65b35-c8b4-4819-a114-a935caa4fdb1}</Project>
       <Name>MagenicMasters.CslaLab</Name>

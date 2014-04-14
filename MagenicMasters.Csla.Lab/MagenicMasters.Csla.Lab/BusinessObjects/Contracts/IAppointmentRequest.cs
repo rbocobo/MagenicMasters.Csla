@@ -13,8 +13,8 @@ namespace MagenicMasters.CslaLab.Contracts
         int SpecialtyId { get; set; }
         int CustomerId { get; set; }
         ITimeEntries TimeEntries { get; set; }
-        ICustomerRepository CustomerRepository { get; set; }
-        IDesignerRepository DesignerRepository { get; set; }
-        IAppointmentRepository AppointmentRepository { get; set; }
+        //ICustomerRepository CustomerRepository { get; set; }
+        //IDesignerRepository DesignerRepository { get; set; }
+        //IAppointmentRepository AppointmentRepository { get; set; }
     }
 }

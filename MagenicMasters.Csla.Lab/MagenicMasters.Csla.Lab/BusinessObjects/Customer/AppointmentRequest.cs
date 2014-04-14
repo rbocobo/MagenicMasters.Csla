@@ -60,11 +60,23 @@ namespace MagenicMasters.CslaLab.Customer
             set { this.SetProperty(AppointmentRequest.TimeEntriesProperty, value); }
         }
 
+        [NonSerialized]
+        private IChildObjectPortal childObjectPortal;
         [Dependency]
-        public IChildObjectPortal ChildObjectPortal { get; set; }
+        public IChildObjectPortal ChildObjectPortal
+        {
+            get { return this.childObjectPortal; }
+            set { this.childObjectPortal = value; }
+        }
 
+        [NonSerialized]
+        private IObjectPortal<AppointmentRequest> objectPortal;
         [Dependency]
-        public IObjectPortal<AppointmentRequest> ObjectPortal { get; set; }
+        public IObjectPortal<AppointmentRequest> ObjectPortal
+        {
+            get { return this.objectPortal; }
+            set { this.objectPortal = value; }
+        }
 
         #endregion
 
@@ -100,56 +112,28 @@ namespace MagenicMasters.CslaLab.Customer
         protected override void DataPortal_Create()
         {
             base.DataPortal_Create();
-        }
-
-        private void DataPortal_Fetch(int criteria)
-        {
-            // TODO: load values
-        }
-
-        [Transactional(TransactionalTypes.TransactionScope)]
-        protected override void DataPortal_Insert()
-        {
-            // TODO: insert values
-        }
-
-        [Transactional(TransactionalTypes.TransactionScope)]
-        protected override void DataPortal_Update()
-        {
-            // TODO: update values
-        }
-
-        [Transactional(TransactionalTypes.TransactionScope)]
-        protected override void DataPortal_DeleteSelf()
-        {
-            DataPortal_Delete(this.Id);
-        }
-
-        [Transactional(TransactionalTypes.TransactionScope)]
-        private void DataPortal_Delete(int criteria)
-        {
-            // TODO: delete values
+            //LoadProperty(TimeEntriesProperty, DataPortal.Create<TimeEntryCollection>());
         }
 
         #endregion
 
-        [Dependency]
-        public DataAccess.RepositoryContracts.ICustomerRepository CustomerRepository
-        {
-            get;
-            set;
-        }
-        [Dependency]
-        public DataAccess.RepositoryContracts.IDesignerRepository DesignerRepository
-        {
-            get;
-            set;
-        }
-        [Dependency]
-        public DataAccess.RepositoryContracts.IAppointmentRepository AppointmentRepository
-        {
-            get;
-            set;
-        }
+        //[Dependency]
+        //public DataAccess.RepositoryContracts.ICustomerRepository CustomerRepository
+        //{
+        //    get;
+        //    set;
+        //}
+        //[Dependency]
+        //public DataAccess.RepositoryContracts.IDesignerRepository DesignerRepository
+        //{
+        //    get;
+        //    set;
+        //}
+        //[Dependency]
+        //public DataAccess.RepositoryContracts.IAppointmentRepository AppointmentRepository
+        //{
+        //    get;
+        //    set;
+        //}
     }
 }

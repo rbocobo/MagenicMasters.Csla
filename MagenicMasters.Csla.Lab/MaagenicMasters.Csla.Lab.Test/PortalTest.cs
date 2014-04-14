@@ -10,8 +10,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using MagenicMasters.CslaLab.Designer;
-using MagenicMasters.CslaLab.BusinessObjects.Contracts;
-
+using MagenicMasters.CslaLab.Contracts;
+using MagenicMasters.CslaLab.DataAccess;
+using MagenicMasters.CslaLab.DataAccess.RepositoryContracts;
+using MagenicMasters.CslaLab.EF;
 
 namespace MaagenicMasters.CslaLab.Test
 {
@@ -61,6 +63,11 @@ namespace MaagenicMasters.CslaLab.Test
             builder.RegisterType<ChildObjectPortal>()
                 .As<IChildObjectPortal>()
                 .InstancePerLifetimeScope();
+
+            builder.RegisterType<ScheduleRepository>()
+                .As<IScheduleRepository>()
+                .InstancePerLifetimeScope();
+
             return builder.Build();
         }
 
@@ -93,6 +100,12 @@ namespace MaagenicMasters.CslaLab.Test
             builder.RegisterType<RequestAppoinmentCommand>()
                 .As<IRequestAppointmentCommand>()
                 .InstancePerLifetimeScope();
+
+            builder.RegisterType<WorkSchedule>()
+                .As<IWorkSchedule>()
+                .InstancePerLifetimeScope();
+
+            
 
             Container = builder.Build();
 

@@ -38,12 +38,23 @@ namespace MagenicMasters.CslaLab.Customer
             private set { this.LoadProperty(RequestAppoinmentCommand.AppointmentRequestResultProperty, value); }
         }
 
+        [NonSerialized]
+        private IAppointmentRepository appointmentRepository;
         [Dependency]
         public IAppointmentRepository AppointmentRepository
-        { get; set; }
+        {
+            get { return this.appointmentRepository; }
+            set { this.appointmentRepository = value; }
+        }
 
+        [NonSerialized]
+        private IObjectPortal<RequestAppoinmentCommand> objectPortal;
         [Dependency]
-        public IObjectPortal<RequestAppoinmentCommand> ObjectPortal { get; set; }
+        public IObjectPortal<RequestAppoinmentCommand> ObjectPortal
+        {
+            get { return this.objectPortal; }
+            set { this.objectPortal = value; }
+        }
 
         #endregion
 
@@ -65,18 +76,24 @@ namespace MagenicMasters.CslaLab.Customer
 
         #region Data Access
 
+
         protected override void DataPortal_Execute()
         {
 
-            this.AppointmentRepository.BuildAppointment(this.AppointmentRequest.CustomerId, 
+            var dateTimeRange = new List<DateTimeRange>(); //Todo: Assign from property
+            var result = this.AppointmentRepository.BuildAppointment(this.AppointmentRequest.CustomerId, 
                 this.AppointmentRequest.SpecialtyId, 
                 this.AppointmentRequest.IsFullDesigner, 
-                this.AppointmentRequest
-                    .TimeEntries
-                    .Select(_ => new DateTimeRange() 
-                        { 
-                            StartDateTime = _.StartDateTime, 
-                            EndDateTime = _.EndDateTime }).ToList());
+                dateTimeRange);
+
+            var apptResult = DataPortal.FetchChild<AppointmentResultView>(result);
+            LoadProperty(AppointmentRequestResultProperty, apptResult);
+        }
+
+
+        protected void DataPortal_Create(IAppointmentRequest criteria)
+        {
+            LoadProperty(AppointmentRequestProperty, criteria);
         }
 
         #endregion

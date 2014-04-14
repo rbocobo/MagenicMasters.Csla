@@ -6,13 +6,13 @@ using MagenicMasters.CslaLab.CustomAttributes;
 using MagenicMasters.CslaLab.DataAccess.RepositoryContracts;
 using MagenicMasters.CslaLab.DataAccess.DataContracts;
 using MagenicMasters.CslaLab.Core;
-using MagenicMasters.CslaLab.BusinessObjects.Contracts;
+using MagenicMasters.CslaLab.Contracts;
 
 namespace MagenicMasters.CslaLab.Designer
 {
     [Serializable]
     public class AppointmentViewCollection :
-      ReadOnlyListBaseScopeCore<AppointmentViewCollection, AppointmentView>, IAppointmentViewCollection
+      ReadOnlyListBaseScopeCore<AppointmentViewCollection, IDesignerAppointmentView>, IDesignerAppointmentViewCollection
     {
         [Dependency]
         public IChildObjectPortal ChildObjectPortal { get; set; }
@@ -38,9 +38,11 @@ namespace MagenicMasters.CslaLab.Designer
             IEnumerable<IAppointmentData> data = this.AppointmentRepository.GetDesignerActiveAppointments(criteria);
             foreach(var item in data )
             {
-                this.ChildObjectPortal.FetchChild<AppointmentView>(item);
+                //this.ChildObjectPortal.FetchChild<IDesignerAppointmentView>(item);
+                DataPortal.FetchChild<IDesignerAppointmentView>(item);
             }
         }
+
 
         //private void DataPortal_Fetch(string criteria)
         //{

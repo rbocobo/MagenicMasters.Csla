@@ -56,9 +56,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessObjects\Contracts\IAppointmentResultView.cs" />
-    <Compile Include="BusinessObjects\Contracts\IAppointmentView.cs" />
-    <Compile Include="BusinessObjects\Contracts\IAppointmentViewCollection.cs" />
+    <Compile Include="BusinessObjects\Contracts\ICustomerAppointmentView.cs" />
+    <Compile Include="BusinessObjects\Contracts\ICustomerAppointmentViewCollection.cs" />
+    <Compile Include="BusinessObjects\Contracts\ICancelAppointment.cs" />
+    <Compile Include="BusinessObjects\Contracts\ICommandBase.cs" />
     <Compile Include="BusinessObjects\Contracts\IDayScheduleOverride.cs" />
+    <Compile Include="BusinessObjects\Contracts\IDesignerAppointmentView.cs" />
+    <Compile Include="BusinessObjects\Contracts\IDesignerAppointmentViewCollection.cs" />
     <Compile Include="BusinessObjects\Contracts\IHasTimeEntries.cs" />
     <Compile Include="BusinessObjects\Contracts\IRequestAppointmentCommand.cs" />
     <Compile Include="BusinessObjects\Contracts\ITimeEntries.cs" />
@@ -106,6 +110,7 @@
     <Compile Include="Core\Contracts\ICommandBaseCore.cs" />
     <Compile Include="Core\Contracts\IObjectPortal.cs" />
     <Compile Include="Core\Contracts\IReadOnlyBaseCore.cs" />
+    <Compile Include="Core\Contracts\IReadOnlyListBaseCore.cs" />
     <Compile Include="Core\Extensions\TypeExtensions.cs" />
     <Compile Include="Core\ObjectActivator.cs" />
     <Compile Include="Core\ObjectPortal.cs" />
