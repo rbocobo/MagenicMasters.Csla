@@ -53,7 +53,7 @@ namespace MagenicMasters.Csla.Lab.Client
                 .As<ITimeEntries>()
                 .InstancePerLifetimeScope();
 
-            builder.RegisterType<RequestAppoinmentCommand>()
+            builder.RegisterType<RequestAppointmentCommand>()
                 .As<IRequestAppointmentCommand>()
                 .InstancePerLifetimeScope();
 

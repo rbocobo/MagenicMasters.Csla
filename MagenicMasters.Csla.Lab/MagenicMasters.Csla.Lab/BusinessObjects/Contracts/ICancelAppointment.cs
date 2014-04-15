@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MagenicMasters.Csla.Lab.BusinessObjects.Contracts
+namespace MagenicMasters.CslaLab.Contracts
 {
     public interface ICancelAppointment : ICommandBaseCore
     {

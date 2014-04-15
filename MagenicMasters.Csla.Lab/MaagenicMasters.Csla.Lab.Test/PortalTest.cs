@@ -97,7 +97,7 @@ namespace MaagenicMasters.CslaLab.Test
                 .As<ITimeEntries>()
                 .InstancePerLifetimeScope();
 
-            builder.RegisterType<RequestAppoinmentCommand>()
+            builder.RegisterType<RequestAppointmentCommand>()
                 .As<IRequestAppointmentCommand>()
                 .InstancePerLifetimeScope();
 
@@ -138,7 +138,7 @@ namespace MaagenicMasters.CslaLab.Test
         {
             using(var scope = Container.BeginLifetimeScope())
             {
-                var cmd = scope.Resolve<IRequestAppointmentCommand>() as RequestAppoinmentCommand;
+                var cmd = scope.Resolve<IRequestAppointmentCommand>() as RequestAppointmentCommand;
                 Assert.IsNotNull(cmd);
                 
             }

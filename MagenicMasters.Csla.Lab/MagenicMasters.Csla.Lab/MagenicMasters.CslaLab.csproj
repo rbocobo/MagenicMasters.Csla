@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessObjects\BusinessObjectsContainerBuilderComposition.cs" />
     <Compile Include="BusinessObjects\Contracts\IAppointmentResultView.cs" />
     <Compile Include="BusinessObjects\Contracts\ICustomerAppointmentView.cs" />
     <Compile Include="BusinessObjects\Contracts\ICustomerAppointmentViewCollection.cs" />
@@ -112,6 +113,8 @@
     <Compile Include="Core\Contracts\IReadOnlyBaseCore.cs" />
     <Compile Include="Core\Contracts\IReadOnlyListBaseCore.cs" />
     <Compile Include="Core\Extensions\TypeExtensions.cs" />
+    <Compile Include="Core\IContainerBuilderComposition.cs" />
+    <Compile Include="Core\IoC.cs" />
     <Compile Include="Core\ObjectActivator.cs" />
     <Compile Include="Core\ObjectPortal.cs" />
     <Compile Include="Core\PropertyInfoRegistration.cs" />
@@ -137,6 +140,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Csla-Templates Read Me.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="BusinessObjects\Contracts\Admin\" />
+    <Folder Include="BusinessObjects\Contracts\Customer\" />
+    <Folder Include="BusinessObjects\Contracts\Designer\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

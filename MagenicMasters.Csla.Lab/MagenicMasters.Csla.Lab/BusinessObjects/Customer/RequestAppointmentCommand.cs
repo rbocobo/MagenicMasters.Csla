@@ -12,30 +12,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace MagenicMasters.CslaLab.Customer
 {
     [Serializable]
-    public class RequestAppoinmentCommand : CommandBaseScopeCore<RequestAppoinmentCommand>, IRequestAppointmentCommand
+    public class RequestAppointmentCommand : CommandBaseScopeCore<RequestAppointmentCommand>, IRequestAppointmentCommand
     {
 
         #region Properties
 
   
         public static readonly PropertyInfo<IAppointmentRequest> AppointmentRequestProperty =
-        PropertyInfoRegistration.Register<RequestAppoinmentCommand, IAppointmentRequest>(_ => _.AppointmentRequest);
+        PropertyInfoRegistration.Register<RequestAppointmentCommand, IAppointmentRequest>(_ => _.AppointmentRequest);
         public IAppointmentRequest AppointmentRequest
         {
-            get { return this.ReadProperty(RequestAppoinmentCommand.AppointmentRequestProperty); }
-            private set { this.LoadProperty(RequestAppoinmentCommand.AppointmentRequestProperty, value); }
+            get { return this.ReadProperty(RequestAppointmentCommand.AppointmentRequestProperty); }
+            private set { this.LoadProperty(RequestAppointmentCommand.AppointmentRequestProperty, value); }
         }
 
         public static readonly PropertyInfo<IAppointmentResultView> AppointmentRequestResultProperty =
-        PropertyInfoRegistration.Register<RequestAppoinmentCommand, IAppointmentResultView>(_ => _.AppointmentRequestResult);
+        PropertyInfoRegistration.Register<RequestAppointmentCommand, IAppointmentResultView>(_ => _.AppointmentRequestResult);
         public IAppointmentResultView AppointmentRequestResult
         {
-            get { return this.ReadProperty(RequestAppoinmentCommand.AppointmentRequestResultProperty); }
-            private set { this.LoadProperty(RequestAppoinmentCommand.AppointmentRequestResultProperty, value); }
+            get { return this.ReadProperty(RequestAppointmentCommand.AppointmentRequestResultProperty); }
+            private set { this.LoadProperty(RequestAppointmentCommand.AppointmentRequestResultProperty, value); }
         }
 
         [NonSerialized]
@@ -48,9 +47,9 @@ namespace MagenicMasters.CslaLab.Customer
         }
 
         [NonSerialized]
-        private IObjectPortal<RequestAppoinmentCommand> objectPortal;
+        private IObjectPortal<RequestAppointmentCommand> objectPortal;
         [Dependency]
-        public IObjectPortal<RequestAppoinmentCommand> ObjectPortal
+        public IObjectPortal<RequestAppointmentCommand> ObjectPortal
         {
             get { return this.objectPortal; }
             set { this.objectPortal = value; }
@@ -97,5 +96,6 @@ namespace MagenicMasters.CslaLab.Customer
         }
 
         #endregion
+
     }
 }

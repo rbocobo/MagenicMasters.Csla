@@ -24,7 +24,18 @@ namespace MagenicMasters.CslaLab.Core
             }
             this.container = container;
         }
-        
+
+        public ObjectActivator()
+        {
+            if (IoC.Container != null)
+            {
+                this.container = IoC.Container;
+            }
+            else
+                throw new ArgumentNullException("container");
+
+        }
+
         public object CreateInstance(Type requestedType)
         {
             if(requestedType == null)
