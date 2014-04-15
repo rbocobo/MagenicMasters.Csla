@@ -9,11 +9,12 @@ using MagenicMasters.CslaLab.DataAccess.RepositoryContracts;
 using MagenicMasters.CslaLab.DataAccess.DataContracts;
 using System.Linq;
 using MagenicMasters.CslaLab.Criteria;
+using MagenicMasters.CslaLab.Contracts.Customer;
 namespace MagenicMasters.CslaLab.Customer
 {
     [Serializable]
     public class AppointmentViewCollection :
-      ReadOnlyListBaseScopeCore<AppointmentViewCollection, ICustomerAppointmentView>, ICustomerAppointmentViewCollection
+      ReadOnlyListBaseScopeCore<AppointmentViewCollection, IAppointmentView>, IAppointmentViewCollection
     {
 
         [Dependency]
@@ -23,7 +24,7 @@ namespace MagenicMasters.CslaLab.Customer
         public IAppointmentRepository AppointmentRepository { get; set; }
 
         [Dependency]
-        public ICustomerRepository CustomerRepository { get; set; }
+        public IDesignerRepository DesignerRepository { get; set; }
 
         #region Authorization Rules
 
@@ -40,14 +41,15 @@ namespace MagenicMasters.CslaLab.Customer
         protected  void DataPortal_Fetch(int criteria)
         {
             IEnumerable<IAppointmentData> data = this.AppointmentRepository.GetCustomerActiveAppointments(criteria);
-            
+            IsReadOnly = false;
             foreach (var item in data)
             {
-                ICustomerData custData = this.CustomerRepository.GetCustomer(item.CustomerId);
-                AppointmentViewCriteria childcriteria = new AppointmentViewCriteria(item.Id, item.DateTime, item.DateTime, custData.Name, item.Fee);
-                
-                this.ChildObjectPortal.FetchChild<AppointmentView>(item);
+                IDesignerData desData = this.DesignerRepository.GetDesigner(item.DesignerId);
+                AppointmentViewCriteria childcriteria = new AppointmentViewCriteria(item.Id, item.DateTime, item.DateTime, desData.Name, item.Fee);
+
+                Add(this.ChildObjectPortal.FetchChild<AppointmentView>(childcriteria));
             }
+            IsReadOnly = true;
         }
 
 

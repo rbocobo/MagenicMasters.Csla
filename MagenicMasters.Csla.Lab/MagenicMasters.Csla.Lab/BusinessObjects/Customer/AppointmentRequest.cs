@@ -6,6 +6,7 @@ using MagenicMasters.CslaLab.Contracts;
 using MagenicMasters.CslaLab.Core.Contracts;
 using MagenicMasters.CslaLab.CustomAttributes;
 using MagenicMasters.CslaLab.Core;
+using MagenicMasters.CslaLab.Contracts.Customer;
 
 namespace MagenicMasters.CslaLab.Customer
 {

@@ -6,6 +6,7 @@ using MagenicMasters.CslaLab;
 using Csla.Rules;
 using System.Collections.Generic;
 using MagenicMasters.CslaLab.Contracts;
+using MagenicMasters.CslaLab.Contracts.Designer;
 
 namespace MaagenicMasters.CslaLab.Test
 {

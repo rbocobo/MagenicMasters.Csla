@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Csla;
 using MagenicMasters.CslaLab.Core.Contracts;
 using MagenicMasters.Csla.Lab.Core.Contracts;
-namespace MagenicMasters.CslaLab.Contracts
+namespace MagenicMasters.CslaLab.Contracts.Customer
 {
-    public interface ICustomerAppointmentViewCollection : IReadOnlyListBaseCore<ICustomerAppointmentView>
+    public interface IAppointmentViewCollection : IReadOnlyListBaseCore<IAppointmentView>
     {
     }
 }

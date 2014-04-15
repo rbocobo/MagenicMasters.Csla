@@ -6,6 +6,8 @@ using Csla.Rules;
 using MagenicMasters.CslaLab;
 using System.Linq;
 using MagenicMasters.CslaLab.Common;
+using MagenicMasters.CslaLab.Contracts.Customer;
+
 namespace MaagenicMasters.CslaLab.Test
 {
     [TestClass]

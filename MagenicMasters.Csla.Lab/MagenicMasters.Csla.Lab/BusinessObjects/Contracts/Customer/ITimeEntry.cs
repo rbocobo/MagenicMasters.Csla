@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Csla;
 using MagenicMasters.CslaLab.Core.Contracts;
-namespace MagenicMasters.CslaLab.Contracts
+namespace MagenicMasters.CslaLab.Contracts.Customer
 {
     public interface ITimeEntry : IBusinessBaseCore
     {

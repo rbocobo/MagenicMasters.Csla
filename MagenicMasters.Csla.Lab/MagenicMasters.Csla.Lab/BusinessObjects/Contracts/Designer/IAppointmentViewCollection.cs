@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MagenicMasters.CslaLab.Contracts
+namespace MagenicMasters.CslaLab.Contracts.Designer
 {
-    public interface IDesignerAppointmentViewCollection : IReadOnlyListBaseCore<IDesignerAppointmentView>
+    public interface IAppointmentViewCollection : IReadOnlyListBaseCore<IAppointmentView>
     {
         IAppointmentRepository AppointmentRepository { get; set; }
     }

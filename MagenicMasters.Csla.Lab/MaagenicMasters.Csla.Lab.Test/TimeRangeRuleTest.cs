@@ -11,6 +11,7 @@ using MagenicMasters.CslaLab.Designer;
 using MagenicMasters.CslaLab.Common;
 using MagenicMasters.CslaLab.Contracts;
 using System.Linq;
+using MagenicMasters.CslaLab.Contracts.Designer;
 namespace MaagenicMasters.CslaLab.Test
 {
     /// <summary>

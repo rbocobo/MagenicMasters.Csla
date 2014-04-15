@@ -8,6 +8,7 @@ using Csla.Core;
 using Csla.Rules;
 using MagenicMasters.CslaLab.Contracts;
 using MagenicMasters.CslaLab.Common;
+using MagenicMasters.CslaLab.Contracts.Customer;
 namespace MagenicMasters.CslaLab
 {
     public class HasTimeEntriesRule : BusinessRule

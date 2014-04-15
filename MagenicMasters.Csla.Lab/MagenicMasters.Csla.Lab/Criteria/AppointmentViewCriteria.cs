@@ -12,7 +12,11 @@ namespace MagenicMasters.CslaLab.Criteria
 
         public  AppointmentViewCriteria(int appointmentId, DateTime startDateTime, DateTime endDateTime, string name, decimal fee )
         {
-
+            LoadProperty(AppointmentIdProperty, appointmentId);
+            LoadProperty(StartDateTimeProperty, startDateTime);
+            LoadProperty(EndDateTimeProperty, endDateTime);
+            LoadProperty(NameProperty, name);
+            LoadProperty(FeeProperty, fee);
         }
 
         public static readonly PropertyInfo<int> AppointmentIdProperty =

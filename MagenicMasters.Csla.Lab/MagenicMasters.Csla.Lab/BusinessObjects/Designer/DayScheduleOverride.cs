@@ -10,6 +10,7 @@ using MagenicMasters.CslaLab.DataAccess.RepositoryContracts;
 using MagenicMasters.CslaLab.CustomAttributes;
 using MagenicMasters.CslaLab.DataAccess.DataContracts;
 using MagenicMasters.CslaLab.Criteria;
+using MagenicMasters.CslaLab.Contracts.Designer;
 
 namespace MagenicMasters.CslaLab.Designer
 {

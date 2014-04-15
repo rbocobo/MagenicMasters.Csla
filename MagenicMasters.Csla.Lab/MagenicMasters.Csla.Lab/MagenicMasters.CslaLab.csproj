@@ -56,18 +56,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessObjects\BusinessObjectsContainerBuilderComposition.cs" />
-    <Compile Include="BusinessObjects\Contracts\IAppointmentResultView.cs" />
-    <Compile Include="BusinessObjects\Contracts\ICustomerAppointmentView.cs" />
-    <Compile Include="BusinessObjects\Contracts\ICustomerAppointmentViewCollection.cs" />
-    <Compile Include="BusinessObjects\Contracts\ICancelAppointment.cs" />
+    <Compile Include="BusinessObjects\Contracts\Customer\IAppointmentResultView.cs" />
+    <Compile Include="BusinessObjects\Contracts\Customer\IAppointmentView.cs" />
+    <Compile Include="BusinessObjects\Contracts\Customer\IAppointmentViewCollection.cs" />
+    <Compile Include="BusinessObjects\Contracts\Customer\ICancelAppointment.cs" />
     <Compile Include="BusinessObjects\Contracts\ICommandBase.cs" />
-    <Compile Include="BusinessObjects\Contracts\IDayScheduleOverride.cs" />
-    <Compile Include="BusinessObjects\Contracts\IDesignerAppointmentView.cs" />
-    <Compile Include="BusinessObjects\Contracts\IDesignerAppointmentViewCollection.cs" />
-    <Compile Include="BusinessObjects\Contracts\IHasTimeEntries.cs" />
-    <Compile Include="BusinessObjects\Contracts\IRequestAppointmentCommand.cs" />
-    <Compile Include="BusinessObjects\Contracts\ITimeEntries.cs" />
-    <Compile Include="BusinessObjects\Contracts\ITimeEntry.cs" />
+    <Compile Include="BusinessObjects\Contracts\Designer\IDayScheduleOverride.cs" />
+    <Compile Include="BusinessObjects\Contracts\Designer\IAppointmentView.cs" />
+    <Compile Include="BusinessObjects\Contracts\Designer\IAppointmentViewCollection.cs" />
+    <Compile Include="BusinessObjects\Contracts\Customer\IHasTimeEntries.cs" />
+    <Compile Include="BusinessObjects\Contracts\Customer\IRequestAppointmentCommand.cs" />
+    <Compile Include="BusinessObjects\Contracts\Customer\ITimeEntries.cs" />
+    <Compile Include="BusinessObjects\Contracts\Customer\ITimeEntry.cs" />
     <Compile Include="BusinessObjects\Admin\CancelWindow.cs" />
     <Compile Include="BusinessObjects\Admin\DayType.cs" />
     <Compile Include="BusinessObjects\Admin\DesignerRate.cs" />
@@ -75,7 +75,7 @@
     <Compile Include="BusinessObjects\Admin\DesignerUtilizationReportViewCollection.cs" />
     <Compile Include="BusinessObjects\Admin\LeadTime.cs" />
     <Compile Include="BusinessObjects\Admin\UtilizationReportView.cs" />
-    <Compile Include="BusinessObjects\Contracts\IAppointmentRequest.cs" />
+    <Compile Include="BusinessObjects\Contracts\Customer\IAppointmentRequest.cs" />
     <Compile Include="BusinessObjects\Customer\RequestAppointmentCommand.cs" />
     <Compile Include="BusinessRule\HasTimeEntriesRule.cs" />
     <Compile Include="BusinessRule\MinHourDifferenceRule.cs" />
@@ -96,7 +96,7 @@
     <Compile Include="BusinessObjects\Designer\AppointmentViewCollection.cs" />
     <Compile Include="BusinessObjects\Designer\DayScheduleOverride.cs" />
     <Compile Include="BusinessObjects\Designer\WorkSchedule.cs" />
-    <Compile Include="BusinessObjects\Contracts\IWorkSchedule.cs" />
+    <Compile Include="BusinessObjects\Contracts\Designer\IWorkSchedule.cs" />
     <Compile Include="Core\BusinessBaseCore.cs" />
     <Compile Include="Core\BusinessBaseScopeCore.cs" />
     <Compile Include="Core\BusinessListBaseCore.cs" />
@@ -123,6 +123,7 @@
     <Compile Include="Core\ReadOnlyListBaseCore.cs" />
     <Compile Include="Core\ReadOnlyListBaseScopeCore.cs" />
     <Compile Include="Criteria\AppointmentViewCriteria.cs" />
+    <Compile Include="Criteria\CustomerAppointmentViewCriteria.cs" />
     <Compile Include="Criteria\GetDayScheduleOverrideCriteria.cs" />
     <Compile Include="Criteria\GetWeekScheduleCriteria.cs" />
     <Compile Include="CustomAttributes\DependencyAttribute.cs" />
@@ -143,8 +144,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="BusinessObjects\Contracts\Admin\" />
-    <Folder Include="BusinessObjects\Contracts\Customer\" />
-    <Folder Include="BusinessObjects\Contracts\Designer\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

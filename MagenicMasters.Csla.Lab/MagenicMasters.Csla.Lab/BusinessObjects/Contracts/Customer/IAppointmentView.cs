@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MagenicMasters.CslaLab.Contracts
+namespace MagenicMasters.CslaLab.Contracts.Customer
 {
-    public interface ICustomerAppointmentView : IReadOnlyBaseCore
+    public interface IAppointmentView : IReadOnlyBaseCore
     {
         int AppointmentId { get; }
         DateTime StartDateTime { get; }

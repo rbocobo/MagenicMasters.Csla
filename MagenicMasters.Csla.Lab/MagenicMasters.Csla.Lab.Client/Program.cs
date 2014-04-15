@@ -2,6 +2,7 @@
 using Csla;
 using Csla.Server;
 using MagenicMasters.CslaLab.Contracts;
+using MagenicMasters.CslaLab.Contracts.Customer;
 using MagenicMasters.CslaLab.Core;
 using MagenicMasters.CslaLab.Core.Contracts;
 using MagenicMasters.CslaLab.Customer;

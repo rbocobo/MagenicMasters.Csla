@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MagenicMasters.CslaLab.Contracts
+namespace MagenicMasters.CslaLab.Contracts.Designer
 {
-    public interface IDesignerAppointmentView : IReadOnlyBaseCore
+    public interface IAppointmentView : IReadOnlyBaseCore
     {
         string CustomerName { get; }
         string Specialty { get; }

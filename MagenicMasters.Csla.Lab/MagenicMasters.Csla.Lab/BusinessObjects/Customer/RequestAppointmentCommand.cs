@@ -1,6 +1,7 @@
 ﻿using Csla;
 using Csla.Core;
 using MagenicMasters.CslaLab.Contracts;
+using MagenicMasters.CslaLab.Contracts.Customer;
 using MagenicMasters.CslaLab.Core;
 using MagenicMasters.CslaLab.Core.Contracts;
 using MagenicMasters.CslaLab.CustomAttributes;

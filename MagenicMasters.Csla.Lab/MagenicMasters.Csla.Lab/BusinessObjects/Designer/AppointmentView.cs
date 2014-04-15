@@ -5,11 +5,13 @@ using MagenicMasters.CslaLab.Core;
 using MagenicMasters.CslaLab.Contracts;
 using MagenicMasters.CslaLab.CustomAttributes;
 using MagenicMasters.CslaLab.DataAccess.DataContracts;
+using MagenicMasters.CslaLab.Contracts.Designer;
+using MagenicMasters.CslaLab.Criteria;
 
 namespace MagenicMasters.CslaLab.Designer
 {
     [Serializable]
-    public class AppointmentView : ReadOnlyBaseScopeCore<AppointmentView>, IDesignerAppointmentView
+    public class AppointmentView : ReadOnlyBaseScopeCore<AppointmentView>, IAppointmentView
     {
         #region Business Methods
 
@@ -61,6 +63,12 @@ namespace MagenicMasters.CslaLab.Designer
             // TODO: load values from childData
         }
 
+        private void Child_Fetch(CustomerAppointmentViewCriteria childData)
+        {
+            this.LoadProperty(CustomerNameProperty, childData.CustomerName);
+            this.LoadProperty(SpecialtyProperty, childData.Specialty);
+            this.LoadProperty(DateProperty, childData.Date);
+        }
         #endregion
 
     }

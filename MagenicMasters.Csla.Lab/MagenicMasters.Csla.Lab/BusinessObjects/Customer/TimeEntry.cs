@@ -3,6 +3,7 @@ using Csla;
 using System.ComponentModel.DataAnnotations;
 using MagenicMasters.CslaLab.Contracts;
 using MagenicMasters.CslaLab.Core;
+using MagenicMasters.CslaLab.Contracts.Customer;
 
 namespace MagenicMasters.CslaLab.Customer
 {

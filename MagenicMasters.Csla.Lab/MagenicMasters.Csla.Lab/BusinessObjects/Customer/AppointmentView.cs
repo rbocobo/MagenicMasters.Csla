@@ -3,11 +3,16 @@ using Csla;
 using System.ComponentModel.DataAnnotations;
 using MagenicMasters.CslaLab.Core;
 using MagenicMasters.CslaLab.Contracts;
+using MagenicMasters.CslaLab.Contracts.Customer;
+using MagenicMasters.CslaLab.DataAccess.DataContracts;
+using MagenicMasters.CslaLab.DataAccess.RepositoryContracts;
+using MagenicMasters.CslaLab.CustomAttributes;
+using MagenicMasters.CslaLab.Criteria;
 
 namespace MagenicMasters.CslaLab.Customer
 {
     [Serializable]
-    public class AppointmentView : ReadOnlyBaseCore<AppointmentView>, ICustomerAppointmentView
+    public class AppointmentView : ReadOnlyBaseCore<AppointmentView>, IAppointmentView
     {
         #region Business Methods
 
@@ -56,6 +61,7 @@ namespace MagenicMasters.CslaLab.Customer
             private set { this.LoadProperty(AppointmentView.FeeProperty, value); }
         }
 
+
         #endregion
 
         #region Business Rules
@@ -78,9 +84,16 @@ namespace MagenicMasters.CslaLab.Customer
 
         #region Data Access
 
-        private void Child_Fetch(object childData)
+        private void Child_Fetch(AppointmentViewCriteria childData)
         {
             // TODO: load values from childData
+            
+            LoadProperty(AppointmentIdProperty, childData.AppointmentId);
+            LoadProperty(StartDateTimeProperty, childData.StartDateTime);
+            LoadProperty(EndDateTimeProperty, childData.EndDateTime);
+            LoadProperty(DesignerNameProperty, childData.Name);
+            LoadProperty(FeeProperty, childData.Fee);
+            
         }
 
         #endregion

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using MagenicMasters.CslaLab.Common;
 using MagenicMasters.CslaLab.Contracts;
 using System.Linq;
+using MagenicMasters.CslaLab.Contracts.Designer;
 namespace MaagenicMasters.CslaLab.Test
 {
     [TestClass]

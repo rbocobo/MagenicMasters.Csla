@@ -14,6 +14,8 @@ using MagenicMasters.CslaLab.Contracts;
 using MagenicMasters.CslaLab.DataAccess;
 using MagenicMasters.CslaLab.DataAccess.RepositoryContracts;
 using MagenicMasters.CslaLab.EF;
+using MagenicMasters.CslaLab.Contracts.Customer;
+using MagenicMasters.CslaLab.Contracts.Designer;
 
 namespace MaagenicMasters.CslaLab.Test
 {

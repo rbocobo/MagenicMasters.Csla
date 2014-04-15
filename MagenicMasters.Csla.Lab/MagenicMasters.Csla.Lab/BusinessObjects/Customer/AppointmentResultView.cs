@@ -6,6 +6,7 @@ using MagenicMasters.CslaLab.Contracts;
 using MagenicMasters.CslaLab.DataAccess.DataContracts;
 using MagenicMasters.CslaLab.DataAccess.RepositoryContracts;
 using MagenicMasters.CslaLab.CustomAttributes;
+using MagenicMasters.CslaLab.Contracts.Customer;
 namespace MagenicMasters.CslaLab.Customer
 {
     [Serializable]

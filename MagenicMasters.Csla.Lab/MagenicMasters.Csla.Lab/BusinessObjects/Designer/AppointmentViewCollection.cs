@@ -7,18 +7,41 @@ using MagenicMasters.CslaLab.DataAccess.RepositoryContracts;
 using MagenicMasters.CslaLab.DataAccess.DataContracts;
 using MagenicMasters.CslaLab.Core;
 using MagenicMasters.CslaLab.Contracts;
+using MagenicMasters.CslaLab.Contracts.Designer;
+using MagenicMasters.CslaLab.Criteria;
 
 namespace MagenicMasters.CslaLab.Designer
 {
     [Serializable]
     public class AppointmentViewCollection :
-      ReadOnlyListBaseScopeCore<AppointmentViewCollection, IDesignerAppointmentView>, IDesignerAppointmentViewCollection
+      ReadOnlyListBaseScopeCore<AppointmentViewCollection, IAppointmentView>, IAppointmentViewCollection
     {
+        [NonSerialized]
+        private IChildObjectPortal childObjectPortal;
         [Dependency]
-        public IChildObjectPortal ChildObjectPortal { get; set; }
+        public IChildObjectPortal ChildObjectPortal
+        {
+            get { return childObjectPortal; }
+            set { childObjectPortal = value; }
+        }
 
+        [NonSerialized]
+        private IAppointmentRepository appointmentRepository;
         [Dependency]
-        public IAppointmentRepository AppointmentRepository { get; set; }
+        public IAppointmentRepository AppointmentRepository
+        {
+            get { return appointmentRepository; }
+            set { appointmentRepository = value; }
+        }
+
+        [NonSerialized]
+        private ICustomerRepository customerRepository;
+        [Dependency]
+        public ICustomerRepository CustomerRepository
+        {
+            get { return customerRepository; }
+            set { customerRepository = value; }
+        }
 
         #region Authorization Rules
 
@@ -36,11 +59,14 @@ namespace MagenicMasters.CslaLab.Designer
         protected  void DataPortal_Fetch(int criteria)
         {
             IEnumerable<IAppointmentData> data = this.AppointmentRepository.GetDesignerActiveAppointments(criteria);
+            IsReadOnly = false;
             foreach(var item in data )
             {
-                //this.ChildObjectPortal.FetchChild<IDesignerAppointmentView>(item);
-                DataPortal.FetchChild<IDesignerAppointmentView>(item);
+                var custData = this.CustomerRepository.GetCustomer(item.CustomerId);
+                var child = this.ChildObjectPortal.FetchChild<IAppointmentView>(new CustomerAppointmentViewCriteria(custData.Name, "test", item.DateTime));
+                Add(child);
             }
+            IsReadOnly = true;
         }
 
 
