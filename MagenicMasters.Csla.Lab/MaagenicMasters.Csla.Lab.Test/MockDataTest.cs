@@ -309,7 +309,9 @@ namespace MaagenicMasters.Csla.Lab.Test
 
             var scheduleRepository = new Mock<IScheduleRepository>(MockBehavior.Strict);
             scheduleRepository.Setup(_ => _.CreateWeekSchedule())
-                .Returns(weekScheduleData.Object);
+                .Returns(weekScheduleData.Object).Verifiable();
+            scheduleRepository.Setup(_ => _.AddWeekSchedule(It.IsAny<IWeekScheduleData>()));
+            scheduleRepository.Setup(_ => _.SaveChanges());
 
 
             new MockTestBuilderComposition().Compose(builder);
@@ -327,18 +329,108 @@ namespace MaagenicMasters.Csla.Lab.Test
             objectPortal.Update(workSchedule);
 
             //assert
+
+            scheduleRepository.VerifyAll();
         }
 
         [TestMethod]
         public void AddWeekSchedulePassed()
         {
+            //arrange
+            this.builder = new ContainerBuilder();
 
+            List<IWeekScheduleData> weekScheduleList = new List<IWeekScheduleData>();
+
+            var designerId = generator.Generate<int>();
+            var weekScheduleData = new Mock<IWeekScheduleData>(MockBehavior.Strict);
+            weekScheduleData.SetupAllProperties();
+            weekScheduleData.SetupGet(_ => _.DesignerId).Returns(designerId);
+
+            var scheduleRepository = new Mock<IScheduleRepository>(MockBehavior.Strict);
+            scheduleRepository.Setup(_ => _.CreateWeekSchedule())
+                .Returns(weekScheduleData.Object).Verifiable();
+            scheduleRepository.Setup(_ => _.AddWeekSchedule(It.IsAny<IWeekScheduleData>()))
+                .Callback((IWeekScheduleData data) => {
+                    weekScheduleList.Add(data);
+                }).Verifiable();
+            scheduleRepository.Setup(_ => _.SaveChanges());
+
+
+            new MockTestBuilderComposition().Compose(builder);
+            builder.RegisterInstance(scheduleRepository.Object).As<IScheduleRepository>();
+            builder.RegisterType<WorkSchedule>().As<IWorkSchedule>();
+
+            IoC.Container = builder.Build();
+            var activator = IoC.Container.Resolve<IDataPortalActivator>();
+            C.ApplicationContext.DataPortalActivator = IoC.Container.Resolve<IDataPortalActivator>();
+
+            //act
+
+            var objectPortal = IoC.Container.Resolve<IObjectPortal<IWorkSchedule>>();
+            var workSchedule = objectPortal.Create();
+            objectPortal.Update(workSchedule);
+
+            //assert
+            Assert.IsTrue(weekScheduleList.Contains(weekScheduleData.Object));
+            scheduleRepository.VerifyAll();
+        }
+
+        [TestMethod]
+        public void AddWeekSchedulePersistedPassed()
+        {
+            //arrange
+            this.builder = new ContainerBuilder();
+
+            List<IWeekScheduleData> weekScheduleList = new List<IWeekScheduleData>();
+            List<IWeekScheduleData> weekScheduleTable = new List<IWeekScheduleData>();
+
+            var designerId = generator.Generate<int>();
+            var weekScheduleData = new Mock<IWeekScheduleData>(MockBehavior.Strict);
+            weekScheduleData.SetupAllProperties();
+            weekScheduleData.SetupGet(_ => _.DesignerId).Returns(designerId);
+
+            var scheduleRepository = new Mock<IScheduleRepository>(MockBehavior.Strict);
+            scheduleRepository.Setup(_ => _.CreateWeekSchedule())
+                .Returns(weekScheduleData.Object).Verifiable();
+            scheduleRepository.Setup(_ => _.AddWeekSchedule(It.IsAny<IWeekScheduleData>()))
+                .Callback((IWeekScheduleData data) =>
+                {
+                    weekScheduleList.Add(data);
+                }).Verifiable();
+            scheduleRepository.Setup(_ => _.SaveChanges())
+                .Callback(() => {
+
+                    foreach (var item in weekScheduleList.ToArray())
+                    {
+                        weekScheduleTable.Add(item);
+                    }
+                    weekScheduleList.Clear();
+                });
+
+
+            new MockTestBuilderComposition().Compose(builder);
+            builder.RegisterInstance(scheduleRepository.Object).As<IScheduleRepository>();
+            builder.RegisterType<WorkSchedule>().As<IWorkSchedule>();
+
+            IoC.Container = builder.Build();
+            var activator = IoC.Container.Resolve<IDataPortalActivator>();
+            C.ApplicationContext.DataPortalActivator = IoC.Container.Resolve<IDataPortalActivator>();
+
+            //act
+
+            var objectPortal = IoC.Container.Resolve<IObjectPortal<IWorkSchedule>>();
+            var workSchedule = objectPortal.Create();
+            objectPortal.Update(workSchedule);
+
+            //assert
+            Assert.IsTrue(weekScheduleList.Count == 0);
+            Assert.IsTrue(weekScheduleTable.Contains(weekScheduleData.Object));
+            scheduleRepository.VerifyAll();
         }
 
         [TestMethod]
         public void GetWeekSchedulePassed()
         {
-
         }
 
         [TestMethod]
