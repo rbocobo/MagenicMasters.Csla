@@ -14,11 +14,12 @@ using Moq;
 using MagenicMasters.CslaLab.DataAccess.DataContracts;
 using MagenicMasters.CslaLab.DataAccess.RepositoryContracts;
 using MagenicMasters.CslaLab.DataAccess;
-
+using System.Linq;
 using Csla.Server;
 using MagenicMasters.CslaLab.Contracts.Customer;
 using MagenicMasters.CslaLab.Contracts.Designer;
 using Spackle;
+using MagenicMasters.CslaLab.Criteria;
 
 namespace MaagenicMasters.Csla.Lab.Test
 {
@@ -431,12 +432,80 @@ namespace MaagenicMasters.Csla.Lab.Test
         [TestMethod]
         public void GetWeekSchedulePassed()
         {
+            //arrange
+            this.builder = new ContainerBuilder();
+
+            List<IWeekScheduleData> weekScheduleTable = new List<IWeekScheduleData>();
+            var designerId = generator.Generate<int>();
+            var weekScheduleData = new Mock<IWeekScheduleData>(MockBehavior.Strict);
+            weekScheduleData.SetupAllProperties();
+            weekScheduleData.SetupGet(_ => _.DesignerId).Returns(designerId);
+            weekScheduleTable.Add(weekScheduleData.Object);
+
+            var scheduleRepository = new Mock<IScheduleRepository>(MockBehavior.Strict);
+            scheduleRepository.Setup(_ => _.GetWeekSchedule(It.IsAny<int>(), It.IsAny<DateTime>()))
+                .Returns(weekScheduleTable.First());
+
+            new MockTestBuilderComposition().Compose(builder);
+            builder.RegisterInstance(scheduleRepository.Object).As<IScheduleRepository>();
+            builder.RegisterType<WorkSchedule>().As<IWorkSchedule>();
+
+            IoC.Container = builder.Build();
+            var activator = IoC.Container.Resolve<IDataPortalActivator>();
+            C.ApplicationContext.DataPortalActivator = IoC.Container.Resolve<IDataPortalActivator>();
+
+            //act
+
+            var objectPortal = IoC.Container.Resolve<IObjectPortal<IWorkSchedule>>();
+            var workSchedule = objectPortal.Fetch(new GetWeekScheduleCriteria(designerId, DateTime.Now));
+
+            //assert
+
+            Assert.AreEqual(workSchedule.DesignerId, designerId);
+            scheduleRepository.VerifyAll();
+
+
         }
 
         [TestMethod]
         public void UpdateWeekSchedulePassed()
         {
+            //arrange
+            this.builder = new ContainerBuilder();
 
+            List<IWeekScheduleData> weekScheduleTable = new List<IWeekScheduleData>();
+            var designerId = generator.Generate<int>();
+            var intervalInMins = generator.Generate<int>();
+            var weekScheduleData = new Mock<IWeekScheduleData>(MockBehavior.Strict);
+            weekScheduleData.SetupAllProperties();
+            weekScheduleData.SetupGet(_ => _.DesignerId).Returns(designerId);
+            weekScheduleData.SetupGet(_ => _.IntervalsInMinutes).Returns(intervalInMins);
+            weekScheduleTable.Add(weekScheduleData.Object);
+
+            var scheduleRepository = new Mock<IScheduleRepository>(MockBehavior.Strict);
+            scheduleRepository.Setup(_ => _.GetWeekSchedule(It.IsAny<int>(), It.IsAny<DateTime>()))
+                .Returns(weekScheduleTable.First());
+
+            new MockTestBuilderComposition().Compose(builder);
+            builder.RegisterInstance(scheduleRepository.Object).As<IScheduleRepository>();
+            builder.RegisterType<WorkSchedule>().As<IWorkSchedule>();
+
+            IoC.Container = builder.Build();
+            var activator = IoC.Container.Resolve<IDataPortalActivator>();
+            C.ApplicationContext.DataPortalActivator = IoC.Container.Resolve<IDataPortalActivator>();
+
+            //act
+
+            var objectPortal = IoC.Container.Resolve<IObjectPortal<IWorkSchedule>>();
+            var workSchedule = objectPortal.Fetch(new GetWeekScheduleCriteria(designerId, DateTime.Now));
+            workSchedule.AppointmentInterval = generator.Generate<int>();
+            objectPortal.Update(workSchedule);
+
+
+            //assert
+
+            Assert.AreEqual(workSchedule.DesignerId, designerId);
+            scheduleRepository.VerifyAll();
         }
 
         [TestMethod]

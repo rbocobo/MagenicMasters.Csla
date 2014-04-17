@@ -13,7 +13,7 @@ namespace MagenicMasters.CslaLab.Criteria
         public GetWeekScheduleCriteria(int designerId, DateTime weekStartDate)
         {
             LoadProperty(DesignerIdProperty, designerId);
-            LoadProperty(WeekStartDateProperty, WeekStartDateProperty);
+            LoadProperty(WeekStartDateProperty, weekStartDate);
         }
 
         public static readonly PropertyInfo<int> DesignerIdProperty = RegisterProperty<int>(c => c.DesignerId);
