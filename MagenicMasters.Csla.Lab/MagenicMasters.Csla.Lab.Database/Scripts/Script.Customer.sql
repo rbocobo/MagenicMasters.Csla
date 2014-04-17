@@ -10,7 +10,23 @@ Post-Deployment Script Template
 --------------------------------------------------------------------------------------
 */
 
-
-:r .\Script.Specialty.sql
-:r .\Script.Designer.sql
-:r .\Script.Customer.sql
+SET IDENTITY_INSERT [MagenicMasters.Csla].[dbo].[Customer] ON
+MERGE INTO [MagenicMasters.Csla].[dbo].[Customer] AS Target
+USING (VALUES
+	(1,'Edmure Tully'),
+	(2,'Margaery Tyrell'),
+	(3,'Theon Greyjoy')
+)
+AS Source([Id], [Name])
+ON Target.[Id] = Source.[Id]
+WHEN MATCHED THEN 
+    UPDATE SET 
+	[Name] = Source.[Name]
+	
+WHEN NOT MATCHED BY TARGET THEN 
+INSERT ([Id], [Name])
+VALUES (
+	Source.[Id], 
+	Source.[Name]
+);
+SET IDENTITY_INSERT [MagenicMasters.Csla].[dbo].[Customer] OFF

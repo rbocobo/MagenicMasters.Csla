@@ -78,5 +78,7 @@
   <ItemGroup>
     <PostDeploy Include="Scripts\Script.Specialty.sql" />
     <None Include="Scripts\Script.PostDeployment.sql" />
+    <None Include="Scripts\Script.Designer.sql" />
+    <None Include="Scripts\Script.Customer.sql" />
   </ItemGroup>
 </Project>

@@ -9,9 +9,10 @@ namespace MagenicMasters.CslaLab.EF
 {
    public  class ScheduleRepository : IScheduleRepository
     {
+       private MagenicMastersCslaContext context = new MagenicMastersCslaContext();
         public DataAccess.DataContracts.IWeekScheduleData CreateWeekSchedule()
         {
-            throw new NotImplementedException();
+            return context.WeekSchedules.Create();
         }
 
         public void AddWeekSchedule(DataAccess.DataContracts.IWeekScheduleData weekSchedule)
@@ -56,7 +57,7 @@ namespace MagenicMasters.CslaLab.EF
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }

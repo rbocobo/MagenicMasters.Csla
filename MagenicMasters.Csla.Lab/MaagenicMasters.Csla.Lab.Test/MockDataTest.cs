@@ -443,6 +443,7 @@ namespace MaagenicMasters.Csla.Lab.Test
             weekScheduleTable.Add(weekScheduleData.Object);
 
             var scheduleRepository = new Mock<IScheduleRepository>(MockBehavior.Strict);
+
             scheduleRepository.Setup(_ => _.GetWeekSchedule(It.IsAny<int>(), It.IsAny<DateTime>()))
                 .Returns(weekScheduleTable.First());
 
@@ -472,19 +473,41 @@ namespace MaagenicMasters.Csla.Lab.Test
         {
             //arrange
             this.builder = new ContainerBuilder();
-
+            List<IWeekScheduleData> weekScheduleChangeSet = new List<IWeekScheduleData>();
             List<IWeekScheduleData> weekScheduleTable = new List<IWeekScheduleData>();
+
+            var id = generator.Generate<int>();
             var designerId = generator.Generate<int>();
             var intervalInMins = generator.Generate<int>();
             var weekScheduleData = new Mock<IWeekScheduleData>(MockBehavior.Strict);
             weekScheduleData.SetupAllProperties();
+            weekScheduleData.SetupGet(_ => _.Id).Returns(id);
             weekScheduleData.SetupGet(_ => _.DesignerId).Returns(designerId);
             weekScheduleData.SetupGet(_ => _.IntervalsInMinutes).Returns(intervalInMins);
             weekScheduleTable.Add(weekScheduleData.Object);
 
             var scheduleRepository = new Mock<IScheduleRepository>(MockBehavior.Strict);
+            scheduleRepository.Setup(_ => _.CreateWeekSchedule())
+                .Returns(new Mock<IWeekScheduleData>().SetupAllProperties().Object).Verifiable();
             scheduleRepository.Setup(_ => _.GetWeekSchedule(It.IsAny<int>(), It.IsAny<DateTime>()))
                 .Returns(weekScheduleTable.First());
+            scheduleRepository.Setup(_ => _.UpdateWeekSchedule(It.IsAny<IWeekScheduleData>()))
+                .Callback((IWeekScheduleData data) => {
+                    weekScheduleChangeSet.Add(data);
+                });
+            scheduleRepository.Setup(_ => _.SaveChanges())
+                .Callback(() => {
+                    foreach (var item in weekScheduleChangeSet)
+                    {
+                        var oldItem = weekScheduleTable.Where(_ => _.Id == item.Id).Single();
+                        weekScheduleTable.Remove(oldItem);
+                        oldItem.IntervalsInMinutes = item.IntervalsInMinutes;
+                        weekScheduleTable.Add(oldItem);
+                        
+                        //oldItem.IntervalsInMinutes = item.IntervalsInMinutes;
+                    }
+                    weekScheduleChangeSet.Clear();
+                });
 
             new MockTestBuilderComposition().Compose(builder);
             builder.RegisterInstance(scheduleRepository.Object).As<IScheduleRepository>();

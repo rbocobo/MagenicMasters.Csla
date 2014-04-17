@@ -70,6 +70,7 @@
     <Compile Include="TopOfTheHourRuleTest.cs" />
     <Compile Include="MinHourDifferenceRuleTest.cs" />
     <Compile Include="PortalTest.cs" />
+    <Compile Include="RealDataTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
