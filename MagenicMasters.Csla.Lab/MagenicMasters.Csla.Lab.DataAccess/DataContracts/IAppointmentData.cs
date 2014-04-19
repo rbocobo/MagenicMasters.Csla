@@ -17,5 +17,7 @@ namespace MagenicMasters.CslaLab.DataAccess.DataContracts
         decimal PartialFee { get; set; }
         int CancelWindow { get; set; }
         int Status { get; set; }
+        //ICustomerData Customer { get; set; }
+        //IDesignerData Designer { get; set; }
     }
 }

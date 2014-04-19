@@ -80,7 +80,13 @@ namespace MagenicMasters.CslaLab.Customer
         protected override void DataPortal_Execute()
         {
 
-            var dateTimeRange = new List<DateTimeRange>(); //Todo: Assign from property
+            var dateTimeRange = this.AppointmentRequest.TimeEntries.Select(
+                _ => new DateTimeRange
+                {
+                    StartDateTime = _.StartDateTime,
+                    EndDateTime = _.EndDateTime
+                }).ToList();
+
             var result = this.AppointmentRepository.BuildAppointment(this.AppointmentRequest.CustomerId, 
                 this.AppointmentRequest.SpecialtyId, 
                 this.AppointmentRequest.IsFullDesigner, 

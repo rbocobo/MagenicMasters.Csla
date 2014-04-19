@@ -10,12 +10,17 @@ using MagenicMasters.CslaLab.Contracts.Customer;
 namespace MagenicMasters.CslaLab.Customer
 {
     [Serializable]
-    public class TimeEntryCollection :
-      BusinessListBaseScopeCore<TimeEntryCollection, ITimeEntry>, ITimeEntries
+    public class TimeEntries :
+      BusinessListBaseScopeCore<TimeEntries, ITimeEntry>, ITimeEntries
     {
-
+        [NonSerialized]
+        private IChildObjectPortal childObjectPortal;
         [Dependency]
-        public IChildObjectPortal ChildObjectPortal { get; set; }
+        public IChildObjectPortal ChildObjectPortal
+        {
+            get { return childObjectPortal; }
+            set { childObjectPortal = value; }
+        }
 
         protected override void DataPortal_Create()
         {

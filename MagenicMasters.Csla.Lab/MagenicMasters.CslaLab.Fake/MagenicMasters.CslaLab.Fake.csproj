@@ -46,10 +46,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FakeAppointmentSet.cs" />
     <Compile Include="FakeContext.cs" />
     <Compile Include="FakeCustomerSet.cs" />
     <Compile Include="FakeDbSet.cs" />
+    <Compile Include="FakeDesignerSet.cs" />
+    <Compile Include="Models\Appointment.cs" />
+    <Compile Include="Models\Cancellation.cs" />
+    <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\DayScheduleOverride.cs" />
+    <Compile Include="Models\Designer.cs" />
+    <Compile Include="Models\DesignerRate.cs" />
+    <Compile Include="Models\DesignerSpecialty.cs" />
+    <Compile Include="Models\Specialty.cs" />
+    <Compile Include="Models\WeekSchedule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="FakeWeekScheduleSet.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

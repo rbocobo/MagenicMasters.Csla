@@ -1,5 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
+using MagenicMasters.CslaLab.DataAccess.DataContracts;
+using MagenicMasters.CslaLab.DataAccess.Models;
 
 namespace MagenicMasters.Csla.Lab.EF.Models.Mapping
 {

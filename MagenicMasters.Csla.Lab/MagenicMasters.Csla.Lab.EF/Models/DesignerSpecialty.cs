@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-
+using MagenicMasters.CslaLab.DataAccess.DataContracts;
 namespace MagenicMasters.Csla.Lab.EF.Models
 {
-    public partial class DesignerSpecialty
+    public partial class DesignerSpecialty: IDesignerSpecialtyData
     {
         public int Id { get; set; }
         public int DesignerId { get; set; }

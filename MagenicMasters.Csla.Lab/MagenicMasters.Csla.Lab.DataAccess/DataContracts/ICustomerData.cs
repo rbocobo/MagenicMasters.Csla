@@ -10,5 +10,6 @@ namespace MagenicMasters.CslaLab.DataAccess.DataContracts
     {
         int Id { get; set; }
         string Name { get; set; }
+        //ICollection<IAppointmentData> Appointments { get; set; }
     }
 }

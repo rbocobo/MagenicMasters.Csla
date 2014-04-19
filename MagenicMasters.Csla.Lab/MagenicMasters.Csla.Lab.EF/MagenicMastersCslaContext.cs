@@ -4,10 +4,11 @@ using MagenicMasters.Csla.Lab.EF.Models.Mapping;
 using MagenicMasters.Csla.Lab.EF.Models;
 using MagenicMasters.CslaLab.DataAccess;
 using MagenicMasters.CslaLab.DataAccess.DataContracts;
+using MagenicMasters.CslaLab.DataAccess.Models;
 
 namespace MagenicMasters.CslaLab.EF
 {
-    public partial class MagenicMastersCslaContext : DbContext
+    public partial class MagenicMastersCslaContext : DbContext, IMagenicMastersContext
     {
         static MagenicMastersCslaContext()
         {
@@ -19,13 +20,15 @@ namespace MagenicMasters.CslaLab.EF
         {
         }
 
-        public DbSet<IAppointmentData> Appointments { get; set; }
-        public DbSet<ICustomerData> Customers { get; set; }
-        public DbSet<IDayScheduleOverrideData> DayScheduleOverrides { get; set; }
-        public DbSet<IDesignerData> Designers { get; set; }
-        public DbSet<IDesignerSpecialtyData> DesignerSpecialties { get; set; }
-        public DbSet<ISpecialtyData> Specialties { get; set; }
-        public DbSet<IWeekScheduleData> WeekSchedules { get; set; }
+        public IDbSet<Appointment> Appointments { get; set; }
+        public IDbSet<Customer> Customers { get; set; }
+        public IDbSet<DayScheduleOverride> DayScheduleOverrides { get; set; }
+        public IDbSet<Designer> Designers { get; set; }
+        public IDbSet<DesignerSpecialty> DesignerSpecialties { get; set; }
+        public IDbSet<Specialty> Specialties { get; set; }
+        public IDbSet<WeekSchedule> WeekSchedules { get; set; }
+        public IDbSet<DesignerRate> DesignerRates { get; set; }
+        public IDbSet<Cancellation> Cancellations { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -36,6 +39,8 @@ namespace MagenicMasters.CslaLab.EF
             modelBuilder.Configurations.Add(new DesignerSpecialtyMap());
             modelBuilder.Configurations.Add(new SpecialtyMap());
             modelBuilder.Configurations.Add(new WeekScheduleMap());
+            modelBuilder.Configurations.Add(new DesignerRateMap());
+            modelBuilder.Configurations.Add(new CancellationMap());
         }
     }
 }

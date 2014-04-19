@@ -16,5 +16,7 @@ namespace MagenicMasters.CslaLab.DataAccess.DataContracts
         int IntervalsInMinutes { get; set; }
         int MaxHours { get; set; }
         bool IncludeHolidays { get; set; }
+        //ICollection<IDayScheduleOverrideData> DayScheduleOverrides { get; set; }
+        //IDesignerData Designer { get; set; }
     }
 }

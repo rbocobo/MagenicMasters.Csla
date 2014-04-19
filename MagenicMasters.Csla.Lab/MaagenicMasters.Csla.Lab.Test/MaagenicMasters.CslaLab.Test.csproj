@@ -42,6 +42,13 @@
     <Reference Include="Csla">
       <HintPath>..\packages\CSLA-Core.4.5.501\lib\net45\Csla.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Moq">
       <HintPath>..\packages\Moq.4.2.1402.2112\lib\net40\Moq.dll</HintPath>
     </Reference>
@@ -49,6 +56,7 @@
       <HintPath>..\packages\Spackle.7.1.0.0\lib\NET4.0\Spackle.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -71,8 +79,10 @@
     <Compile Include="MinHourDifferenceRuleTest.cs" />
     <Compile Include="PortalTest.cs" />
     <Compile Include="RealDataTest.cs" />
+    <Compile Include="FakeDataTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -90,6 +100,10 @@
     <ProjectReference Include="..\MagenicMasters.Csla.Lab\MagenicMasters.CslaLab.csproj">
       <Project>{85a65b35-c8b4-4819-a114-a935caa4fdb1}</Project>
       <Name>MagenicMasters.CslaLab</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MagenicMasters.CslaLab.Fake\MagenicMasters.CslaLab.Fake.csproj">
+      <Project>{99b092dd-9e1f-4b11-b347-14dedfe4c0ae}</Project>
+      <Name>MagenicMasters.CslaLab.Fake</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

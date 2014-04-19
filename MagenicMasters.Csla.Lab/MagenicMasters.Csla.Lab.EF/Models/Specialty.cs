@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using MagenicMasters.CslaLab.DataAccess.DataContracts;
 
 namespace MagenicMasters.Csla.Lab.EF.Models
 {
-    public partial class Specialty
+    public partial class Specialty : ISpecialtyData
     {
         public Specialty()
         {

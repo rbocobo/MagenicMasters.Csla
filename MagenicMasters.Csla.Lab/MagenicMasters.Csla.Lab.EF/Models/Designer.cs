@@ -19,5 +19,6 @@ namespace MagenicMasters.Csla.Lab.EF.Models
         public virtual ICollection<Appointment> Appointments { get; set; }
         public virtual ICollection<DesignerSpecialty> DesignerSpecialties { get; set; }
         public virtual ICollection<WeekSchedule> WeekSchedules { get; set; }
+        public virtual ICollection<DesignerRate> DesignerRates { get; set; }
     }
 }

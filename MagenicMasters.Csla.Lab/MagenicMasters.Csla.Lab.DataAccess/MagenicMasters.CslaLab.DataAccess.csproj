@@ -46,21 +46,37 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppointmentRepository.cs" />
+    <Compile Include="CustomerRepository.cs" />
+    <Compile Include="DesignerRepository.cs" />
+    <Compile Include="MMContext.cs" />
     <Compile Include="DataContracts\IAppointmentData.cs" />
+    <Compile Include="DataContracts\ICancellation.cs" />
     <Compile Include="DataContracts\ICustomerData.cs" />
     <Compile Include="DataContracts\IDayScheduleOverrideData.cs" />
     <Compile Include="DataContracts\IDesignerData.cs" />
+    <Compile Include="DataContracts\IDesignerRate.cs" />
     <Compile Include="DataContracts\IDesignerSpecialtyData.cs" />
     <Compile Include="DataContracts\ISpecialtyData.cs" />
     <Compile Include="DataContracts\IWeekScheduleData.cs" />
     <Compile Include="DateTimeRange.cs" />
     <Compile Include="IMagenicMastersContext.cs" />
+    <Compile Include="Models\Appointment.cs" />
+    <Compile Include="Models\Cancellation.cs" />
+    <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\DayScheduleOverride.cs" />
+    <Compile Include="Models\Designer.cs" />
+    <Compile Include="Models\DesignerRate.cs" />
+    <Compile Include="Models\DesignerSpecialty.cs" />
+    <Compile Include="Models\Specialty.cs" />
+    <Compile Include="Models\WeekSchedule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepositoryContracts\IAppointmentRepository.cs" />
     <Compile Include="RepositoryContracts\ICustomerRepository.cs" />
     <Compile Include="RepositoryContracts\IDesignerRepository.cs" />
     <Compile Include="RepositoryContracts\IRepository.cs" />
     <Compile Include="RepositoryContracts\IScheduleRepository.cs" />
+    <Compile Include="ScheduleRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -32,16 +32,17 @@ namespace MagenicMasters.CslaLab.Fake
             Detaches.Clear();
         }
 
-        public virtual T Find(params object[] keyValues)
-        {
-            throw new NotImplementedException("Derive from InMemoryDbSet<T> and override Find.");
-        }
 
         public T Add(T entity)
         {
             this.data.Add(entity);
             this.Adds.Add(entity);
             return entity;
+        }
+
+        public virtual T Find(params object[] keyValues)
+        {
+            throw new NotImplementedException();
         }
 
         public T Remove(T entity)
@@ -78,6 +79,11 @@ namespace MagenicMasters.CslaLab.Fake
         public ObservableCollection<T> Local
         {
             get { return this.data; }
+        }
+
+        public ObservableCollection<T> Added
+        {
+            get { return this.Adds; }
         }
 
         public Type ElementType

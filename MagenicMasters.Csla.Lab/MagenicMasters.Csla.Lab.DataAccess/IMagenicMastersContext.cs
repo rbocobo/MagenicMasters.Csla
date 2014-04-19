@@ -5,18 +5,22 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MagenicMasters.CslaLab.DataAccess.Models;
 
 namespace MagenicMasters.CslaLab.DataAccess
 {
     public interface IMagenicMastersContext
     {
+        IDbSet<Appointment> Appointments { get; set; }
+        IDbSet<Customer> Customers { get; set; }
+        IDbSet<DayScheduleOverride> DayScheduleOverrides { get; set; }
+        IDbSet<Designer> Designers { get; set; }
+        IDbSet<DesignerSpecialty> DesignerSpecialties { get; set; }
+        IDbSet<Specialty> Specialties { get; set; }
+        IDbSet<WeekSchedule> WeekSchedules { get; set; }
+        IDbSet<DesignerRate> DesignerRates { get; set; }
+        IDbSet<Cancellation> Cancellations { get; set; }
 
-        IDbSet<IAppointmentData> Appointments { get; set; }
-        IDbSet<ICustomerData> Customers { get; set; }
-        IDbSet<IDayScheduleOverrideData> DayScheduleOverrides { get; set; }
-        IDbSet<IDesignerData> Designers { get; set; }
-        IDbSet<IDesignerSpecialtyData> DesignerSpecialties { get; set; }
-        IDbSet<ISpecialtyData> Specialties { get; set; }
-        IDbSet<IWeekScheduleData> WeekSchedules { get; set; }
+        int SaveChanges();
     }
 }

@@ -10,6 +10,6 @@ namespace MagenicMasters.CslaLab.Contracts.Customer
 {
     public interface ITimeEntries : IBusinessListBaseCore<ITimeEntry>
     {
-
+        IChildObjectPortal ChildObjectPortal { get; set; }
     }
 }

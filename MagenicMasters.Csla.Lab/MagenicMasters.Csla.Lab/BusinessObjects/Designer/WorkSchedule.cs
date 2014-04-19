@@ -82,8 +82,14 @@ namespace MagenicMasters.CslaLab.Designer
             set { SetProperty(EndTimeProperty, value); }
         }
 
+        [NonSerialized]
+        private IScheduleRepository scheduleRepository;
         [Dependency]
-        public IScheduleRepository ScheduleRepository { get; set; }
+        public IScheduleRepository ScheduleRepository
+        {
+            get { return scheduleRepository; }
+            set { scheduleRepository = value; }
+        }
 
         #endregion
 
@@ -148,6 +154,7 @@ namespace MagenicMasters.CslaLab.Designer
         protected override void DataPortal_Insert()
         {
             IWeekScheduleData data = this.ScheduleRepository.CreateWeekSchedule();
+            
             data.DesignerId = this.DesignerId;
             data.StartDate = this.StartDate;
             data.MaxHours = this.MaxHours;
@@ -156,6 +163,7 @@ namespace MagenicMasters.CslaLab.Designer
             data.EndTime = this.EndTime;
             this.ScheduleRepository.AddWeekSchedule(data);
             this.ScheduleRepository.SaveChanges();
+            this.LoadProperty(IdProperty, data.Id);
         }
 
         [Transactional(TransactionalTypes.TransactionScope)]
@@ -172,6 +180,7 @@ namespace MagenicMasters.CslaLab.Designer
             this.ScheduleRepository.UpdateWeekSchedule(data);
             this.ScheduleRepository.SaveChanges();
             
+            
         }
 
         [Transactional(TransactionalTypes.TransactionScope)]
@@ -183,7 +192,7 @@ namespace MagenicMasters.CslaLab.Designer
         [Transactional(TransactionalTypes.TransactionScope)]
         private void DataPortal_Delete(int criteria)
         {
-            // TODO: delete values
+            
         }
 
         #endregion

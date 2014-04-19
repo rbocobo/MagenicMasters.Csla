@@ -11,5 +11,8 @@ namespace MagenicMasters.CslaLab.DataAccess.DataContracts
         int Id { get; set; }
         string Name { get; set; }
         bool IsFull { get; set; }
+        //ICollection<IAppointmentData> Appointments { get; set; }
+        //ICollection<IDesignerSpecialtyData> DesignerSpecialties { get; set; }
+        //ICollection<IWeekScheduleData> WeekSchedules { get; set; }
     }
 }

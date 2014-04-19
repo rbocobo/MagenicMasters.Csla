@@ -12,6 +12,7 @@ namespace MagenicMasters.CslaLab.DataAccess.DataContracts
         int WeekScheduleId { get; set; }
         DateTime Date { get; set; }
         DateTime EndTime { get; set; }
-        DateTime StartTime { get; set; }      
+        DateTime StartTime { get; set; }
+        //IWeekScheduleData WeekSchedule { get; set; }
     }
 }

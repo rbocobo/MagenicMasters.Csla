@@ -1,5 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
+using MagenicMasters.CslaLab.DataAccess.DataContracts;
+using MagenicMasters.CslaLab.DataAccess.Models;
 
 namespace MagenicMasters.Csla.Lab.EF.Models.Mapping
 {
@@ -12,7 +14,7 @@ namespace MagenicMasters.Csla.Lab.EF.Models.Mapping
 
             // Properties
             this.Property(t => t.Id)
-                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             // Table & Column Mappings
             this.ToTable("Appointment");

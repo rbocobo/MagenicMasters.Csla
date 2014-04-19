@@ -9,7 +9,7 @@ namespace MagenicMasters.CslaLab.DataAccess.DataContracts
     public interface ISpecialtyData
     {
         int Id { get; set; }
-        int DesignerId { get; set; }
-        int SpecialtyId { get; set; }
+        string Name { get; set; }
+        //ICollection<IDesignerSpecialtyData> DesignerSpecialties { get; set; }
     }
 }

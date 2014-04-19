@@ -11,6 +11,8 @@ namespace MagenicMasters.CslaLab.Contracts.Customer
 {
     public interface IAppointmentResultView : IReadOnlyBase
     {
+        int Id { get; }
+
         DateTime StartDateTime { get;  }
         DateTime EndDateTime { get;  }
 

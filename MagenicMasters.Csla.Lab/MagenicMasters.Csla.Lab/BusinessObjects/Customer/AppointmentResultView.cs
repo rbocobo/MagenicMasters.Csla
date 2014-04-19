@@ -14,6 +14,14 @@ namespace MagenicMasters.CslaLab.Customer
     {
         #region Business Methods
 
+        public static readonly PropertyInfo<int> IdProperty =
+        PropertyInfoRegistration.Register<AppointmentResultView, int>(_ => _.Id);
+        public int Id
+        {
+            get { return this.ReadProperty(AppointmentResultView.IdProperty); }
+            private set { this.LoadProperty(AppointmentResultView.IdProperty, value); }
+        }
+
         public static readonly PropertyInfo<DateTime> StartDateTimeProperty =
         PropertyInfoRegistration.Register<AppointmentResultView, DateTime>(_ => _.StartDateTime);
         public DateTime StartDateTime
@@ -94,10 +102,12 @@ namespace MagenicMasters.CslaLab.Customer
             // TODO: load values from childData
 
             var designer = this.designerRepository.GetDesigner(childData.DesignerId);
+            this.LoadProperty(IdProperty, childData.Id);
             this.LoadProperty(StartDateTimeProperty, childData.DateTime);
             this.LoadProperty(EndDateTimeProperty, childData.DateTime.AddHours(1));
             this.LoadProperty(DesignerNameProperty, designer.Name);
-            
+            this.LoadProperty(FeeProperty, childData.Fee);
+            this.LoadProperty(PartialFeeProperty, childData.PartialFee);
         }
 
         #endregion

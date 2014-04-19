@@ -50,7 +50,7 @@ namespace MagenicMasters.Csla.Lab.Client
                 .As<ITimeEntry>()
                 .InstancePerLifetimeScope();
 
-            builder.RegisterType<TimeEntryCollection>()
+            builder.RegisterType<TimeEntries>()
                 .As<ITimeEntries>()
                 .InstancePerLifetimeScope();
 

@@ -11,5 +11,7 @@ namespace MagenicMasters.CslaLab.DataAccess.DataContracts
         int Id { get; set; }
         int DesignerId { get; set; }
         int SpecialtyId { get; set; }
+        //IDesignerData Designer { get; set; }
+        //ISpecialtyData Specialty { get; set; }
     }
 }

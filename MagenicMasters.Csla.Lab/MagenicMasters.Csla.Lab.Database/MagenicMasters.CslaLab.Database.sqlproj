@@ -80,5 +80,11 @@
     <None Include="Scripts\Script.PostDeployment.sql" />
     <None Include="Scripts\Script.Designer.sql" />
     <None Include="Scripts\Script.Customer.sql" />
+    <None Include="Scripts\Script.Cancellation.sql" />
+    <None Include="Scripts\Script.DesignerRate.sql" />
+    <None Include="Scripts\Script.DesignerSpecialty.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="MagenicMasters.CslaLab.Database.refactorlog" />
   </ItemGroup>
 </Project>

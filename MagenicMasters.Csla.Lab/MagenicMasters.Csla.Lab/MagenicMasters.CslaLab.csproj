@@ -91,7 +91,7 @@
     <Compile Include="BusinessObjects\Customer\CancelAppointment.cs" />
     <Compile Include="BusinessObjects\Customer\SpecialtyCollection.cs" />
     <Compile Include="BusinessObjects\Customer\TimeEntry.cs" />
-    <Compile Include="BusinessObjects\Customer\TimeEntryCollection.cs" />
+    <Compile Include="BusinessObjects\Customer\TimeEntries.cs" />
     <Compile Include="BusinessObjects\Designer\AppointmentView.cs" />
     <Compile Include="BusinessObjects\Designer\AppointmentViewCollection.cs" />
     <Compile Include="BusinessObjects\Designer\DayScheduleOverride.cs" />

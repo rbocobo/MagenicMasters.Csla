@@ -95,7 +95,7 @@ namespace MaagenicMasters.CslaLab.Test
                 .As<ITimeEntry>()
                 .InstancePerLifetimeScope();
 
-            builder.RegisterType<TimeEntryCollection>()
+            builder.RegisterType<TimeEntries>()
                 .As<ITimeEntries>()
                 .InstancePerLifetimeScope();
 

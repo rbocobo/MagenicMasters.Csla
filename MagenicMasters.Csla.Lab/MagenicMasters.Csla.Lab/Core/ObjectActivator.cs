@@ -83,14 +83,14 @@ namespace MagenicMasters.CslaLab.Core
             {
                 scopedObject.Scope.Dispose();
 
-                foreach (var property in
-                    (from _ in scopedObject.GetType().GetProperties(
-                            BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
-                     where _.GetCustomAttribute<DependencyAttribute>() != null
-                     select _))
-                {
-                    property.SetValue(scopedObject, null);
-                }
+                //foreach (var property in
+                //    (from _ in scopedObject.GetType().GetProperties(
+                //            BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
+                //     where _.GetCustomAttribute<DependencyAttribute>() != null
+                //     select _))
+                //{
+                //    property.SetValue(scopedObject, null);
+                //}
             }
         }
     }
