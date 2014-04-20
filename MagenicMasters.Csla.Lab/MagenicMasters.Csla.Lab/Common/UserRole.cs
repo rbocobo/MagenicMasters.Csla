@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MagenicMasters.CslaLab.Common
 {
-    internal static class UserRole
+    public static class UserRole
     {
         public static readonly string  Admins = "Administrator";
         public static readonly string  Customers = "Customers";

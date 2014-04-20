@@ -12,6 +12,7 @@ namespace MagenicMasters.CslaLab.Contracts.Designer
     public interface IDayScheduleOverride : IBusinessBase
     {
         int Id { get; set; }
+        int WeekScheduleId { get; set; }
         DateTime Date { get; set; }
         DateTime StartTime { get; set; }
         DateTime EndTime { get; set; }

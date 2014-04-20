@@ -58,8 +58,11 @@ namespace MagenicMasters.CslaLab.Designer
             set { SetProperty(EndTimeProperty, value); }
         }
 
+        [NonSerialized]
+        private IScheduleRepository scheduleRepository;
         [Dependency]
-        public IScheduleRepository ScheduleRepository { get; set; }
+        public IScheduleRepository ScheduleRepository
+        { get { return scheduleRepository; } set { scheduleRepository = value; } }
 
         #endregion
 
@@ -73,8 +76,7 @@ namespace MagenicMasters.CslaLab.Designer
             BusinessRules.AddRule(new IsInRole(AuthorizationActions.WriteProperty, DateProperty, UserRole.Designers));
             BusinessRules.AddRule(new IsInRole(AuthorizationActions.ReadProperty, StartTimeProperty, UserRole.Designers));
             BusinessRules.AddRule(new IsInRole(AuthorizationActions.WriteProperty, EndTimeProperty, UserRole.Designers));
-            BusinessRules.AddRule(new IsInRole(AuthorizationActions.ReadProperty, StartTimeProperty, UserRole.Designers));
-            BusinessRules.AddRule(new IsInRole(AuthorizationActions.WriteProperty, EndTimeProperty, UserRole.Designers));
+
 
             //BusinessRules.AddRule(new Rule(IdProperty));
         }
@@ -123,6 +125,7 @@ namespace MagenicMasters.CslaLab.Designer
             data.EndTime = this.EndTime;
             ScheduleRepository.AddDayScheduleOverride(data);
             ScheduleRepository.SaveChanges();
+            LoadProperty(IdProperty, data.Id);
         }
 
         [Transactional(TransactionalTypes.TransactionScope)]
@@ -136,7 +139,7 @@ namespace MagenicMasters.CslaLab.Designer
             data.EndTime = this.EndTime;
             ScheduleRepository.UpdateDayScheduleOverride(data);
             ScheduleRepository.SaveChanges();
-
+            
             // TODO: update values
         }
 

@@ -100,6 +100,142 @@ namespace MaagenicMasters.Csla.Lab.Test
         }
 
         [TestMethod]
+        public void CancelAppointmentInCancelWindowPassed()
+        {
+            //arrange
+            this.builder = new ContainerBuilder();
+            new FakeDataTestBuilderComposition().Compose(builder);
+
+            builder.RegisterType<WorkSchedule>().As<IWorkSchedule>();
+            builder.RegisterType<AppointmentRequest>().As<IAppointmentRequest>();
+            builder.RegisterType<RequestAppointmentCommand>().As<IRequestAppointmentCommand>();
+            builder.RegisterType<AppointmentResultView>().As<IAppointmentResultView>();
+            builder.RegisterType<MagenicMasters.CslaLab.Customer.AppointmentView>().As<MagenicMasters.CslaLab.Contracts.Customer.IAppointmentView>();
+            builder.RegisterType<TimeEntry>().As<ITimeEntry>();
+            builder.RegisterType<TimeEntries>().As<ITimeEntries>();
+
+            IoC.Container = builder.Build();
+            var activator = IoC.Container.Resolve<IDataPortalActivator>();
+            C.ApplicationContext.DataPortalActivator = IoC.Container.Resolve<IDataPortalActivator>();
+            MMContext.context = IoC.Container.Resolve<IMagenicMastersContext>();
+
+            //act
+            var objectPortal = IoC.Container.Resolve<IObjectPortal<IWorkSchedule>>();
+            var workSchedule = objectPortal.Create();
+            workSchedule.AppointmentInterval = 3;
+            workSchedule.DesignerId = 1;
+            workSchedule.StartDate = DateTime.Now.AddDays(3).Date;
+            workSchedule.StartTime = DateTime.Parse(DateTime.Now.AddDays(3).Date.ToShortDateString() + " 09:00 AM");
+            workSchedule.EndTime = DateTime.Parse(DateTime.Now.AddDays(3).Date.ToShortDateString() + " 01:00 PM");
+            workSchedule.WorkingDays = "M";
+            workSchedule = objectPortal.Update(workSchedule);
+
+            var arPortal = IoC.Container.Resolve<IObjectPortal<IAppointmentRequest>>();
+            var tePortal = IoC.Container.Resolve<IObjectPortal<ITimeEntries>>();
+            //var tecPortal = IoC.Container.Resolve<IChildObjectPortal>();
+
+            var aReq = arPortal.Create();
+            var timeEntries = tePortal.Create();
+            var timeEntry = timeEntries.ChildObjectPortal.CreateChild<ITimeEntry>(); //tecPortal.CreateChild<ITimeEntry>();
+            timeEntry.StartDateTime = DateTime.Parse(DateTime.Now.AddDays(3).ToShortDateString() + " 10:00 AM");
+            timeEntry.EndDateTime = DateTime.Parse(DateTime.Now.AddDays(3).ToShortDateString() + " 11:00 AM");
+
+            timeEntries.Add(timeEntry);
+            aReq.CustomerId = 1;
+            aReq.SpecialtyId = 1;
+            aReq.TimeEntries = timeEntries;
+
+
+            var rcPortal = IoC.Container.Resolve<IObjectPortal<IRequestAppointmentCommand>>();
+            var cmd = rcPortal.Create(aReq);
+            var result = rcPortal.Execute(cmd);
+            var appt = result.AppointmentRequestResult;
+
+            var appointmentIdToCancel = appt.Id;
+            var cPortal = IoC.Container.Resolve<IObjectPortal<ICancelAppointment>>();
+            var cancelCmd = cPortal.Create(appointmentIdToCancel);
+            cancelCmd = cPortal.Execute(cancelCmd);
+
+            //assert
+
+            Assert.IsNotNull(appt);
+            Assert.AreEqual(appt.StartDateTime, timeEntry.StartDateTime);
+            Assert.AreEqual(appt.Fee, 300);
+            Assert.AreEqual(appt.DesignerName, "Ned Stark");
+
+            Assert.AreEqual(cancelCmd.Charges, 100);
+
+        }
+
+        [TestMethod]
+        public void CancelAppointmentOutsideCancelWindowPassed()
+        {
+            //arrange
+            this.builder = new ContainerBuilder();
+            new FakeDataTestBuilderComposition().Compose(builder);
+
+            builder.RegisterType<WorkSchedule>().As<IWorkSchedule>();
+            builder.RegisterType<AppointmentRequest>().As<IAppointmentRequest>();
+            builder.RegisterType<RequestAppointmentCommand>().As<IRequestAppointmentCommand>();
+            builder.RegisterType<AppointmentResultView>().As<IAppointmentResultView>();
+            builder.RegisterType<MagenicMasters.CslaLab.Customer.AppointmentView>().As<MagenicMasters.CslaLab.Contracts.Customer.IAppointmentView>();
+            builder.RegisterType<TimeEntry>().As<ITimeEntry>();
+            builder.RegisterType<TimeEntries>().As<ITimeEntries>();
+
+            IoC.Container = builder.Build();
+            var activator = IoC.Container.Resolve<IDataPortalActivator>();
+            C.ApplicationContext.DataPortalActivator = IoC.Container.Resolve<IDataPortalActivator>();
+            MMContext.context = IoC.Container.Resolve<IMagenicMastersContext>();
+
+            //act
+            var objectPortal = IoC.Container.Resolve<IObjectPortal<IWorkSchedule>>();
+            var workSchedule = objectPortal.Create();
+            workSchedule.AppointmentInterval = 3;
+            workSchedule.DesignerId = 1;
+            workSchedule.StartDate = DateTime.Now.AddDays(8).Date;
+            workSchedule.StartTime = DateTime.Parse(DateTime.Now.AddDays(8).Date.ToShortDateString() + " 09:00 AM");
+            workSchedule.EndTime = DateTime.Parse(DateTime.Now.AddDays(8).Date.ToShortDateString() + " 01:00 PM");
+            workSchedule.WorkingDays = "M";
+            workSchedule = objectPortal.Update(workSchedule);
+
+            var arPortal = IoC.Container.Resolve<IObjectPortal<IAppointmentRequest>>();
+            var tePortal = IoC.Container.Resolve<IObjectPortal<ITimeEntries>>();
+            //var tecPortal = IoC.Container.Resolve<IChildObjectPortal>();
+
+            var aReq = arPortal.Create();
+            var timeEntries = tePortal.Create();
+            var timeEntry = timeEntries.ChildObjectPortal.CreateChild<ITimeEntry>(); //tecPortal.CreateChild<ITimeEntry>();
+            timeEntry.StartDateTime = DateTime.Parse(DateTime.Now.AddDays(8).ToShortDateString() + " 10:00 AM");
+            timeEntry.EndDateTime = DateTime.Parse(DateTime.Now.AddDays(8).ToShortDateString() + " 11:00 AM");
+
+            timeEntries.Add(timeEntry);
+            aReq.CustomerId = 1;
+            aReq.SpecialtyId = 1;
+            aReq.TimeEntries = timeEntries;
+
+
+            var rcPortal = IoC.Container.Resolve<IObjectPortal<IRequestAppointmentCommand>>();
+            var cmd = rcPortal.Create(aReq);
+            var result = rcPortal.Execute(cmd);
+            var appt = result.AppointmentRequestResult;
+
+            var appointmentIdToCancel = appt.Id;
+            var cPortal = IoC.Container.Resolve<IObjectPortal<ICancelAppointment>>();
+            var cancelCmd = cPortal.Create(appointmentIdToCancel);
+            cancelCmd = cPortal.Execute(cancelCmd);
+
+            //assert
+
+            Assert.IsNotNull(appt);
+            Assert.AreEqual(appt.StartDateTime, timeEntry.StartDateTime);
+            Assert.AreEqual(appt.Fee, 300);
+            Assert.AreEqual(appt.DesignerName, "Ned Stark");
+
+            Assert.AreEqual(cancelCmd.Charges, 50);
+
+        }
+
+        [TestMethod]
         public void AddWeekSchedulePassedFake()
         {
             //arrange

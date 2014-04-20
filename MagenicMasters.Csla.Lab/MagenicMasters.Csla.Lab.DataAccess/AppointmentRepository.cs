@@ -102,12 +102,20 @@ namespace MagenicMasters.CslaLab.DataAccess
 
         public IEnumerable<CslaLab.DataAccess.DataContracts.IAppointmentData> GetDesignerActiveAppointments(int designerId)
         {
-            throw new NotImplementedException();
+            return context.Appointments
+                .Where(_ => _.DesignerId == designerId && _.Status == 1)
+                .Select(_ => _);
+
+
         }
 
         public IEnumerable<CslaLab.DataAccess.DataContracts.IAppointmentData> GetCustomerActiveAppointments(int customerId)
         {
-            throw new NotImplementedException();
+            return (context.Appointments
+                .Where(_ => _.CustomerId == customerId)
+                .Select(_ => _)).AsEnumerable();
+
+
         }
 
         public void Dispose()

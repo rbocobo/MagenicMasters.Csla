@@ -7,6 +7,7 @@ using MagenicMasters.CslaLab.Core;
 using MagenicMasters.CslaLab.Core.Contracts;
 using CS = Csla.Server;
 using C = Csla;
+using MagenicMasters.CslaLab.Common;
 using MagenicMasters.CslaLab.Customer;
 using MagenicMasters.CslaLab.Contracts;
 using MagenicMasters.CslaLab.Designer;
@@ -364,7 +365,7 @@ namespace MaagenicMasters.Csla.Lab.Test
             IoC.Container = builder.Build();
             var activator = IoC.Container.Resolve<IDataPortalActivator>();
             C.ApplicationContext.DataPortalActivator = IoC.Container.Resolve<IDataPortalActivator>();
-
+            C.ApplicationContext.User = new System.Security.Principal.GenericPrincipal(C.ApplicationContext.User.Identity, new string[] { UserRole.Designers });
             //act
 
             var objectPortal = IoC.Container.Resolve<IObjectPortal<IWorkSchedule>>();
@@ -416,7 +417,7 @@ namespace MaagenicMasters.Csla.Lab.Test
             IoC.Container = builder.Build();
             var activator = IoC.Container.Resolve<IDataPortalActivator>();
             C.ApplicationContext.DataPortalActivator = IoC.Container.Resolve<IDataPortalActivator>();
-
+            C.ApplicationContext.User = new System.Security.Principal.GenericPrincipal(C.ApplicationContext.User.Identity, new string[] { UserRole.Designers });
             //act
 
             var objectPortal = IoC.Container.Resolve<IObjectPortal<IWorkSchedule>>();
@@ -516,7 +517,7 @@ namespace MaagenicMasters.Csla.Lab.Test
             IoC.Container = builder.Build();
             var activator = IoC.Container.Resolve<IDataPortalActivator>();
             C.ApplicationContext.DataPortalActivator = IoC.Container.Resolve<IDataPortalActivator>();
-
+            C.ApplicationContext.User = new System.Security.Principal.GenericPrincipal(C.ApplicationContext.User.Identity, new string[] { UserRole.Designers });
             //act
 
             var objectPortal = IoC.Container.Resolve<IObjectPortal<IWorkSchedule>>();
@@ -534,30 +535,418 @@ namespace MaagenicMasters.Csla.Lab.Test
         [TestMethod]
         public void CreateDayScheduleOverridePassed()
         {
+            //arrange
 
+            builder = new ContainerBuilder();
+
+
+            var changeSet = new List<IDayScheduleOverrideData>();
+            var savedSet = new List<IDayScheduleOverrideData>();
+            var expectedDate = DateTime.Now.AddDays(3).Date;
+            var expectedDateStartTime = DateTime.Parse(expectedDate.ToShortDateString() + " 9:00 AM");
+            var expectedDateEndTime = expectedDateStartTime.AddHours(1);
+            var expectedDesId = 1;
+            var expectedWSId = 1;
+            var schedOverrideData = new Mock<IDayScheduleOverrideData>(MockBehavior.Strict);
+            schedOverrideData.SetupAllProperties();
+            
+            //schedOverrideData.SetupGet(_ => _.Date).Returns(expectedDate);
+            //schedOverrideData.SetupGet(_ => _.StartTime).Returns(expectedDateStartTime);
+            //schedOverrideData.SetupGet(_ => _.EndTime).Returns(expectedDateEndTime);
+            //schedOverrideData.SetupGet(_ => _.WeekScheduleId).Returns(1);
+
+            var weekScheduleData = new Mock<IWeekScheduleData>(MockBehavior.Strict);
+            weekScheduleData.SetupAllProperties();
+            weekScheduleData.SetupGet(_ => _.DesignerId).Returns(expectedDesId);
+            weekScheduleData.SetupGet(_ => _.Id).Returns(expectedWSId);
+            weekScheduleData.SetupGet(_ => _.StartDate).Returns(expectedDate);
+            weekScheduleData.SetupGet(_ => _.StartTime).Returns(expectedDateStartTime);
+            weekScheduleData.SetupGet(_ => _.EndTime).Returns(expectedDateEndTime);
+
+            var scheduleRepository = new Mock<IScheduleRepository>(MockBehavior.Strict);
+            scheduleRepository.Setup(_ => _.AddDayScheduleOverride(It.IsAny<IDayScheduleOverrideData>()))
+                .Callback((IDayScheduleOverrideData data) => {
+                    changeSet.Add(data);
+                });
+            scheduleRepository.Setup(_ => _.CreateDayScheduleOverride())
+                .Returns(schedOverrideData.Object);
+            scheduleRepository.Setup(_ => _.SaveChanges())
+                .Callback(() => {
+                    var id = savedSet.Count();
+                    foreach (var item in changeSet)
+                    {
+                        item.Id = ++id;
+                        savedSet.Add(item);
+                    }
+                    changeSet.Clear();
+                });
+
+            new MockTestBuilderComposition().Compose(builder);
+            builder.RegisterInstance(scheduleRepository.Object).As<IScheduleRepository>();
+            builder.RegisterType<DayScheduleOverride>().As<IDayScheduleOverride>();
+            builder.RegisterInstance(scheduleRepository.Object).As<IScheduleRepository>();
+
+            IoC.Container = builder.Build();
+            var activator = IoC.Container.Resolve<IDataPortalActivator>();
+            C.ApplicationContext.DataPortalActivator = IoC.Container.Resolve<IDataPortalActivator>();
+            
+            //act
+            var objectPortal = IoC.Container.Resolve<IObjectPortal<IDayScheduleOverride>>();
+            
+            var dayScheduleOverride = objectPortal.Create();
+            
+            //assert
+            Assert.IsNotNull(dayScheduleOverride);
         }
 
         [TestMethod]
         public void AddDayScheduleOverridePassed()
         {
+            //arrange
 
+            builder = new ContainerBuilder();
+
+
+            var changeSet = new List<IDayScheduleOverrideData>();
+            var savedSet = new List<IDayScheduleOverrideData>();
+            var expectedDate = DateTime.Now.AddDays(3).Date;
+            var expectedDateStartTime = DateTime.Parse(expectedDate.ToShortDateString() + " 9:00 AM");
+            var expectedDateEndTime = expectedDateStartTime.AddHours(1);
+            var expectedDesId = 1;
+            var expectedWSId = 1;
+            var schedOverrideData = new Mock<IDayScheduleOverrideData>(MockBehavior.Strict);
+            schedOverrideData.SetupAllProperties();
+
+            //schedOverrideData.SetupGet(_ => _.Date).Returns(expectedDate);
+            //schedOverrideData.SetupGet(_ => _.StartTime).Returns(expectedDateStartTime);
+            //schedOverrideData.SetupGet(_ => _.EndTime).Returns(expectedDateEndTime);
+            //schedOverrideData.SetupGet(_ => _.WeekScheduleId).Returns(1);
+
+            var weekScheduleData = new Mock<IWeekScheduleData>(MockBehavior.Strict);
+            weekScheduleData.SetupAllProperties();
+            weekScheduleData.SetupGet(_ => _.DesignerId).Returns(expectedDesId);
+            weekScheduleData.SetupGet(_ => _.Id).Returns(expectedWSId);
+            weekScheduleData.SetupGet(_ => _.StartDate).Returns(expectedDate);
+            weekScheduleData.SetupGet(_ => _.StartTime).Returns(expectedDateStartTime);
+            weekScheduleData.SetupGet(_ => _.EndTime).Returns(expectedDateEndTime);
+
+            var scheduleRepository = new Mock<IScheduleRepository>(MockBehavior.Strict);
+            scheduleRepository.Setup(_ => _.AddDayScheduleOverride(It.IsAny<IDayScheduleOverrideData>()))
+                .Callback((IDayScheduleOverrideData data) =>
+                {
+                    changeSet.Add(data);
+                });
+            scheduleRepository.Setup(_ => _.CreateDayScheduleOverride())
+                .Returns(schedOverrideData.Object);
+            scheduleRepository.Setup(_ => _.SaveChanges())
+                .Callback(() =>
+                {
+                    var id = savedSet.Count();
+                    foreach (var item in changeSet)
+                    {
+                        item.Id = ++id;
+                        savedSet.Add(item);
+                    }
+                    changeSet.Clear();
+                });
+
+            new MockTestBuilderComposition().Compose(builder);
+            builder.RegisterInstance(scheduleRepository.Object).As<IScheduleRepository>();
+            builder.RegisterType<DayScheduleOverride>().As<IDayScheduleOverride>();
+            builder.RegisterInstance(scheduleRepository.Object).As<IScheduleRepository>();
+
+            IoC.Container = builder.Build();
+            var activator = IoC.Container.Resolve<IDataPortalActivator>();
+            C.ApplicationContext.DataPortalActivator = IoC.Container.Resolve<IDataPortalActivator>();
+            C.ApplicationContext.User = new System.Security.Principal.GenericPrincipal(C.ApplicationContext.User.Identity, new string[] { UserRole.Designers });
+            //act
+            var objectPortal = IoC.Container.Resolve<IObjectPortal<IDayScheduleOverride>>();
+            var dayScheduleOverride = objectPortal.Create();
+            dayScheduleOverride.WeekScheduleId = expectedWSId;
+            dayScheduleOverride.Date = expectedDate;
+            dayScheduleOverride.StartTime  =expectedDateStartTime;
+            dayScheduleOverride.EndTime = expectedDateEndTime;
+
+            dayScheduleOverride = objectPortal.Update(dayScheduleOverride);
+            //assert
+            Assert.IsNotNull(dayScheduleOverride);
+            Assert.IsTrue(dayScheduleOverride.Id > 0);
+            
         }
 
         [TestMethod]
         public void GetDayScheduleOverridePassed()
         {
+            //arrange
 
+            builder = new ContainerBuilder();
+
+
+
+            var savedSet = new List<IDayScheduleOverrideData>();
+            var expectedDate = DateTime.Now.AddDays(3).Date;
+            var expectedDateStartTime = DateTime.Parse(expectedDate.ToShortDateString() + " 9:00 AM");
+            var expectedDateEndTime = expectedDateStartTime.AddHours(1);
+            var expectedDesId = 1;
+            var expectedWSId = 1;
+
+            var schedOverrideData = new Mock<IDayScheduleOverrideData>(MockBehavior.Strict);
+            schedOverrideData.SetupAllProperties();
+            schedOverrideData.SetupGet(_ => _.Id).Returns(1);
+            schedOverrideData.SetupGet(_ => _.Date).Returns(expectedDate);
+            schedOverrideData.SetupGet(_ => _.StartTime).Returns(expectedDateStartTime);
+            schedOverrideData.SetupGet(_ => _.EndTime).Returns(expectedDateEndTime);
+            schedOverrideData.SetupGet(_ => _.WeekScheduleId).Returns(1);
+
+            savedSet.Add(schedOverrideData.Object);
+
+            var weekScheduleData = new Mock<IWeekScheduleData>(MockBehavior.Strict);
+            weekScheduleData.SetupAllProperties();
+            weekScheduleData.SetupGet(_ => _.DesignerId).Returns(expectedDesId);
+            weekScheduleData.SetupGet(_ => _.Id).Returns(expectedWSId);
+            weekScheduleData.SetupGet(_ => _.StartDate).Returns(expectedDate);
+            weekScheduleData.SetupGet(_ => _.StartTime).Returns(expectedDateStartTime);
+            weekScheduleData.SetupGet(_ => _.EndTime).Returns(expectedDateEndTime);
+
+            var scheduleRepository = new Mock<IScheduleRepository>(MockBehavior.Strict);
+            scheduleRepository.Setup(_ => _.GetDayScheduleOverride(It.IsAny<int>(), It.IsAny<DateTime>()))
+                .Returns(savedSet.FirstOrDefault());
+
+            new MockTestBuilderComposition().Compose(builder);
+            builder.RegisterInstance(scheduleRepository.Object).As<IScheduleRepository>();
+            builder.RegisterType<DayScheduleOverride>().As<IDayScheduleOverride>();
+            builder.RegisterInstance(scheduleRepository.Object).As<IScheduleRepository>();
+
+            IoC.Container = builder.Build();
+            var activator = IoC.Container.Resolve<IDataPortalActivator>();
+            C.ApplicationContext.DataPortalActivator = IoC.Container.Resolve<IDataPortalActivator>();
+            C.ApplicationContext.User = new System.Security.Principal.GenericPrincipal(C.ApplicationContext.User.Identity, new string[] { UserRole.Designers });
+            
+            //act
+            var objectPortal = IoC.Container.Resolve<IObjectPortal<IDayScheduleOverride>>();
+            var schedOvrd = objectPortal.Fetch(new GetDayScheduleOverrideCriteria(1, DateTime.Now.AddDays(3)));
+
+            //Assert
+            Assert.IsNotNull(schedOvrd);
+            Assert.AreEqual(schedOvrd.Id,1);
+            Assert.AreEqual(schedOvrd.WeekScheduleId, expectedWSId);
+            Assert.AreEqual(schedOvrd.Date, expectedDate);
+            Assert.AreEqual(schedOvrd.StartTime, expectedDateStartTime);
+            Assert.AreEqual(schedOvrd.EndTime, expectedDateEndTime);
         }
 
         [TestMethod]
         public void UpdateDayScheduleOverridePassed()
         {
+            //arrange
+
+            builder = new ContainerBuilder();
+
+
+            var changeSet = new List<IDayScheduleOverrideData>();
+            var savedSet = new List<IDayScheduleOverrideData>();
+
+            var oldDate = DateTime.Now.AddDays(4).Date;
+            var oldStartTime = DateTime.Parse(oldDate.ToShortDateString() + " 9:00 AM");
+            var oldEndTime = oldStartTime.AddHours(1);
+            var oldDesId = 2;
+            var oldWSId = 2;
+
+            var expectedDate = DateTime.Now.AddDays(3).Date;
+            var expectedDateStartTime = DateTime.Parse(expectedDate.ToShortDateString() + " 9:00 AM");
+            var expectedDateEndTime = expectedDateStartTime.AddHours(1);
+            var expectedDesId = 1;
+            var expectedWSId = 1;
+
+            var newData = new Mock<IDayScheduleOverrideData>(MockBehavior.Strict);
+            newData.SetupAllProperties();
+
+            var schedOverrideData = new Mock<IDayScheduleOverrideData>(MockBehavior.Strict);
+            schedOverrideData.SetupAllProperties();
+            schedOverrideData.SetupGet(_ => _.Id).Returns(1);
+            schedOverrideData.SetupGet(_ => _.Date).Returns(oldDate);
+            schedOverrideData.SetupGet(_ => _.StartTime).Returns(oldStartTime);
+            schedOverrideData.SetupGet(_ => _.EndTime).Returns(oldEndTime);
+            schedOverrideData.SetupGet(_ => _.WeekScheduleId).Returns(oldWSId);
+
+            savedSet.Add(schedOverrideData.Object);
+
+            var weekScheduleData = new Mock<IWeekScheduleData>(MockBehavior.Strict);
+            weekScheduleData.SetupAllProperties();
+            weekScheduleData.SetupGet(_ => _.DesignerId).Returns(expectedDesId);
+            weekScheduleData.SetupGet(_ => _.Id).Returns(expectedWSId);
+            weekScheduleData.SetupGet(_ => _.StartDate).Returns(expectedDate);
+            weekScheduleData.SetupGet(_ => _.StartTime).Returns(expectedDateStartTime);
+            weekScheduleData.SetupGet(_ => _.EndTime).Returns(expectedDateEndTime);
+
+            var scheduleRepository = new Mock<IScheduleRepository>(MockBehavior.Strict);
+            scheduleRepository.Setup(_ => _.CreateDayScheduleOverride())
+                .Returns(newData.Object);
+            scheduleRepository.Setup(_ => _.GetDayScheduleOverride(It.IsAny<int>(), It.IsAny<DateTime>()))
+                .Returns(savedSet.FirstOrDefault());
+            scheduleRepository.Setup(_ => _.UpdateDayScheduleOverride(It.IsAny<IDayScheduleOverrideData>()))
+                .Callback((IDayScheduleOverrideData data) => {
+                    changeSet.Add(data);
+                });
+            
+            scheduleRepository.Setup(_ => _.SaveChanges())
+                .Callback(() =>
+                {
+                    foreach (var item in changeSet)
+                    {
+                        var s = savedSet.Single(_ => _.Id == item.Id);
+                        savedSet.Remove(s);
+                        savedSet.Add(item);
+                        
+                    }
+                    changeSet.Clear();
+                });
+
+
+
+            new MockTestBuilderComposition().Compose(builder);
+            builder.RegisterInstance(scheduleRepository.Object).As<IScheduleRepository>();
+            builder.RegisterType<DayScheduleOverride>().As<IDayScheduleOverride>();
+            builder.RegisterInstance(scheduleRepository.Object).As<IScheduleRepository>();
+
+            IoC.Container = builder.Build();
+            var activator = IoC.Container.Resolve<IDataPortalActivator>();
+            C.ApplicationContext.DataPortalActivator = IoC.Container.Resolve<IDataPortalActivator>();
+            C.ApplicationContext.User = new System.Security.Principal.GenericPrincipal(C.ApplicationContext.User.Identity, new string[] { UserRole.Designers });
+
+            //act
+            var objectPortal = IoC.Container.Resolve<IObjectPortal<IDayScheduleOverride>>();
+            var schedOvrd = objectPortal.Fetch(new GetDayScheduleOverrideCriteria(1, DateTime.Now.AddDays(3)));
+            schedOvrd.Date = expectedDate;
+            schedOvrd.StartTime = expectedDateStartTime;
+            schedOvrd.EndTime = expectedDateEndTime;
+            schedOvrd.WeekScheduleId = expectedWSId;
+            objectPortal.Update(schedOvrd);
+            //Assert
+            Assert.IsNotNull(schedOvrd);
+            Assert.AreEqual(savedSet.Single().Id, 1);
+            Assert.AreEqual(savedSet.Single().WeekScheduleId, expectedWSId);
+            Assert.AreEqual(savedSet.Single().Date, expectedDate);
+            Assert.AreEqual(savedSet.Single().StartTime, expectedDateStartTime);
+            Assert.AreEqual(savedSet.Single().EndTime, expectedDateEndTime);
+        }
+
+        [TestMethod]
+        public void GetDesignerActiveAppointmentsPassed()
+        {
+            //arrange
+
+            builder = new ContainerBuilder();
+
+            var eCancelWindow = generator.Generate<int>();
+            var eCustomerId = generator.Generate<int>();
+            var eDateTime = generator.Generate<DateTime>();
+            var eDesigner = generator.Generate<int>();
+            var eFee = generator.Generate<decimal>();
+            var eId = generator.Generate<int>();
+            var eSpcId = generator.Generate<int>();
+
+            List<IAppointmentData> lstAppts = new List<IAppointmentData>();
+            var appointmentData = new Mock<IAppointmentData>(MockBehavior.Strict);
+            appointmentData.SetupAllProperties();
+            appointmentData.SetupGet(_ => _.CancelWindow).Returns(eCancelWindow);
+            appointmentData.SetupGet(_ => _.CustomerId).Returns(eCustomerId);
+            appointmentData.SetupGet(_ => _.DateTime).Returns(eDateTime); ;
+            appointmentData.SetupGet(_ => _.DesignerId).Returns(eDesigner);
+            appointmentData.SetupGet(_ => _.Fee).Returns(eFee);
+            appointmentData.SetupGet(_ => _.Id).Returns(eId);
+            appointmentData.SetupGet(_ => _.SpecialtyId).Returns(eSpcId);
+            lstAppts.Add(appointmentData.Object);
+
+            var custData = new Mock<ICustomerData>(MockBehavior.Strict);
+            custData.SetupAllProperties();
+            custData.SetupGet(_ => _.Id).Returns(generator.Generate<int>());
+            custData.SetupGet(_ => _.Name).Returns(generator.Generate<string>());
+
+            var apptRepository = new Mock<IAppointmentRepository>(MockBehavior.Strict);
+            apptRepository.Setup(_ => _.GetDesignerActiveAppointments(It.IsAny<int>()))
+                .Returns(lstAppts.AsEnumerable());
+            var custRepository = new Mock<ICustomerRepository>(MockBehavior.Strict);
+            custRepository.Setup(_ => _.GetCustomer(It.IsAny<int>())).Returns(custData.Object);
+
+            new MockTestBuilderComposition().Compose(builder);
+            builder.RegisterInstance(apptRepository.Object).As<IAppointmentRepository>();
+            builder.RegisterInstance(custRepository.Object).As<ICustomerRepository>();
+            builder.RegisterType<MagenicMasters.CslaLab.Designer.AppointmentViewCollection>().As<MagenicMasters.CslaLab.Contracts.Designer.IAppointmentViewCollection>();
+            
+
+            IoC.Container = builder.Build();
+            var activator = IoC.Container.Resolve<IDataPortalActivator>();
+            C.ApplicationContext.DataPortalActivator = IoC.Container.Resolve<IDataPortalActivator>();
+
+            //act
+            var objPortal = IoC.Container.Resolve<IObjectPortal<MagenicMasters.CslaLab.Contracts.Designer.IAppointmentViewCollection>>();
+            var apptViewColl = objPortal.Fetch(generator.Generate<int>());
+
+            //assert
+            Assert.IsNotNull(apptViewColl);
+            Assert.AreEqual(apptViewColl.First().Date, eDateTime);
+            //Assert.AreEqual(apptViewColl.First().Specialty 
+            Assert.AreEqual(apptViewColl.First().CustomerName, custData.Object.Name);
 
         }
 
         [TestMethod]
-        public void SaveChangesPassed()
+        public void GetCustomerActiveAppointmentsPassed()
         {
+            //arrange
+
+            builder = new ContainerBuilder();
+
+            var eCancelWindow = generator.Generate<int>();
+            var eCustomerId = generator.Generate<int>();
+            var eDateTime = generator.Generate<DateTime>();
+            var eDesigner = generator.Generate<int>();
+            var eFee = generator.Generate<decimal>();
+            var eId = generator.Generate<int>();
+            var eSpcId = generator.Generate<int>();
+
+            List<IAppointmentData> lstAppts = new List<IAppointmentData>();
+            var appointmentData = new Mock<IAppointmentData>(MockBehavior.Strict);
+            appointmentData.SetupAllProperties();
+            appointmentData.SetupGet(_ => _.CancelWindow).Returns(eCancelWindow);
+            appointmentData.SetupGet(_ => _.CustomerId).Returns(eCustomerId);
+            appointmentData.SetupGet(_ => _.DateTime).Returns(eDateTime); ;
+            appointmentData.SetupGet(_ => _.DesignerId).Returns(eDesigner);
+            appointmentData.SetupGet(_ => _.Fee).Returns(eFee);
+            appointmentData.SetupGet(_ => _.Id).Returns(eId);
+            appointmentData.SetupGet(_ => _.SpecialtyId).Returns(eSpcId);
+            lstAppts.Add(appointmentData.Object);
+
+            var desgData = new Mock<IDesignerData>(MockBehavior.Strict);
+            desgData.SetupAllProperties();
+            desgData.SetupGet(_ => _.Id).Returns(generator.Generate<int>());
+            desgData.SetupGet(_ => _.Name).Returns(generator.Generate<string>());
+
+            var apptRepository = new Mock<IAppointmentRepository>(MockBehavior.Strict);
+            apptRepository.Setup(_ => _.GetCustomerActiveAppointments(It.IsAny<int>()))
+                .Returns(lstAppts.AsEnumerable());
+            var desgRepository = new Mock<IDesignerRepository>(MockBehavior.Strict);
+            desgRepository.Setup(_ => _.GetDesigner(It.IsAny<int>())).Returns(desgData.Object);
+
+            new MockTestBuilderComposition().Compose(builder);
+            builder.RegisterInstance(apptRepository.Object).As<IAppointmentRepository>();
+            builder.RegisterInstance(desgRepository.Object).As<IDesignerRepository>();
+            builder.RegisterType<MagenicMasters.CslaLab.Customer.AppointmentViewCollection>().As<MagenicMasters.CslaLab.Contracts.Customer.IAppointmentViewCollection>();
+
+
+            IoC.Container = builder.Build();
+            var activator = IoC.Container.Resolve<IDataPortalActivator>();
+            C.ApplicationContext.DataPortalActivator = IoC.Container.Resolve<IDataPortalActivator>();
+
+            //act
+            var objPortal = IoC.Container.Resolve<IObjectPortal<MagenicMasters.CslaLab.Contracts.Customer.IAppointmentViewCollection>>();
+            var apptViewColl = objPortal.Fetch(generator.Generate<int>());
+
+            //assert
+            Assert.IsNotNull(apptViewColl);
+            Assert.AreEqual(apptViewColl.First().StartDateTime, eDateTime);
+            Assert.AreEqual(apptViewColl.First().DesignerName, desgData.Object.Name);
 
         }
     }

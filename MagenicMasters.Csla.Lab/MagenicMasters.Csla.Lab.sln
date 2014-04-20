@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagenicMasters.CslaLab", "MagenicMasters.Csla.Lab\MagenicMasters.CslaLab.csproj", "{85A65B35-C8B4-4819-A114-A935CAA4FDB1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaagenicMasters.CslaLab.Test", "MaagenicMasters.Csla.Lab.Test\MaagenicMasters.CslaLab.Test.csproj", "{A48548EF-8881-493A-91D3-A2C188DFBF83}"
@@ -16,6 +14,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagenicMasters.CslaLab.Client", "MagenicMasters.Csla.Lab.Client\MagenicMasters.CslaLab.Client.csproj", "{426D8DE3-CB7C-4360-A6DF-BFD95258A49D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagenicMasters.CslaLab.Fake", "MagenicMasters.CslaLab.Fake\MagenicMasters.CslaLab.Fake.csproj", "{99B092DD-9E1F-4B11-B347-14DEDFE4C0AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagenicMasters.CslaLab.IntegrationTest", "MagenicMasters.CslaLab.IntegrationTest\MagenicMasters.CslaLab.IntegrationTest.csproj", "{28C028E7-28BC-4ABD-9CDB-C67028667E65}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +53,10 @@ Global
 		{99B092DD-9E1F-4B11-B347-14DEDFE4C0AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99B092DD-9E1F-4B11-B347-14DEDFE4C0AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99B092DD-9E1F-4B11-B347-14DEDFE4C0AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28C028E7-28BC-4ABD-9CDB-C67028667E65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28C028E7-28BC-4ABD-9CDB-C67028667E65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28C028E7-28BC-4ABD-9CDB-C67028667E65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28C028E7-28BC-4ABD-9CDB-C67028667E65}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

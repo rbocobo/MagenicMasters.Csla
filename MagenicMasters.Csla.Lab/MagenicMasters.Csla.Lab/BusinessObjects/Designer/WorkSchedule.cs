@@ -102,12 +102,12 @@ namespace MagenicMasters.CslaLab.Designer
 
             BusinessRules.AddRule(new MinValue<decimal>(AppointmentIntervalProperty, 0));
             BusinessRules.AddRule(new MinValue<decimal>(MaxHoursProperty, 0));
-            //BusinessRules.AddRule(new IsInRole(AuthorizationActions.ReadProperty, WorkingDaysProperty, UserRole.Designers));
-            //BusinessRules.AddRule(new IsInRole(AuthorizationActions.WriteProperty, WorkingDaysProperty, UserRole.Designers));
-            //BusinessRules.AddRule(new IsInRole(AuthorizationActions.ReadProperty, AppointmentIntervalProperty, UserRole.Designers));
-            //BusinessRules.AddRule(new IsInRole(AuthorizationActions.WriteProperty, AppointmentIntervalProperty, UserRole.Designers));
-            //BusinessRules.AddRule(new IsInRole(AuthorizationActions.ReadProperty, MaxHoursProperty, UserRole.Designers));
-            //BusinessRules.AddRule(new IsInRole(AuthorizationActions.WriteProperty, MaxHoursProperty, UserRole.Designers));
+            BusinessRules.AddRule(new IsInRole(AuthorizationActions.ReadProperty, WorkingDaysProperty, UserRole.Designers));
+            BusinessRules.AddRule(new IsInRole(AuthorizationActions.WriteProperty, WorkingDaysProperty, UserRole.Designers));
+            BusinessRules.AddRule(new IsInRole(AuthorizationActions.ReadProperty, AppointmentIntervalProperty, UserRole.Designers));
+            BusinessRules.AddRule(new IsInRole(AuthorizationActions.WriteProperty, AppointmentIntervalProperty, UserRole.Designers));
+            BusinessRules.AddRule(new IsInRole(AuthorizationActions.ReadProperty, MaxHoursProperty, UserRole.Designers));
+            BusinessRules.AddRule(new IsInRole(AuthorizationActions.WriteProperty, MaxHoursProperty, UserRole.Designers));
 
             //BusinessRules.AddRule(new Rule(IdProperty));
         }
