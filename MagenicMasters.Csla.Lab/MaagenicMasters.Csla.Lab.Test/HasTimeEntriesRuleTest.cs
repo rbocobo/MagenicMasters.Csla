@@ -18,7 +18,9 @@ namespace MaagenicMasters.CslaLab.Test
         {
             // arrange
             var mockObject = new Mock<IAppointmentRequest>(MockBehavior.Strict);
-            mockObject.Setup(_ => _.TimeEntries.Count).Returns(0);
+            var timeEntries = new Mock<ITimeEntries>(MockBehavior.Strict);
+            timeEntries.SetupGet(_ => _.Count).Returns(0);
+            mockObject.SetupGet(_ => _.TimeEntries).Returns(timeEntries.Object);
 
             var rule = (IBusinessRule)new HasTimeEntriesRule();
             var ruleContext = new RuleContext(null, rule, mockObject.Object, null);
@@ -36,7 +38,9 @@ namespace MaagenicMasters.CslaLab.Test
         {
             // arrange
             var mockObject = new Mock<IAppointmentRequest>(MockBehavior.Strict);
-            mockObject.Setup(_ => _.TimeEntries.Count).Returns(1);
+            var timeEntries = new Mock<ITimeEntries>(MockBehavior.Strict);
+            timeEntries.SetupGet(_ => _.Count).Returns(1);
+            mockObject.SetupGet(_ => _.TimeEntries).Returns(timeEntries.Object);
 
             var rule = (IBusinessRule)new HasTimeEntriesRule();
             var ruleContext = new RuleContext(null, rule, mockObject.Object, null);
@@ -54,7 +58,9 @@ namespace MaagenicMasters.CslaLab.Test
         {
             // arrange
             var mockObject = new Mock<IAppointmentRequest>(MockBehavior.Strict);
-            mockObject.Setup(_ => _.TimeEntries.Count).Returns(2);
+            var timeEntries = new Mock<ITimeEntries>(MockBehavior.Strict);
+            timeEntries.SetupGet(_ => _.Count).Returns(2);
+            mockObject.SetupGet(_ => _.TimeEntries).Returns(timeEntries.Object);
 
             var rule = (IBusinessRule)new HasTimeEntriesRule();
             var ruleContext = new RuleContext(null, rule, mockObject.Object, null);
