@@ -10,27 +10,15 @@ Post-Deployment Script Template
 --------------------------------------------------------------------------------------
 */
 
-SET IDENTITY_INSERT [MagenicMasters.Csla].[dbo].[Specialty] ON
-MERGE INTO [MagenicMasters.Csla].[dbo].[Specialty] AS Target
-USING (VALUES
-	(1,'Kitchen Design'),
-	(2,'Bathroom Design'),
-	(3,'Bedroom Design'),
-	(4,'Landscape Design'),
-	(5,'Living Area Design'),
-	(6,'Pool and pool area design'),
-	(7,'Home Architecture')
-)
-AS Source([Id], [Name])
-ON Target.[Id] = Source.[Id]
-WHEN MATCHED THEN 
-    UPDATE SET 
-	[Name] = Source.[Name]
-	
-WHEN NOT MATCHED BY TARGET THEN 
-INSERT ([Id], [Name])
-VALUES (
-	Source.[Id], 
-	Source.[Name]
-);
-SET IDENTITY_INSERT [MagenicMasters.Csla].[dbo].[Specialty] OFF
+:r .\Script.Customer.sql
+
+:r .\Script.Designer.sql
+
+:r .\Script.Cancellation.sql
+
+:r .\Script.PostDeployment.sql
+
+:r .\Script.DesignerRate.sql
+
+:r .\Script.DesignerSpecialty.sql
+

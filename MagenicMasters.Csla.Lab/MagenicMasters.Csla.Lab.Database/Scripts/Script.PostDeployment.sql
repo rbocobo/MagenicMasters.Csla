@@ -9,10 +9,5 @@ Post-Deployment Script Template
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
-:r .\Script.DesignerRate.sql
-:r .\Script.DesignerSpecialty.sql
-:r .\Script.Cancellation.sql
-:r .\Script.Specialty.sql
-:r .\Script.Designer.sql
-:r .\Script.Customer.sql
+
 
