@@ -78,8 +78,6 @@
     <Compile Include="TopOfTheHourRuleTest.cs" />
     <Compile Include="MinHourDifferenceRuleTest.cs" />
     <Compile Include="PortalTest.cs" />
-    <Compile Include="RealDataTest.cs" />
-    <Compile Include="FakeDataTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
