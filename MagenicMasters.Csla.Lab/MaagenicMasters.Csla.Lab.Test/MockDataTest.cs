@@ -128,6 +128,8 @@ namespace MaagenicMasters.Csla.Lab.Test
             new MockTestBuilderComposition().Compose(builder);
 
             builder.RegisterType<AppointmentRequest>().As<IAppointmentRequest>().InstancePerLifetimeScope();
+            builder.RegisterType<TimeEntries>().As<ITimeEntries>();
+            builder.RegisterType<TimeEntry>().As<ITimeEntry>();
             builder.RegisterType<RequestAppointmentCommand>().As<IRequestAppointmentCommand>().InstancePerLifetimeScope();
             builder.RegisterType<AppointmentResultView>().As<IAppointmentResultView>().InstancePerLifetimeScope();
             builder.RegisterInstance(repository.Object).As<IAppointmentRepository>();
@@ -143,9 +145,13 @@ namespace MaagenicMasters.Csla.Lab.Test
 
             var aR = IoC.Container.Resolve<IObjectPortal<IAppointmentRequest>>();
             var rC = IoC.Container.Resolve<IObjectPortal<IRequestAppointmentCommand>>();
+            var tE = IoC.Container.Resolve<IObjectPortal<ITimeEntries>>();
 
 
             var appRequest = aR.Create();  //C.DataPortal.Create<AppointmentRequest>();
+            var timeEntries = tE.Create();
+            timeEntries.Add(timeEntries.ChildObjectPortal.CreateChild<TimeEntry>());
+            appRequest.TimeEntries = timeEntries;
             var cmd = rC.Create(appRequest); //C.DataPortal.Create<RequestAppoinmentCommand>(appRequest);
 
 

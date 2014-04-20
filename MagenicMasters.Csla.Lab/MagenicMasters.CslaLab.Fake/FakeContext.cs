@@ -58,7 +58,7 @@ namespace MagenicMasters.CslaLab.Fake
 
             WeekSchedules = new FakeWeekScheduleSet();
             Appointments = new FakeAppointmentSet();
-            DayScheduleOverrides = new FakeDbSet<DayScheduleOverride>();
+            DayScheduleOverrides = new FakeDayScheduleOverrideSet();
 
         }
         public IDbSet<Appointment> Appointments

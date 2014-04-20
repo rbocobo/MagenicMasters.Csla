@@ -65,7 +65,13 @@ namespace MagenicMasters.CslaLab.DataAccess
 
         public DataAccess.DataContracts.IDayScheduleOverrideData GetDayScheduleOverride(int designerId, DateTime date)
         {
-            return context.DayScheduleOverrides.Where(d => d.WeekSchedule.DesignerId == designerId && d.Date == date).FirstOrDefault();
+            return (from d in context.DayScheduleOverrides
+                join w in context.WeekSchedules on d.WeekScheduleId equals w.Id
+                where w.DesignerId == designerId &&
+                d.Date == date
+                        select d).FirstOrDefault();
+
+            //return context.DayScheduleOverrides.Where(d => d.WeekSchedule.DesignerId == designerId && d.Date == date).FirstOrDefault();
         }
 
         public void UpdateDayScheduleOverride(DataAccess.DataContracts.IDayScheduleOverrideData daySchedule)

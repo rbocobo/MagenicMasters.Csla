@@ -19,6 +19,7 @@ using MagenicMasters.CslaLab.DataAccess;
 using MagenicMasters.Csla.Lab.DataAccess;
 using MagenicMasters.CslaLab.Fake;
 using MagenicMasters.CslaLab.DataAccess.Models;
+using MagenicMasters.CslaLab.Common;
 
 namespace MaagenicMasters.Csla.Lab.Test
 {
@@ -300,6 +301,309 @@ namespace MaagenicMasters.Csla.Lab.Test
 
             //assert
             Assert.IsTrue(workSchedule.DesignerId != 2);
+        }
+
+        [TestMethod]
+        public void CreateDayScheduleOverridePassedFake()
+        {
+            //arrange
+            this.builder = new ContainerBuilder();
+
+            new FakeDataTestBuilderComposition().Compose(builder);
+
+            builder.RegisterType<WorkSchedule>().As<IWorkSchedule>();
+
+            IoC.Container = builder.Build();
+            var activator = IoC.Container.Resolve<IDataPortalActivator>();
+            C.ApplicationContext.DataPortalActivator = IoC.Container.Resolve<IDataPortalActivator>();
+            MMContext.context = IoC.Container.Resolve<IMagenicMastersContext>();
+            //act
+            var objectPortal = IoC.Container.Resolve<IObjectPortal<IDayScheduleOverride>>();
+            var dsOverride = objectPortal.Create();
+
+            //assert
+            Assert.IsNotNull(dsOverride);
+        }
+
+        [TestMethod]
+        public void AddDayScheduleOverridePassedFake()
+        {
+            //arrange
+            this.builder = new ContainerBuilder();
+
+            var expectedWSDate = DateTime.Now.AddDays(3).Date;
+            var expectedWSDateStartTime = DateTime.Parse(expectedWSDate.ToShortDateString() + " 9:00 AM");
+            var expectedWSDateEndTime = expectedWSDateStartTime.AddHours(1);
+
+
+            new FakeDataTestBuilderComposition().Compose(builder);
+
+            builder.RegisterType<WorkSchedule>().As<IWorkSchedule>();
+
+            IoC.Container = builder.Build();
+            var activator = IoC.Container.Resolve<IDataPortalActivator>();
+            C.ApplicationContext.DataPortalActivator = IoC.Container.Resolve<IDataPortalActivator>();
+            C.ApplicationContext.User = new System.Security.Principal.GenericPrincipal(C.ApplicationContext.User.Identity, new string[] { UserRole.Designers });
+            MMContext.context = IoC.Container.Resolve<IMagenicMastersContext>();
+            //act
+
+            var objectPortalWS = IoC.Container.Resolve<IObjectPortal<IWorkSchedule>>();
+            var workSchedule = objectPortalWS.Create();
+            workSchedule.AppointmentInterval = 3;
+            workSchedule.DesignerId = 1;
+            workSchedule.StartDate = expectedWSDate;
+            workSchedule.StartTime = expectedWSDateStartTime;
+            workSchedule.EndTime = expectedWSDateEndTime;
+            workSchedule.WorkingDays = "M";
+            workSchedule = objectPortalWS.Update(workSchedule);
+
+
+            var objectPortalDSO = IoC.Container.Resolve<IObjectPortal<IDayScheduleOverride>>();
+            var dsOverride = objectPortalDSO.Create();
+            dsOverride.WeekScheduleId = workSchedule.Id;
+            dsOverride.Date = expectedWSDate;
+            dsOverride.StartTime = expectedWSDateStartTime;
+            dsOverride.EndTime = expectedWSDateEndTime;
+            dsOverride = objectPortalDSO.Update(dsOverride);
+
+            //assert
+            Assert.IsNotNull(dsOverride);
+            Assert.IsTrue(dsOverride.Id > 0);
+        }
+
+        [TestMethod]
+        public void GetDayScheduleOverridePassedFake()
+        {
+            //arrange
+            this.builder = new ContainerBuilder();
+
+            var expectedWSDate = DateTime.Now.AddDays(3).Date;
+            var expectedWSDateStartTime = DateTime.Parse(expectedWSDate.ToShortDateString() + " 9:00 AM");
+            var expectedWSDateEndTime = expectedWSDateStartTime.AddHours(1);
+
+
+            new FakeDataTestBuilderComposition().Compose(builder);
+
+            builder.RegisterType<WorkSchedule>().As<IWorkSchedule>();
+
+            IoC.Container = builder.Build();
+            var activator = IoC.Container.Resolve<IDataPortalActivator>();
+            C.ApplicationContext.DataPortalActivator = IoC.Container.Resolve<IDataPortalActivator>();
+            C.ApplicationContext.User = new System.Security.Principal.GenericPrincipal(C.ApplicationContext.User.Identity, new string[] { UserRole.Designers });
+            MMContext.context = IoC.Container.Resolve<IMagenicMastersContext>();
+            //act
+
+            var objectPortalWS = IoC.Container.Resolve<IObjectPortal<IWorkSchedule>>();
+            var workSchedule = objectPortalWS.Create();
+            workSchedule.AppointmentInterval = 3;
+            workSchedule.DesignerId = 1;
+            workSchedule.StartDate = expectedWSDate;
+            workSchedule.StartTime = expectedWSDateStartTime;
+            workSchedule.EndTime = expectedWSDateEndTime;
+            workSchedule.WorkingDays = "M";
+            workSchedule = objectPortalWS.Update(workSchedule);
+
+
+            var objectPortalDSO = IoC.Container.Resolve<IObjectPortal<IDayScheduleOverride>>();
+            var dsOverride = objectPortalDSO.Create();
+            dsOverride.WeekScheduleId = workSchedule.Id;
+            dsOverride.Date = expectedWSDate;
+            dsOverride.StartTime = expectedWSDateStartTime;
+            dsOverride.EndTime = expectedWSDateEndTime;
+            dsOverride = objectPortalDSO.Update(dsOverride);
+
+            var desId = 1;
+
+            var editDSOVerride = objectPortalDSO.Fetch(new GetDayScheduleOverrideCriteria(desId, expectedWSDate));
+
+
+            //assert
+            Assert.IsNotNull(editDSOVerride);
+            Assert.AreEqual(editDSOVerride.Date, expectedWSDate);
+            Assert.AreEqual(editDSOVerride.StartTime, expectedWSDateStartTime);
+            Assert.AreEqual(editDSOVerride.EndTime, expectedWSDateEndTime);
+        }
+
+        [TestMethod]
+        public void UpdateDayScheduleOverridePassedFake()
+        {
+            //arrange
+            this.builder = new ContainerBuilder();
+
+            var expectedWSDate = DateTime.Now.AddDays(3).Date;
+            var expectedWSDateStartTime = DateTime.Parse(expectedWSDate.ToShortDateString() + " 9:00 AM");
+            var expectedWSDateEndTime = expectedWSDateStartTime.AddHours(1);
+
+
+            new FakeDataTestBuilderComposition().Compose(builder);
+
+            builder.RegisterType<WorkSchedule>().As<IWorkSchedule>();
+
+            IoC.Container = builder.Build();
+            var activator = IoC.Container.Resolve<IDataPortalActivator>();
+            C.ApplicationContext.DataPortalActivator = IoC.Container.Resolve<IDataPortalActivator>();
+            C.ApplicationContext.User = new System.Security.Principal.GenericPrincipal(C.ApplicationContext.User.Identity, new string[] { UserRole.Designers });
+            MMContext.context = IoC.Container.Resolve<IMagenicMastersContext>();
+            //act
+
+            var objectPortalWS = IoC.Container.Resolve<IObjectPortal<IWorkSchedule>>();
+            var workSchedule = objectPortalWS.Create();
+            workSchedule.AppointmentInterval = 3;
+            workSchedule.DesignerId = 1;
+            workSchedule.StartDate = expectedWSDate;
+            workSchedule.StartTime = expectedWSDateStartTime;
+            workSchedule.EndTime = expectedWSDateEndTime;
+            workSchedule.WorkingDays = "M";
+            workSchedule = objectPortalWS.Update(workSchedule);
+
+
+            var objectPortalDSO = IoC.Container.Resolve<IObjectPortal<IDayScheduleOverride>>();
+            var dsOverride = objectPortalDSO.Create();
+            dsOverride.WeekScheduleId = workSchedule.Id;
+            dsOverride.Date = expectedWSDate;
+            dsOverride.StartTime = expectedWSDateStartTime;
+            dsOverride.EndTime = expectedWSDateEndTime;
+            dsOverride = objectPortalDSO.Update(dsOverride);
+
+            var desId = 1;
+
+            var editDSOVerride = objectPortalDSO.Fetch(new GetDayScheduleOverrideCriteria(desId, expectedWSDate));
+            var editDate = expectedWSDate.AddDays(1);
+            var editStartTime = expectedWSDateStartTime.AddDays(1);
+            var editEndTime = expectedWSDateEndTime.AddDays(1);
+
+            editDSOVerride.Date = editDate;
+            editDSOVerride.StartTime = editStartTime;
+            editDSOVerride.EndTime = editEndTime;
+            editDSOVerride = objectPortalDSO.Update(editDSOVerride);
+
+            //assert
+            Assert.IsNotNull(editDSOVerride);
+            Assert.AreEqual(editDSOVerride.Date, editDate);
+            Assert.AreEqual(editDSOVerride.StartTime, editStartTime);
+            Assert.AreEqual(editDSOVerride.EndTime, editEndTime);
+        }
+
+        [TestMethod]
+        public void GetDesignerActiveAppointmentsPassedFake()
+        {
+            //arrange
+            this.builder = new ContainerBuilder();
+            new FakeDataTestBuilderComposition().Compose(builder);
+
+            builder.RegisterType<WorkSchedule>().As<IWorkSchedule>();
+            builder.RegisterType<AppointmentRequest>().As<IAppointmentRequest>();
+            builder.RegisterType<RequestAppointmentCommand>().As<IRequestAppointmentCommand>();
+            builder.RegisterType<AppointmentResultView>().As<IAppointmentResultView>();
+            builder.RegisterType<MagenicMasters.CslaLab.Designer.AppointmentView>().As<MagenicMasters.CslaLab.Contracts.Designer.IAppointmentView>();
+            builder.RegisterType<MagenicMasters.CslaLab.Designer.AppointmentViewCollection>().As<MagenicMasters.CslaLab.Contracts.Designer.IAppointmentViewCollection>();
+            builder.RegisterType<TimeEntry>().As<ITimeEntry>();
+            builder.RegisterType<TimeEntries>().As<ITimeEntries>();
+
+            IoC.Container = builder.Build();
+            var activator = IoC.Container.Resolve<IDataPortalActivator>();
+            C.ApplicationContext.DataPortalActivator = IoC.Container.Resolve<IDataPortalActivator>();
+            MMContext.context = IoC.Container.Resolve<IMagenicMastersContext>();
+
+            //act
+            var objectPortal = IoC.Container.Resolve<IObjectPortal<IWorkSchedule>>();
+            var workSchedule = objectPortal.Create();
+            workSchedule.AppointmentInterval = 3;
+            workSchedule.DesignerId = 1;
+            workSchedule.StartDate = DateTime.Now.AddDays(3).Date;
+            workSchedule.StartTime = DateTime.Parse(DateTime.Now.AddDays(3).Date.ToShortDateString() + " 09:00 AM");
+            workSchedule.EndTime = DateTime.Parse(DateTime.Now.AddDays(3).Date.ToShortDateString() + " 01:00 PM");
+            workSchedule.WorkingDays = "M";
+            workSchedule = objectPortal.Update(workSchedule);
+
+            var arPortal = IoC.Container.Resolve<IObjectPortal<IAppointmentRequest>>();
+            var tePortal = IoC.Container.Resolve<IObjectPortal<ITimeEntries>>();
+            //var tecPortal = IoC.Container.Resolve<IChildObjectPortal>();
+
+            var aReq = arPortal.Create();
+            var timeEntries = tePortal.Create();
+            var timeEntry = timeEntries.ChildObjectPortal.CreateChild<ITimeEntry>(); //tecPortal.CreateChild<ITimeEntry>();
+            timeEntry.StartDateTime = DateTime.Parse(DateTime.Now.AddDays(3).ToShortDateString() + " 10:00 AM");
+            timeEntry.EndDateTime = DateTime.Parse(DateTime.Now.AddDays(3).ToShortDateString() + " 11:00 AM");
+
+            timeEntries.Add(timeEntry);
+            aReq.CustomerId = 1;
+            aReq.SpecialtyId = 1;
+            aReq.TimeEntries = timeEntries;
+
+
+            var rcPortal = IoC.Container.Resolve<IObjectPortal<IRequestAppointmentCommand>>();
+            var cmd = rcPortal.Create(aReq);
+            var result = rcPortal.Execute(cmd);
+
+            var daPortal = IoC.Container.Resolve<IObjectPortal<MagenicMasters.CslaLab.Contracts.Designer.IAppointmentViewCollection>>();
+            var desApptViewColl = daPortal.Fetch(1);
+            //assert
+
+            Assert.IsNotNull(desApptViewColl);
+            Assert.IsTrue(desApptViewColl.Count() > 0);
+
+        }
+
+        [TestMethod]
+        public void GetCustomerActiveAppointmentsPassedFake()
+        {
+            //arrange
+            this.builder = new ContainerBuilder();
+            new FakeDataTestBuilderComposition().Compose(builder);
+
+            builder.RegisterType<WorkSchedule>().As<IWorkSchedule>();
+            builder.RegisterType<AppointmentRequest>().As<IAppointmentRequest>();
+            builder.RegisterType<RequestAppointmentCommand>().As<IRequestAppointmentCommand>();
+            builder.RegisterType<AppointmentResultView>().As<IAppointmentResultView>();
+            builder.RegisterType<MagenicMasters.CslaLab.Customer.AppointmentView>().As<MagenicMasters.CslaLab.Contracts.Customer.IAppointmentView>();
+            builder.RegisterType<MagenicMasters.CslaLab.Customer.AppointmentViewCollection>().As<MagenicMasters.CslaLab.Contracts.Customer.IAppointmentViewCollection>();
+            builder.RegisterType<TimeEntry>().As<ITimeEntry>();
+            builder.RegisterType<TimeEntries>().As<ITimeEntries>();
+
+            IoC.Container = builder.Build();
+            var activator = IoC.Container.Resolve<IDataPortalActivator>();
+            C.ApplicationContext.DataPortalActivator = IoC.Container.Resolve<IDataPortalActivator>();
+            MMContext.context = IoC.Container.Resolve<IMagenicMastersContext>();
+
+            //act
+            var objectPortal = IoC.Container.Resolve<IObjectPortal<IWorkSchedule>>();
+            var workSchedule = objectPortal.Create();
+            workSchedule.AppointmentInterval = 3;
+            workSchedule.DesignerId = 1;
+            workSchedule.StartDate = DateTime.Now.AddDays(3).Date;
+            workSchedule.StartTime = DateTime.Parse(DateTime.Now.AddDays(3).Date.ToShortDateString() + " 09:00 AM");
+            workSchedule.EndTime = DateTime.Parse(DateTime.Now.AddDays(3).Date.ToShortDateString() + " 01:00 PM");
+            workSchedule.WorkingDays = "M";
+            workSchedule = objectPortal.Update(workSchedule);
+
+            var arPortal = IoC.Container.Resolve<IObjectPortal<IAppointmentRequest>>();
+            var tePortal = IoC.Container.Resolve<IObjectPortal<ITimeEntries>>();
+            //var tecPortal = IoC.Container.Resolve<IChildObjectPortal>();
+
+            var aReq = arPortal.Create();
+            var timeEntries = tePortal.Create();
+            var timeEntry = timeEntries.ChildObjectPortal.CreateChild<ITimeEntry>(); //tecPortal.CreateChild<ITimeEntry>();
+            timeEntry.StartDateTime = DateTime.Parse(DateTime.Now.AddDays(3).ToShortDateString() + " 10:00 AM");
+            timeEntry.EndDateTime = DateTime.Parse(DateTime.Now.AddDays(3).ToShortDateString() + " 11:00 AM");
+
+            timeEntries.Add(timeEntry);
+            aReq.CustomerId = 1;
+            aReq.SpecialtyId = 1;
+            aReq.TimeEntries = timeEntries;
+
+
+            var rcPortal = IoC.Container.Resolve<IObjectPortal<IRequestAppointmentCommand>>();
+            var cmd = rcPortal.Create(aReq);
+            var result = rcPortal.Execute(cmd);
+
+            var caPortal = IoC.Container.Resolve<IObjectPortal<MagenicMasters.CslaLab.Contracts.Customer.IAppointmentViewCollection>>();
+            var custApptViewColl = caPortal.Fetch(1);
+            //assert
+
+            Assert.IsNotNull(custApptViewColl);
+            Assert.IsTrue(custApptViewColl.Count() > 0);
+
         }
     }
 

@@ -49,6 +49,7 @@
     <Compile Include="FakeAppointmentSet.cs" />
     <Compile Include="FakeContext.cs" />
     <Compile Include="FakeCustomerSet.cs" />
+    <Compile Include="FakeDayScheduleOverrideSet.cs" />
     <Compile Include="FakeDbSet.cs" />
     <Compile Include="FakeDesignerSet.cs" />
     <Compile Include="Models\Appointment.cs" />
